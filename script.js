@@ -203,6 +203,14 @@ function closeFleetDetailsWindow() {
     }
 }
 
+// Функція для закриття вікна налаштувань флоту
+function closeFleetSettingsWindow() {
+    const fleetSettingsWindow = document.getElementById('fleet-settings-window');
+    if (fleetSettingsWindow) {
+        fleetSettingsWindow.style.display = 'none';
+    }
+}
+
 // Функція для відображення налаштувань флоту
 function showFleetSettings() {
     // Створюємо або отримуємо вікно налаштувань флоту
@@ -213,6 +221,7 @@ function showFleetSettings() {
         fleetSettingsWindow.id = 'fleet-settings-window';
         fleetSettingsWindow.className = 'fleet-settings-window';
         fleetSettingsWindow.innerHTML = `
+            <button class="science-close-btn" onclick="closeFleetSettingsWindow()">✕</button>
             <div class="science-window-title">Налаштування флоту</div>
             <div class="fleet-settings-content">
                 <div class="fleet-modes">
@@ -265,28 +274,41 @@ function showFleetSettings() {
     // Додаємо можливість перетягування вікна
     let isDragging = false;
     let offsetX, offsetY;
-    
+
     const titleBar = fleetSettingsWindow.querySelector('.science-window-title');
     titleBar.addEventListener('mousedown', function(e) {
         isDragging = true;
-        offsetX = e.clientX - fleetSettingsWindow.getBoundingClientRect().left;
-        offsetY = e.clientY - fleetSettingsWindow.getBoundingClientRect().top;
+        
+        // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
+        const rect = fleetSettingsWindow.getBoundingClientRect();
+        
+        // Зберігаємо відступ курсора від лівого верхнього кута вікна
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        
+        // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
+        fleetSettingsWindow.style.left = rect.left + 'px';
+        fleetSettingsWindow.style.top = rect.top + 'px';
+        
+        // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
+        fleetSettingsWindow.style.transform = 'none';
+        
         document.body.style.userSelect = 'none';
         // Піднімаємо вікно на передній план при кліку
         bringWindowToFront(fleetSettingsWindow);
         e.preventDefault();
     });
-    
+
     document.addEventListener('mousemove', function(e) {
         if (isDragging) {
             const newLeft = e.clientX - offsetX;
             const newTop = e.clientY - offsetY;
-            
+
             fleetSettingsWindow.style.left = newLeft + 'px';
             fleetSettingsWindow.style.top = newTop + 'px';
         }
     });
-    
+
     document.addEventListener('mouseup', function() {
         isDragging = false;
         document.body.style.userSelect = '';
