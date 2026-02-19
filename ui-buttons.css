@@ -1,0 +1,42 @@
+#buttons {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: auto;
+    width: 60px;
+    background: #0e3a47;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+    z-index: 100;
+    border: 2px solid #1fa2c7;
+    /* Заокруглені всі кути, крім верхнього та нижнього лівого */
+    border-radius: 0 4px 4px 0;
+    gap: 1px;
+}
+
+#buttons button {
+    width: 98%; /* Трохи менше ширина для відступу */
+    height: 42px; /* Зменшено висоту на 2 пікселя */
+    margin: 0;
+    background: #0e3a47;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#buttons button:hover {
+    background: #1fa2c7;
+    border-color: #fff;
+    transform: scale(1.08);
+    color: #222;
+}

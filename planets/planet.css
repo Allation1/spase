@@ -1,0 +1,64 @@
+/* Стилі для вікна інформації про планету */
+#planet-info-window {
+    position: fixed; /* Фіксує вікно на екрані */
+    top: 120px; /* Відступ зверху */
+    left: 150px; /* Відступ зліва */
+    width: 400px; /* Ширина вікна */
+    height: 200px; /* Висота вікна */
+    background: #134d5c; /* Колір фону */
+    border: 2px solid #1fa2c7; /* Рамка */
+    border-radius: 4px; /* Закруглені кути */
+    box-shadow: 2px 4px 16px rgba(0,0,0,0.3); /* Тінь */
+    z-index: 210; /* Пріоритет поверх інших елементів */
+    color: #fff; /* Колір тексту */
+    padding: 16px; /* Внутрішній відступ */
+    display: none; /* Приховано за замовчуванням */
+}
+
+/* Стилі для вікна списку планет */
+#planet-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    min-height: 300px;
+    max-height: 80vh;
+    background: #0e3a47;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    box-shadow: 2px 4px 16px rgba(0,0,0,0.3);
+    z-index: 200;
+    color: #fff;
+    display: none;
+    overflow: auto;
+}
+
+.planet-window-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #17607a;
+    border-radius: 4px 4px 0 0;
+    padding: 8px 12px;
+    border-bottom: 2px solid #1fa2c7;
+}
+
+.planet-window-title {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.planet-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.planet-window-content {
+    padding: 10px;
+}

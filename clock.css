@@ -1,0 +1,13 @@
+#clock {
+    position: fixed;
+    bottom: 10px; /* Розміщення внизу */
+    right: 20px;  /* Розміщення справа */
+    font-size: 19px; /* Зменшено на ~20% */
+    color: #1fa2c7;
+    background: rgba(10, 40, 50, 0.85);
+    padding: 2px 4px; /* Відстань від цифр до рамки 2 пікселі */
+    border-radius: 4px;
+    z-index: 101;
+    font-family: monospace;
+    border: 2px solid #1fa2c7; /* Додаємо рамку як у кнопок */
+}

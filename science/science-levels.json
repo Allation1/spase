@@ -1,0 +1,23 @@
+{
+    "physics": 10,
+    "chemistry": 3,
+    "biology": 0,
+    "geology": 1,
+    "geometry": 1,
+    "astronomy": 0,
+    "materials": 1,
+    "hydrogeology": 2,
+    "construction": 2,
+    "dendrology": 0,
+    "forestry": 0,
+    "petrology": 0,
+    "stonework": 0,
+    "building_center": 3,
+    "building_source": 3,
+    "stone_quarry_science": 5,
+    "wood_cutting_science": 2,
+    "building_wood_cutter": 2,
+    "building_house": 3,
+    "building_warehouse": 2,
+    "building_stone_quarry": 5
+}

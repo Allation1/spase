@@ -1,0 +1,334 @@
+#map-window {
+    position: fixed; /* Фіксує вікно на екрані */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px; /* Ширина вікна */
+    height: 500px; /* Висота вікна */
+    min-width: 400px;
+    min-height: 300px;
+    max-width: 90vw;
+    max-height: 90vh;
+    background: #0e3a47; /* Колір фону */
+    border: 2px solid #1fa2c7; /* Рамка */
+    border-radius: 4px; /* Закруглені кути */
+    box-shadow: 2px 4px 16px rgba(0,0,0,0.3); /* Тінь */
+    z-index: 200; /* Пріоритет поверх інших елементів */
+    color: #fff; /* Колір тексту */
+    display: none; /* Приховано за замовчуванням */
+    overflow: hidden; /* Приховує прокрутку */
+    resize: both;   /* Дозволяє змінювати розмір вікна вручну */
+    margin: 0; /* Без зовнішніх відступів */
+    padding: 0; /* Без внутрішніх відступів (встановлюються для внутрішніх елементів) */
+}
+
+#map-window .science-window-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    background: #17607a;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    margin: 0;
+    border-bottom: 2px solid #1fa2c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+#space-map {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0; /* Прибираємо відступи між клітинками */
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background: #09303a; /* Повертаємо початковий колір фону */
+    width: 300px;
+    height: 300px;
+    transition: none; /* Вимикаємо переходи для кращої продуктивності при перетягуванні */
+    transform-origin: 0 0; /* Встановлюємо початок координат у верхній лівий кут */
+    overflow: visible; /* Дозволяємо вмісту виходити за межі контейнера при перетягуванні */
+    position: relative; /* Додаємо позиціонування для правильного розташування ліній */
+    border: 1px solid red; /* Тонка червона лінія по краях */
+}
+
+.space-cell {
+    border-right: 1px solid red; /* Червона лінія праворуч */
+    border-bottom: 1px solid red; /* Червона лінія знизу */
+    background: #09303a; /* Встановлюємо той самий колір, що й у фону карти */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+/* Останній ряд і стовпець - прибираємо зайві лінії */
+.space-cell:nth-child(3n) { /* Кожна третя клітинка (остання в ряді) */
+    border-right: none;
+}
+
+.space-cell:nth-child(n+7) { /* Останній ряд (клітинки 7, 8, 9) */
+    border-bottom: none;
+}
+.space-cell-label {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 0.8em;
+    color: #ffd700;
+    pointer-events: none;
+}
+
+.sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-color: #FFD700; /* Жовтий колір для сонця */
+    border-radius: 50%; /* Робимо круглим */
+    box-shadow: 0 0 10px #FFA500, 0 0 20px #FF8C00; /* Ефект світіння */
+    z-index: 3; /* Розміщуємо над іншими елементами */
+    cursor: pointer; /* Змінюємо курсор при наведенні */
+}
+
+.blue-sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-color: #1E90FF; /* Блакитний колір для сонця */
+    border-radius: 50%; /* Робимо круглим */
+    box-shadow: 0 0 10px #00BFFF, 0 0 20px #87CEEB; /* Ефект світіння для блакитного сонця */
+    z-index: 3; /* Розміщуємо над іншими елементами */
+    cursor: pointer; /* Змінюємо курсор при наведенні */
+}
+
+.blue-solar-star {
+    font-size: 3em;
+    color: #1E90FF; /* Блакитний колір */
+    text-align: center;
+}
+
+.asteroid-fields-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.fleet-icons-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Щоб не перешкоджало іншим клікам */
+    z-index: 10;
+}
+
+.fleet-icon-container {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fleet-at-orbit {
+    font-size: 1.2em;
+    cursor: default;
+}
+
+.solar-system-window {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background: #0e3a47;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    box-shadow: 2px 4px 16px rgba(0,0,0,0.3);
+    z-index: 300;
+    color: #fff;
+    overflow: hidden;
+}
+
+.solar-system-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    background: #17607a;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    margin: 0;
+    border-bottom: 2px solid #1fa2c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    cursor: move;
+}
+
+.solar-system-content {
+    padding: 15px;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.solar-center {
+    margin-bottom: 20px;
+}
+
+.solar-star {
+    font-size: 3em;
+    color: #FFD700;
+    text-align: center;
+}
+
+.solar-star-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.blue-solar-star-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.planet-item {
+    background: #2ecc71;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.planet-item:hover {
+    background: #25a35a;
+}
+
+.asteroid-field {
+    background: #7f8c8d;
+    padding: 8px;
+    margin: 3px 0;
+    border-radius: 4px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fleet-icon-orbit {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    vertical-align: middle;
+    background: #2ecc71;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fleet-icon-container {
+    display: inline-block;
+    margin-left: 5px;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.fleet-at-orbit {
+    font-size: 1.2em;
+    cursor: default;
+}
+
+.flight-btn {
+    background: #17607a;
+    color: white;
+    border: 1px solid #1fa2c7;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 0.8em;
+    transition: background 0.3s;
+}
+
+.flight-btn:hover {
+    background: #1fa2c7;
+}
+
+.fleet-icon-on-map {
+    position: absolute;
+    font-size: 24px;
+    z-index: 10;
+    pointer-events: none;
+    transition: none;
+}
+
+.coordinates-display {
+    margin-left: 10px;
+    font-size: 0.8em;
+    color: #ffd700;
+    background: #17607a;
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+.solar-system-close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 201;
+    margin-left: 0;
+    width: auto;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.solar-system-close-btn:hover {
+    color: #1fa2c7;
+}
+
+.fleet-at-orbit {
+    color: #2ecc71;
+    font-weight: bold;
+}
+

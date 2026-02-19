@@ -1,0 +1,38 @@
+{
+  "building_center": {
+    "count": 1,
+    "level": 2,
+    "construction_time": 0,
+    "upgrade_time": 0
+  },
+  "building_source": {
+    "count": 0,
+    "level": 0,
+    "construction_time": 0,
+    "upgrade_time": 0
+  },
+  "building_stone_quarry": {
+    "count": 1,
+    "level": 5,
+    "construction_time": 0,
+    "upgrade_time": 0
+  },
+  "building_wood_cutter": {
+    "count": 1,
+    "level": 2,
+    "construction_time": 0,
+    "upgrade_time": 0
+  },
+  "building_house": {
+    "count": 1,
+    "level": 4,
+    "construction_time": 0,
+    "upgrade_time": 0
+  },
+  "building_warehouse": {
+    "count": 1,
+    "level": 2,
+    "construction_time": 0,
+    "upgrade_time": 0
+  }
+}

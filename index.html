@@ -1,0 +1,95 @@
+<!-- Головна торінка ГРИ -->
+<!DOCTYPE html> <!-- Вказує, що це HTML5 документ -->
+<html> <!-- Відкриває головний контейнер всієї сторінки -->
+<head> <!-- Відкриває розділ з технічною інформацією -->
+   <meta charset="UTF-8"> <!-- Встановлює кодування тексту для коректного відображення українських літер -->    
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Дозволяє сторінці правильно відображатися на різних пристроях -->
+   <title>Моя гра</title> <!-- Встановлює назву сторінки, яка відображається у вкладці браузера -->
+   <link rel="stylesheet" href="style.css"> <!-- Підключає файл зі стилями для цієї сторінки -->
+   <link rel="stylesheet" href="ui-buttons.css"> <!-- Стиль контенера для кнопок -->
+   <link rel="stylesheet" href="clock.css"> <!-- Стиль для годинника -->
+   <link rel="stylesheet" href="science/research-ui.css"> <!-- Стиль для наукової діяльності -->
+   <link rel="stylesheet" href="science/research.css"> <!-- Стиль для наукової діяльності -->
+   <link rel="stylesheet" href="planets/planet-list.css"> <!-- Стиль для планет -->
+   <link rel="stylesheet" href="planets/planet.css"> <!-- Стиль для планет -->
+   <link rel="stylesheet" href="planets/tera/tera.css"> <!-- Стиль для вікна Тери -->
+   <link rel="stylesheet" href="map/map.css"> <!-- Стиль для карти -->
+</head> <!-- Закриває розділ з технічною інформацією -->
+<body> <!-- Відкриває розділ з вмістом сторінки, який бачить користувач -->
+    <div id="clock"></div>
+    <!-- Додаємо 10 кнопок -->
+    <div id="buttons">
+        <button>⚙️</button>
+        <button>🪐</button>
+        <button>🗺️</button>
+        <button>🌌</button>
+        <button>🚀</button>
+        <button>📜</button>
+        <button>🤝</button>
+        <button>🏗️</button>
+        <button id="science-btn">🔬</button> <!-- Додаємо id для кнопки науки -->
+        <button>🚪</button>
+    </div>
+    <!-- Порожнє динамічне вікно -->
+    <div id="science-window" style="display:none;">
+        <!-- Динамічні блоки наук будуть тут -->
+    </div>
+    <div id="planet-window" style="display:none;">
+        <div class="planet-window-header">
+            <div class="planet-window-title">Список планет</div>
+            <button class="planet-close-btn" style="
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 1.2em;
+                cursor: pointer;
+                padding: 0 5px;
+            ">✕</button>
+        </div>
+        <div class="planet-window-content">
+            <div id="planet-list"></div> <!-- Додаємо цей контейнер -->
+        </div>
+    </div>
+    <div id="map-window" style="display:none;">
+        <div class="science-window-title">
+            <span>Карта</span>
+            <button class="map-close-btn" onclick="closeMapWindow()">✕</button>
+        </div>
+        <div id="space-map"></div> <!-- Контейнер для карти -->
+    </div>
+    <div id="fleet-window" style="display:none;">
+        <div class="science-window-title">
+            <span>Флоти</span>
+            <button class="fleet-close-btn" onclick="closeFleetWindow()">✕</button>
+        </div>
+        <div class="fleet-content">
+            <div class="fleet-item" onclick="showFleetComposition('Винищувач')">
+                <div class="fleet-icon">✈️</div>
+                <div class="fleet-info">
+                    <div class="fleet-name">Винищувач</div>
+                    <div class="fleet-status">Статус: На базі</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script> <!-- Підключає файл з JavaScript кодом -->
+    <script src="clock.js"></script>
+    <script src="science/science-data-manager.js"></script>
+    <script src="science/science-manager.js"></script>
+    <script type="module" src="science/science-data.js"></script>
+    <script type="module" src="science/science-ui.js"></script>
+    <script src="science/tech-tree.js"></script>
+    <script src="planets/planet-list.js"></script>
+    <script type="module" src="planets/planet-data.js"></script>
+    <script type="module" src="planets/planet-ui.js"></script>
+    <script src="planets/tera/tera-window.js"></script>
+    <script src="planets/tera/resource-updater.js"></script>
+    <script src="map/map-list.js"></script>
+    <script src="map/map-ui.js"></script>
+    <script src="study-status.js"></script>
+</body> <!-- Закриває розділ з вмістом сторінки -->
+
+
+
+
+

@@ -1,0 +1,46 @@
+#planet-window {
+    position: fixed; /* Фіксує вікно на екрані */
+    top: 60px; /* Відступ зверху */
+    left: 100px; /* Відступ зліва */
+    width: 100px; /* Ширина вікна */
+    height: 220px; /* Висота вікна */
+    background: #0e3a47; /* Колір фону */
+    border: 2px solid #1fa2c7; /* Рамка */
+    border-radius: 4px; /* Закруглені кути */
+    box-shadow: 2px 4px 16px rgba(0,0,0,0.3); /* Тінь */
+    z-index: 200; /* Пріоритет поверх інших елементів */
+    color: #fff; /* Колір тексту */
+    padding: 0; /* Внутрішній відступ переносимо у .planet-window-content */
+    .planet-window-content {
+        padding: 16px;
+    }
+    display: none; /* Приховано за замовчуванням */
+    overflow: hidden; /* Обрізає виступаючі кути заголовка */
+}
+
+ .planet-window-title {
+    font-size: 1.4em; /* Розмір шрифту */
+    font-weight: bold; /* Жирний шрифт */
+    background: #17607a; /* Колір фону заголовка */
+    padding: 10px 0; /* Відступи тільки зверху і знизу */
+    width: 100%; /* Заголовок на всю ширину контейнера */
+    box-sizing: border-box; /* Враховує padding і border у ширині */
+    border-radius: 4px 4px 0 0; /* Заокруглення тільки зверху */
+    text-align: center; /* Вирівнювання по центру */
+    margin: 0; /* Заголовок прилягає до країв */
+    border-bottom: 4px solid #1fa2c7; /* Нижня рамка */
+}
+
+.planet-list-item {
+    padding: 8px 12px; /* Внутрішній відступ */
+    margin: 4px 0; /* Зовнішній відступ між елементами */
+    background: #17607a; /* Колір фону елемента */
+    border-radius: 4px; /* Закруглені кути */
+    cursor: pointer; /* Курсор у вигляді руки при наведенні */
+    font-size: 1em; /* Розмір шрифту */
+    color: #fff; /* Колір тексту */
+    transition: background 0.2s; /* Плавна зміна фону при наведенні */
+}
+.planet-list-item:hover {
+    background: #1fa2c7; /* Колір фону при наведенні */
+}
