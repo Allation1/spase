@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (planetWindow.style.display === 'none' || planetWindow.style.display === '') {
                 planetWindow.style.display = 'block';
                 window.renderPlanetList && window.renderPlanetList();
+                bringWindowToFront(planetWindow);
             } else {
                 planetWindow.style.display = 'none';
             }
@@ -31,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
             offsetX = e.clientX - planetWindow.offsetLeft;
             offsetY = e.clientY - planetWindow.offsetTop;
             document.body.style.userSelect = 'none';
+            // Піднімаємо вікно на передній план при кліку
+            bringWindowToFront(planetWindow);
         });
 
         document.addEventListener('mousemove', function(e) {

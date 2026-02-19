@@ -131,6 +131,7 @@ function renderTeraWindow() {
 
     // Показуємо вікно
     terraWindow.style.display = 'block';
+    bringWindowToFront(terraWindow);
 
     // Додаємо обробники для вкладок
     const planetTabBtn = document.getElementById('tera-planet-tab-btn');
@@ -166,6 +167,8 @@ function renderTeraWindow() {
         offsetX = e.clientX - terraWindow.offsetLeft;
         offsetY = e.clientY - terraWindow.offsetTop;
         document.body.style.userSelect = 'none';
+        // Піднімаємо вікно на передній план при кліку
+        bringWindowToFront(terraWindow);
     });
 
     document.addEventListener('mousemove', function(e) {

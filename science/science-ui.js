@@ -34,6 +34,7 @@ function renderScienceBlocks() {
 
     // Показуємо вікно
     scienceWindow.style.display = 'block';
+    bringWindowToFront(scienceWindow);
 
     // Оновлюємо заголовок
     const header = scienceWindow.querySelector('.science-details-header');
@@ -695,6 +696,8 @@ function renderScienceBlocks() {
             initialY = e.clientY - currentY;
             scienceWindow.style.cursor = 'move';
             scienceWindow.style.transition = 'none';
+            // Піднімаємо вікно на передній план при кліку
+            bringWindowToFront(scienceWindow);
         }
     });
 

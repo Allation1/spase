@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mapWindow.style.display === 'none' || mapWindow.style.display === '') {
                 mapWindow.style.display = 'block';
                 window.renderSpaceMap && window.renderSpaceMap();
+                bringWindowToFront(mapWindow);
             } else {
                 mapWindow.style.display = 'none';
             }
@@ -20,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
             offsetX = e.clientX - mapWindow.offsetLeft;
             offsetY = e.clientY - mapWindow.offsetTop;
             document.body.style.userSelect = 'none';
+            // Піднімаємо вікно на передній план при кліку
+            bringWindowToFront(mapWindow);
         });
         document.addEventListener('mousemove', function(e) {
             if (isDragging) {

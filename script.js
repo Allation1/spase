@@ -1,3 +1,14 @@
+// Глобальна змінна для z-index вікон
+let currentMaxZIndex = 200;
+
+// Функція для підняття вікна на передній план
+function bringWindowToFront(element) {
+    if (element) {
+        currentMaxZIndex++;
+        element.style.zIndex = currentMaxZIndex;
+    }
+}
+
 // Функціонал для вікна флоту
 document.addEventListener('DOMContentLoaded', function() {
     // Знаходимо кнопку флоту (ракета)
@@ -8,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fleetBtn.addEventListener('click', function() {
             if (fleetWindow.style.display === 'none' || fleetWindow.style.display === '') {
                 fleetWindow.style.display = 'block';
+                bringWindowToFront(fleetWindow);
             } else {
                 fleetWindow.style.display = 'none';
             }
@@ -22,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
             offsetX = e.clientX - fleetWindow.offsetLeft;
             offsetY = e.clientY - fleetWindow.offsetTop;
             document.body.style.userSelect = 'none';
+            // Піднімаємо вікно на передній план при кліку
+            bringWindowToFront(fleetWindow);
         });
 
         document.addEventListener('mousemove', function(e) {
@@ -82,6 +96,7 @@ function showFleetComposition(fleetName) {
 
     // Показуємо вікно
     fleetDetailsWindow.style.display = 'block';
+    bringWindowToFront(fleetDetailsWindow);
     fleetDetailsWindow.style.position = 'fixed';
     fleetDetailsWindow.style.top = '50%';
     fleetDetailsWindow.style.left = '50%';
@@ -103,21 +118,24 @@ function showFleetComposition(fleetName) {
     const titleBar = fleetDetailsWindow.querySelector('.science-window-title');
     titleBar.addEventListener('mousedown', function(e) {
         isDragging = true;
-        
+
         // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
         const rect = fleetDetailsWindow.getBoundingClientRect();
-        
+
         // Зберігаємо відступ курсора від лівого верхнього кута вікна
         offsetX = e.clientX - rect.left;
         offsetY = e.clientY - rect.top;
-        
+
         // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
         fleetDetailsWindow.style.left = rect.left + 'px';
         fleetDetailsWindow.style.top = rect.top + 'px';
-        
+
         // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
         fleetDetailsWindow.style.transform = 'none';
-        
+
+        // Піднімаємо вікно на передній план при кліку
+        bringWindowToFront(fleetDetailsWindow);
+
         document.body.style.userSelect = 'none';
         e.preventDefault();
     });
@@ -226,9 +244,10 @@ function showFleetSettings() {
         `;
         document.body.appendChild(fleetSettingsWindow);
     }
-    
+
     // Показуємо вікно
     fleetSettingsWindow.style.display = 'block';
+    bringWindowToFront(fleetSettingsWindow);
     fleetSettingsWindow.style.position = 'fixed';
     fleetSettingsWindow.style.top = '50%';
     fleetSettingsWindow.style.left = '50%';
@@ -253,6 +272,8 @@ function showFleetSettings() {
         offsetX = e.clientX - fleetSettingsWindow.getBoundingClientRect().left;
         offsetY = e.clientY - fleetSettingsWindow.getBoundingClientRect().top;
         document.body.style.userSelect = 'none';
+        // Піднімаємо вікно на передній план при кліку
+        bringWindowToFront(fleetSettingsWindow);
         e.preventDefault();
     });
     

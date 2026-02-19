@@ -133,6 +133,8 @@ function openSolarSystemWindow() {
             offsetX = e.clientX - rect.left;
             offsetY = e.clientY - rect.top;
             document.body.style.userSelect = 'none';
+            // Піднімаємо вікно на передній план при кліку
+            bringWindowToFront(solarSystemWindow);
             e.preventDefault(); // Запобігаємо виділенню тексту
         });
         
@@ -155,6 +157,7 @@ function openSolarSystemWindow() {
     
     // Показуємо вікно
     solarSystemWindow.style.display = 'block';
+    bringWindowToFront(solarSystemWindow);
     solarSystemWindow.style.position = 'fixed';
     solarSystemWindow.style.top = '50%';
     solarSystemWindow.style.left = '50%';
