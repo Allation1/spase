@@ -54,17 +54,8 @@ function showFleetComposition(fleetName) {
         fleetDetailsWindow.id = 'fleet-details-window';
         fleetDetailsWindow.className = 'fleet-details-window';
         fleetDetailsWindow.innerHTML = `
-            <div class="science-window-title">
-                <span>Склад флоту: ${fleetName}</span>
-                <button class="fleet-details-close-btn" onclick="closeFleetDetailsWindow()" style="
-                    background: transparent;
-                    border: none;
-                    color: white;
-                    font-size: 1.2em;
-                    cursor: pointer;
-                    padding: 0 5px;
-                ">✕</button>
-            </div>
+            <button class="science-close-btn" onclick="closeFleetDetailsWindow()">✕</button>
+            <div class="science-window-title">Склад флоту</div>
             <div class="fleet-details-content">
                 <div class="fleet-ship">
                     <div class="ship-info">
@@ -87,11 +78,8 @@ function showFleetComposition(fleetName) {
             </div>
         `;
         document.body.appendChild(fleetDetailsWindow);
-    } else {
-        // Якщо вікно вже існує, оновлюємо тільки назву
-        fleetDetailsWindow.querySelector('.science-window-title').textContent = `Склад флоту: ${fleetName}`;
     }
-    
+
     // Показуємо вікно
     fleetDetailsWindow.style.display = 'block';
     fleetDetailsWindow.style.position = 'fixed';
