@@ -473,7 +473,7 @@ function renderBuildings(buildingsData) {
         if (building.id === 'building_source') {
             videoHtml = `
                 <div class="building-video-container" id="video-container-${building.id}">
-                    <video class="building-video" preload="none" loop muted playsinline>
+                    <video class="building-video" preload="auto" loop muted playsinline poster="video/001.mp4">
                         <source src="video/001.mp4" type="video/mp4">
                         Ваш браузер не підтримує відео.
                     </video>
@@ -597,11 +597,21 @@ function renderBuildings(buildingsData) {
                 if (videoContainer) {
                     const video = videoContainer.querySelector('video');
                     if (video) {
+                        // Завантажуємо перший кадр при відкритті
+                        video.load();
+                        video.muted = true; // Спочатку без звуку
+                        video.play().then(() => {
+                            video.pause(); // Зупиняємо на першому кадрі
+                            video.currentTime = 0;
+                        }).catch(() => {
+                            // Ігноруємо помилки автозапуску
+                        });
+
                         videoContainer.addEventListener('mouseenter', () => {
                             video.muted = false; // Увімкнути звук
                             video.play();
                         });
-                        
+
                         videoContainer.addEventListener('mouseleave', () => {
                             video.pause();
                             video.currentTime = 0; // Повертаємо відео на початок
