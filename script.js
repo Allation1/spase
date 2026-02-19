@@ -99,27 +99,40 @@ function showFleetComposition(fleetName) {
     // Додаємо можливість перетягування вікна
     let isDragging = false;
     let offsetX, offsetY;
-    
+
     const titleBar = fleetDetailsWindow.querySelector('.science-window-title');
     titleBar.addEventListener('mousedown', function(e) {
         isDragging = true;
-        offsetX = e.clientX - fleetDetailsWindow.getBoundingClientRect().left;
-        offsetY = e.clientY - fleetDetailsWindow.getBoundingClientRect().top;
+        
+        // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
+        const rect = fleetDetailsWindow.getBoundingClientRect();
+        
+        // Зберігаємо відступ курсора від лівого верхнього кута вікна
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        
+        // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
+        fleetDetailsWindow.style.left = rect.left + 'px';
+        fleetDetailsWindow.style.top = rect.top + 'px';
+        
+        // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
+        fleetDetailsWindow.style.transform = 'none';
+        
         document.body.style.userSelect = 'none';
-        e.preventDefault(); // Запобігаємо виділенню тексту
+        e.preventDefault();
     });
-    
+
     document.addEventListener('mousemove', function(e) {
         if (isDragging) {
             // Розраховуємо нові координати вікна
             const newLeft = e.clientX - offsetX;
             const newTop = e.clientY - offsetY;
-            
+
             fleetDetailsWindow.style.left = newLeft + 'px';
             fleetDetailsWindow.style.top = newTop + 'px';
         }
     });
-    
+
     document.addEventListener('mouseup', function() {
         isDragging = false;
         document.body.style.userSelect = '';
