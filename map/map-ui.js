@@ -273,13 +273,19 @@ function showFleetWindow() {
 
 // Функція для ініціювання польоту флоту
 function initiateFlight(destination) {
-    // Перевіряємо, чи вікно флоту відкрите
-    const fleetWindow = document.getElementById('fleet-window');
-    if (!fleetWindow || fleetWindow.style.display === 'none') {
-        alert('Щоб виконати політ, спочатку відкрийте вікно флоту');
+    // Перевіряємо, чи вікно складу флоту відкрите
+    const fleetDetailsWindow = document.getElementById('fleet-details-window');
+    if (!fleetDetailsWindow || fleetDetailsWindow.style.display === 'none') {
+        alert('Щоб виконати політ, спочатку відкрийте склад флоту (клікніть на флот у вікні Флоти)');
         return;
     }
-    
+
+    // Перевіряємо, чи обрано флот
+    if (typeof currentSelectedFleet === 'undefined' || !currentSelectedFleet) {
+        alert('Спочатку оберіть флот для відправлення');
+        return;
+    }
+
     // Визначаємо, з якої орбіти вилітає флот (якщо він був десь)
     let fromOrbit = null;
     if (currentFleetOrbit) {
@@ -293,28 +299,27 @@ function initiateFlight(destination) {
     if (fromOrbit !== null) {
         updateFleetOrbitDisplay(fromOrbit, null); // Приховуємо флот з попередньої орбіти
     }
-    
+
     // Показуємо флот на новій орбіті після затримки, щоб дати час на анімацію
     setTimeout(() => {
         updateFleetOrbitDisplay(null, currentFleetOrbit); // Показуємо флот на новій орбіті
         positionFleetIcons(); // Оновлюємо позиціонування іконок флоту
     }, 1000); // Затримка 1 секунда для того, щоб анімація завершилася
-    
+
     // Отримуємо збережені налаштування флоту
     const savedSettings = localStorage.getItem('fleetSettings');
     if (!savedSettings) {
         alert('Немає збережених налаштувань флоту');
         return;
     }
-    
+
     const settings = JSON.parse(savedSettings);
-    
+
     // Виконуємо анімацію польоту
     animateFleetMovement(destination);
-    
+
     // Повідомляємо про початок польоту
-    console.log(`Флот вирушає до: ${destination}`);
-    // alert(`Флот вирушає до: ${destination}`);
+    console.log(`Флот "${currentSelectedFleet}" вирушає до: ${destination}`);
 }
 
 // Функція для анімації переміщення флоту

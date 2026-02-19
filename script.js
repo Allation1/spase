@@ -38,11 +38,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Змінна для зберігання поточного обраного флоту
+let currentSelectedFleet = null;
+
 // Функція для відображення складу флоту
 function showFleetComposition(fleetName) {
+    // Зберігаємо назву поточного флоту
+    currentSelectedFleet = fleetName;
+    
     // Створюємо або отримуємо вікно складу флоту
     let fleetDetailsWindow = document.getElementById('fleet-details-window');
-    
+
     if (!fleetDetailsWindow) {
         fleetDetailsWindow = document.createElement('div');
         fleetDetailsWindow.id = 'fleet-details-window';
@@ -134,15 +140,22 @@ function showFleetComposition(fleetName) {
 
 // Функція для дій з флотом
 function fleetAction(action) {
+    // Перевіряємо, чи вибрано флот
+    if (!currentSelectedFleet) {
+        alert('Спочатку оберіть флот!');
+        return;
+    }
+    
     switch(action) {
         case 'repair':
-            alert('Функція ремонту флоту');
+            alert(`Ремонт флоту: ${currentSelectedFleet}`);
             break;
         case 'upgrade':
-            alert('Функція модернізації флоту');
+            alert(`Модернізація флоту: ${currentSelectedFleet}`);
             break;
         case 'deploy':
-            alert('Функція відправлення флоту');
+            alert(`Відправлення флоту: ${currentSelectedFleet}`);
+            // Тут буде логіка відправлення флоту на карту
             break;
     }
 }
