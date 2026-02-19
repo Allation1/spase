@@ -48,7 +48,17 @@ function showFleetComposition(fleetName) {
         fleetDetailsWindow.id = 'fleet-details-window';
         fleetDetailsWindow.className = 'fleet-details-window';
         fleetDetailsWindow.innerHTML = `
-            <div class="science-window-title">Склад флоту: ${fleetName}</div>
+            <div class="science-window-title">
+                <span>Склад флоту: ${fleetName}</span>
+                <button class="fleet-details-close-btn" onclick="closeFleetDetailsWindow()" style="
+                    background: transparent;
+                    border: none;
+                    color: white;
+                    font-size: 1.2em;
+                    cursor: pointer;
+                    padding: 0 5px;
+                ">✕</button>
+            </div>
             <div class="fleet-details-content">
                 <div class="fleet-ship">
                     <div class="ship-info">
@@ -150,6 +160,14 @@ function closeFleetWindow() {
     const fleetWindow = document.getElementById('fleet-window');
     if (fleetWindow) {
         fleetWindow.style.display = 'none';
+    }
+}
+
+// Функція для закриття вікна складу флоту
+function closeFleetDetailsWindow() {
+    const fleetDetailsWindow = document.getElementById('fleet-details-window');
+    if (fleetDetailsWindow) {
+        fleetDetailsWindow.style.display = 'none';
     }
 }
 
