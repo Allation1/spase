@@ -125,30 +125,41 @@ function openSolarSystemWindow() {
         const titleBar = solarSystemWindow.querySelector('.solar-system-title');
         let isDragging = false;
         let offsetX, offsetY;
-        
+
         titleBar.addEventListener('mousedown', function(e) {
             isDragging = true;
-            // Враховуємо початкове положення вікна
+            
+            // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
             const rect = solarSystemWindow.getBoundingClientRect();
+            
+            // Зберігаємо відступ курсора від лівого верхнього кута вікна
             offsetX = e.clientX - rect.left;
             offsetY = e.clientY - rect.top;
+            
+            // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
+            solarSystemWindow.style.left = rect.left + 'px';
+            solarSystemWindow.style.top = rect.top + 'px';
+            
+            // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
+            solarSystemWindow.style.transform = 'none';
+            
             document.body.style.userSelect = 'none';
             // Піднімаємо вікно на передній план при кліку
             bringWindowToFront(solarSystemWindow);
             e.preventDefault(); // Запобігаємо виділенню тексту
         });
-        
+
         document.addEventListener('mousemove', function(e) {
             if (isDragging) {
                 // Розраховуємо нові координати вікна
                 const newLeft = e.clientX - offsetX;
                 const newTop = e.clientY - offsetY;
-                
+
                 solarSystemWindow.style.left = newLeft + 'px';
                 solarSystemWindow.style.top = newTop + 'px';
             }
         });
-        
+
         document.addEventListener('mouseup', function() {
             isDragging = false;
             document.body.style.userSelect = '';
@@ -742,21 +753,36 @@ function openBlueSolarSystemWindow() {
         const titleBar = blueSolarSystemWindow.querySelector('.solar-system-title');
         let isDragging = false;
         let offsetX, offsetY;
-        
+
         titleBar.addEventListener('mousedown', function(e) {
             isDragging = true;
-            offsetX = e.clientX - blueSolarSystemWindow.getBoundingClientRect().left;
-            offsetY = e.clientY - blueSolarSystemWindow.getBoundingClientRect().top;
+            
+            // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
+            const rect = blueSolarSystemWindow.getBoundingClientRect();
+            
+            // Зберігаємо відступ курсора від лівого верхнього кута вікна
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            
+            // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
+            blueSolarSystemWindow.style.left = rect.left + 'px';
+            blueSolarSystemWindow.style.top = rect.top + 'px';
+            
+            // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
+            blueSolarSystemWindow.style.transform = 'none';
+            
             document.body.style.userSelect = 'none';
+            // Піднімаємо вікно на передній план при кліку
+            bringWindowToFront(blueSolarSystemWindow);
             e.preventDefault(); // Запобігаємо виділенню тексту
         });
-        
+
         document.addEventListener('mousemove', function(e) {
             if (isDragging) {
                 // Розраховуємо нові координати вікна
                 const newLeft = e.clientX - offsetX;
                 const newTop = e.clientY - offsetY;
-                
+
                 blueSolarSystemWindow.style.left = newLeft + 'px';
                 blueSolarSystemWindow.style.top = newTop + 'px';
             }
