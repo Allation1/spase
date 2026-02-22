@@ -385,3 +385,57 @@ body { /* Встановлюємо фон для всієї сторінки */
 #projects-window .science-close-btn:hover {
     color: #1fa2c7;
 }
+
+/* Стилі для вікна проектування корабля */
+#ship-design-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    min-height: 400px;
+    max-height: 80vh;
+    background: #0e3a47;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    box-shadow: 2px 4px 16px rgba(0,0,0,0.3);
+    z-index: 210;
+    color: #fff;
+    display: none;
+    overflow: hidden;
+}
+
+#ship-design-window .science-window-content {
+    padding: 15px;
+    height: calc(100% - 50px);
+    overflow-y: auto;
+}
+
+#ship-design-window .science-window-title {
+    background: #17607a;
+    padding: 10px 15px;
+    padding-right: 40px;
+    border-bottom: 1px solid #1fa2c7;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#ship-design-window .science-close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 10;
+}
+
+#ship-design-window .science-close-btn:hover {
+    color: #1fa2c7;
+}

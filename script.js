@@ -530,8 +530,18 @@ function renderProjects() {
     const projectsContent = document.getElementById('projects-content');
     if (!projectsContent) return;
 
-    // Просто кнопка "Розробити" зліва вгорі
-    projectsContent.innerHTML = `
+    // Отримуємо список проектів
+    let projects = [];
+    try {
+        const savedData = localStorage.getItem('shipProjects');
+        if (savedData) {
+            projects = JSON.parse(savedData);
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні проектів:', e);
+    }
+
+    let html = `
         <div style="padding: 10px;">
             <button id="develop-btn" style="
                 padding: 8px 15px;
@@ -541,12 +551,272 @@ function renderProjects() {
                 border-radius: 4px;
                 cursor: pointer;
                 font-weight: bold;
-            ">🔨 Розробити</button>
+                margin-bottom: 15px;
+            ">🔨 Розробити новий проект</button>
+            
+            <h3 style="color: #1fa2c7; margin-bottom: 10px;">📋 Готові проекти</h3>
+    `;
+
+    if (projects.length === 0) {
+        html += `<p style="color: #aaa;">Немає збережених проектів</p>`;
+    } else {
+        html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px;">`;
+        projects.forEach((project, index) => {
+            html += `
+                <div class="science-section" style="background: #134d5c; border: 1px solid #1fa2c7; border-radius: 4px; padding: 15px;">
+                    <div style="font-size: 1.2em; margin-bottom: 10px; font-weight: bold;">🚀 ${project.name}</div>
+                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 5px;">Рівень корабля: <span style="color: #4ade80;">${project.shipLevel}</span></div>
+                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 5px;">Гармати: <span style="color: #4ade80;">${project.weaponsCount}</span> шт (рівень ${project.weaponLevel})</div>
+                    <div style="color: #aaa; font-size: 0.85em; margin-top: 10px;">Створено: ${project.createdAt}</div>
+                    <button onclick="deleteProject(${index})" style="
+                        margin-top: 10px;
+                        padding: 5px 10px;
+                        background: #dc2626;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 0.85em;
+                    ">🗑️ Видалити</button>
+                </div>
+            `;
+        });
+        html += `</div>`;
+    }
+
+    html += `</div>`;
+    projectsContent.innerHTML = html;
+
+    // Додаємо обробник для кнопки "Розробити"
+    document.getElementById('develop-btn').addEventListener('click', openShipDesignWindow);
+}
+
+// Функція для відкриття вікна проектування
+function openShipDesignWindow() {
+    const designWindow = document.getElementById('ship-design-window');
+    const designContent = document.getElementById('ship-design-content');
+
+    // Отримуємо рівні наук
+    let shipFighterLevel = 0;
+    let laserWeaponLevel = 0;
+    try {
+        const savedData = localStorage.getItem('scienceLevels');
+        if (savedData) {
+            const levels = JSON.parse(savedData);
+            shipFighterLevel = levels.ship_fighter || 0;
+            laserWeaponLevel = levels.weapon_laser || 0;
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні рівнів наук:', e);
+    }
+
+    designContent.innerHTML = `
+        <div style="padding: 15px;">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">🚀 Назва проекту:</label>
+                <input type="text" id="project-name" placeholder="Введіть назву" style="
+                    width: 100%;
+                    padding: 8px;
+                    background: #134d5c;
+                    color: white;
+                    border: 1px solid #1fa2c7;
+                    border-radius: 4px;
+                ">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">🚀 Рівень винищувача (макс ${shipFighterLevel}):</label>
+                <input type="number" id="ship-level" min="1" max="${shipFighterLevel}" value="1" style="
+                    width: 80px;
+                    padding: 8px;
+                    background: #134d5c;
+                    color: white;
+                    border: 1px solid #1fa2c7;
+                    border-radius: 4px;
+                    text-align: center;
+                ">
+                <span style="color: #aaa; font-size: 0.85em; margin-left: 10px;">Доступно: ${shipFighterLevel}</span>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">🔫 Кількість гармат (макс 2):</label>
+                <select id="weapons-count" style="
+                    padding: 8px;
+                    background: #134d5c;
+                    color: white;
+                    border: 1px solid #1fa2c7;
+                    border-radius: 4px;
+                ">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 15px;" id="weapon-level-div">
+                <label style="display: block; margin-bottom: 5px; font-weight: bold;">🔫 Рівень гармат (макс ${laserWeaponLevel}):</label>
+                <input type="number" id="weapon-level" min="1" max="${laserWeaponLevel}" value="1" style="
+                    width: 80px;
+                    padding: 8px;
+                    background: #134d5c;
+                    color: white;
+                    border: 1px solid #1fa2c7;
+                    border-radius: 4px;
+                    text-align: center;
+                ">
+                <span style="color: #aaa; font-size: 0.85em; margin-left: 10px;">Доступно: ${laserWeaponLevel}</span>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button onclick="saveShipProject()" style="
+                    padding: 10px 20px;
+                    background: #1fa2c7;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    margin-right: 10px;
+                ">💾 Зберегти проект</button>
+                <button onclick="closeShipDesignWindow()" style="
+                    padding: 10px 20px;
+                    background: #555;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">✕ Скасувати</button>
+            </div>
         </div>
     `;
 
-    // Додаємо обробник для кнопки
-    document.getElementById('develop-btn').addEventListener('click', function() {
-        alert('Розробка проектів ще не реалізована');
+    // Показуємо/ховаємо поле рівня гармат
+    const weaponsCountSelect = document.getElementById('weapons-count');
+    const weaponLevelDiv = document.getElementById('weapon-level-div');
+    if (weaponsCountSelect.value === '0') {
+        weaponLevelDiv.style.display = 'none';
+    }
+    weaponsCountSelect.addEventListener('change', function() {
+        if (this.value === '0') {
+            weaponLevelDiv.style.display = 'none';
+        } else {
+            weaponLevelDiv.style.display = 'block';
+        }
     });
+
+    designWindow.style.display = 'block';
+    bringWindowToFront(designWindow);
+}
+
+// Функція для збереження проекту корабля
+function saveShipProject() {
+    const nameInput = document.getElementById('project-name');
+    const shipLevelInput = document.getElementById('ship-level');
+    const weaponsCountInput = document.getElementById('weapons-count');
+    const weaponLevelInput = document.getElementById('weapon-level');
+
+    const name = nameInput.value.trim();
+    const shipLevel = parseInt(shipLevelInput.value);
+    const weaponsCount = parseInt(weaponsCountInput.value);
+    const weaponLevel = parseInt(weaponLevelInput.value);
+
+    // Перевірки
+    if (!name) {
+        alert('❌ Введіть назву проекту');
+        return;
+    }
+
+    if (shipLevel < 1) {
+        alert('❌ Рівень корабля має бути не менше 1');
+        return;
+    }
+
+    if (weaponsCount < 0 || weaponsCount > 2) {
+        alert('❌ Кількість гармат має бути від 0 до 2');
+        return;
+    }
+
+    if (weaponsCount > 0 && weaponLevel < 1) {
+        alert('❌ Рівень гармат має бути не менше 1');
+        return;
+    }
+
+    // Перевірка рівнів наук
+    let shipFighterLevel = 0;
+    let laserWeaponLevel = 0;
+    try {
+        const savedData = localStorage.getItem('scienceLevels');
+        if (savedData) {
+            const levels = JSON.parse(savedData);
+            shipFighterLevel = levels.ship_fighter || 0;
+            laserWeaponLevel = levels.weapon_laser || 0;
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні рівнів наук:', e);
+    }
+
+    if (shipLevel > shipFighterLevel) {
+        alert(`❌ Недостатній рівень науки "Винищувач"! Вивчено: ${shipFighterLevel}, потрібно: ${shipLevel}`);
+        return;
+    }
+
+    if (weaponsCount > 0 && weaponLevel > laserWeaponLevel) {
+        alert(`❌ Недостатній рівень науки "Лазерна гармата"! Вивчено: ${laserWeaponLevel}, потрібно: ${weaponLevel}`);
+        return;
+    }
+
+    // Створюємо проект
+    const project = {
+        name: name,
+        shipLevel: shipLevel,
+        weaponsCount: weaponsCount,
+        weaponLevel: weaponsCount > 0 ? weaponLevel : 0,
+        createdAt: new Date().toLocaleDateString('uk-UA')
+    };
+
+    // Зберігаємо у localStorage
+    let projects = [];
+    try {
+        const savedData = localStorage.getItem('shipProjects');
+        if (savedData) {
+            projects = JSON.parse(savedData);
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні проектів:', e);
+    }
+
+    projects.push(project);
+    localStorage.setItem('shipProjects', JSON.stringify(projects));
+
+    alert('✅ Проект збережено!');
+    closeShipDesignWindow();
+    renderProjects();
+}
+
+// Функція для закриття вікна проектування
+function closeShipDesignWindow() {
+    const designWindow = document.getElementById('ship-design-window');
+    if (designWindow) {
+        designWindow.style.display = 'none';
+    }
+}
+
+// Функція для видалення проекту
+function deleteProject(index) {
+    if (!confirm('Видалити цей проект?')) return;
+
+    let projects = [];
+    try {
+        const savedData = localStorage.getItem('shipProjects');
+        if (savedData) {
+            projects = JSON.parse(savedData);
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні проектів:', e);
+    }
+
+    projects.splice(index, 1);
+    localStorage.setItem('shipProjects', JSON.stringify(projects));
+    renderProjects();
 }
