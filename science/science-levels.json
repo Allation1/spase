@@ -20,8 +20,8 @@
     "building_house": 3,
     "building_warehouse": 2,
     "building_stone_quarry": 5,
-    "ship_fighter": 7,
+    "ship_fighter": 13,
     "ship_cruiser": 6,
-    "weapon_laser": 3,
+    "weapon_laser": 4,
     "weapon_missile": 1
 }

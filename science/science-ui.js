@@ -99,6 +99,12 @@ function renderScienceBlocks() {
         scienceLevels[science.id] = window.scienceDataManager ? window.scienceDataManager.getScienceLevel(science.id) : 0;
     });
 
+    // Отримуємо рівні для озброєння та кораблів
+    const weaponLaserLevel = window.scienceDataManager ? window.scienceDataManager.getScienceLevel('weapon_laser') : 0;
+    const weaponMissileLevel = window.scienceDataManager ? window.scienceDataManager.getScienceLevel('weapon_missile') : 0;
+    const shipFighterLevel = window.scienceDataManager ? window.scienceDataManager.getScienceLevel('ship_fighter') : 0;
+    const shipCruiserLevel = window.scienceDataManager ? window.scienceDataManager.getScienceLevel('ship_cruiser') : 0;
+
     // Створюємо HTML для наук
     let sciencesHtml = '';
     sciences.forEach(science => {
@@ -520,7 +526,7 @@ function renderScienceBlocks() {
                             text-align: center;
                             width: fit-content;
                             margin-top: -10px;
-                        " id="weapon-laser-level">0</div>
+                        " id="weapon-laser-level">${weaponLaserLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-laser-count" value="1" min="1" style="
                                 width: 35px;
@@ -550,7 +556,7 @@ function renderScienceBlocks() {
                             text-align: center;
                             width: fit-content;
                             margin-top: -10px;
-                        " id="weapon-missile-level">0</div>
+                        " id="weapon-missile-level">${weaponMissileLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-missile-count" value="1" min="1" style="
                                 width: 35px;
@@ -584,7 +590,7 @@ function renderScienceBlocks() {
                             text-align: center;
                             width: fit-content;
                             margin-top: -10px;
-                        " id="ship-fighter-level">0</div>
+                        " id="ship-fighter-level">${shipFighterLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-fighter-count" value="1" min="1" style="
                                 width: 35px;
@@ -614,7 +620,7 @@ function renderScienceBlocks() {
                             text-align: center;
                             width: fit-content;
                             margin-top: -10px;
-                        " id="ship-cruiser-level">0</div>
+                        " id="ship-cruiser-level">${shipCruiserLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-cruiser-count" value="1" min="1" style="
                                 width: 35px;
@@ -1060,7 +1066,7 @@ function showStudyTimer(scienceObj, level, estimatedTime) {
         timerWindow.style.border = '2px solid #1fa2c7';
         timerWindow.style.borderRadius = '4px';
         timerWindow.style.padding = '10px';
-        timerWindow.style.zIndex = '1000';
+        timerWindow.style.zIndex = '99999';
         timerWindow.style.color = 'white';
         timerWindow.style.fontFamily = 'monospace';
         timerWindow.style.minWidth = '200px';
@@ -1157,7 +1163,7 @@ function completeStudy(scienceId, level) {
                 }
             }
 
-            // Оновлюємо відображення наук, зберігаючи активну вкладку
+            // Оно��люємо відображення наук, збер��гаючи активну вкладку
             if (window.renderScienceBlocks) {
                 // Зберігаємо активну вкладку перед оновленням
                 const savedActiveTab = activeScienceTab;
