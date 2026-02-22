@@ -19,5 +19,8 @@
     "building_wood_cutter": 2,
     "building_house": 3,
     "building_warehouse": 2,
-    "building_stone_quarry": 5
+    "building_stone_quarry": 5,
+    "ship_fighter": 1,
+    "ship_cruiser": 1,
+    "weapon_laser": 1
 }

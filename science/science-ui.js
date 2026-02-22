@@ -534,7 +534,7 @@ function renderScienceBlocks() {
                                 margin-right: 5px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
@@ -564,7 +564,7 @@ function renderScienceBlocks() {
                                 margin-right: 5px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
                         </div>
                     </div>
                 </div>
@@ -598,7 +598,7 @@ function renderScienceBlocks() {
                                 margin-right: 5px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
@@ -628,7 +628,7 @@ function renderScienceBlocks() {
                                 margin-right: 5px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
                         </div>
                     </div>
                 </div>
@@ -853,6 +853,112 @@ function renderScienceBlocks() {
 
         // Викликаємо серверний метод для початку вивчення
         startStudyOnServer(`building_${buildingId}`, nextLevel, buildingObj);
+    };
+
+    // Функція для початку вивчення озброєння
+    window.startStudyForWeapon = function(weaponId, weaponName) {
+        // Отримуємо поточний рівень озброєння
+        const currentLevel = window.scienceDataManager.getScienceLevel(`weapon_${weaponId}`);
+        const nextLevel = currentLevel + 1;
+
+        // Отримуємо всі рівні наук для перевірки залежностей
+        const scienceLevels = window.scienceDataManager.getAllScienceLevels();
+
+        // Перевіряємо залежності для наступного рівня озброєння
+        let requirements = {
+            fulfilled: true,
+            requirements: []
+        };
+
+        if (weaponId === 'laser') {
+            // Для вивчення лазерної гармати: потрібен 1 рівень фізики на кожні 2 рівні зброї
+            const requiredPhysicsLevel = Math.ceil(nextLevel / 2);
+            requirements = {
+                fulfilled: scienceLevels.physics >= requiredPhysicsLevel,
+                requirements: [
+                    { science: 'Фізика', current: scienceLevels.physics, required: requiredPhysicsLevel }
+                ]
+            };
+        } else if (weaponId === 'missile') {
+            // Для вивчення ракетної установки: потрібен 1 рівень хімії на кожні 2 рівні зброї
+            const requiredChemistryLevel = Math.ceil(nextLevel / 2);
+            requirements = {
+                fulfilled: scienceLevels.chemistry >= requiredChemistryLevel,
+                requirements: [
+                    { science: 'Хімія', current: scienceLevels.chemistry, required: requiredChemistryLevel }
+                ]
+            };
+        }
+
+        // Якщо вимоги не виконані, не дозволяємо почати вивчення
+        if (!requirements.fulfilled) {
+            alert(`Недостатньо рівня науки!\n${requirements.requirements.map(r => `${r.science}: ${r.current}/${r.required}`).join('\n')}`);
+            return;
+        }
+
+        // Створюємо об'єкт озброєння для відображення
+        const weaponObj = {
+            id: `weapon_${weaponId}`,
+            name: weaponName,
+            icon: weaponId === 'laser' ? '🔫' : '🚀'
+        };
+
+        // Викликаємо серверний метод для початку вивчення
+        startStudyOnServer(`weapon_${weaponId}`, nextLevel, weaponObj);
+    };
+
+    // Функція для початку вивчення корабля
+    window.startStudyForShip = function(shipId, shipName) {
+        // Отримуємо поточний рівень корабля
+        const currentLevel = window.scienceDataManager.getScienceLevel(`ship_${shipId}`);
+        const nextLevel = currentLevel + 1;
+
+        // Отримуємо всі рівні наук для перевірки залежностей
+        const scienceLevels = window.scienceDataManager.getAllScienceLevels();
+
+        // Перевіряємо залежності для наступного рівня корабля
+        let requirements = {
+            fulfilled: true,
+            requirements: []
+        };
+
+        if (shipId === 'fighter') {
+            // Для вивчення винищувача: потрібен 1 рівень фізики на кожні 2 рівні корабля
+            const requiredPhysicsLevel = Math.ceil(nextLevel / 2);
+            requirements = {
+                fulfilled: scienceLevels.physics >= requiredPhysicsLevel,
+                requirements: [
+                    { science: 'Фізика', current: scienceLevels.physics, required: requiredPhysicsLevel }
+                ]
+            };
+        } else if (shipId === 'cruiser') {
+            // Для вивчення крейсера: потрібен 1 рівень фізики та 1 рівень хімії на кожні 2 рівні корабля
+            const requiredPhysicsLevel = Math.ceil(nextLevel / 2);
+            const requiredChemistryLevel = Math.ceil(nextLevel / 2);
+            requirements = {
+                fulfilled: scienceLevels.physics >= requiredPhysicsLevel && scienceLevels.chemistry >= requiredChemistryLevel,
+                requirements: [
+                    { science: 'Фізика', current: scienceLevels.physics, required: requiredPhysicsLevel },
+                    { science: 'Хімія', current: scienceLevels.chemistry, required: requiredChemistryLevel }
+                ]
+            };
+        }
+
+        // Якщо вимоги не виконані, не дозволяємо почати вивчення
+        if (!requirements.fulfilled) {
+            alert(`Недостатньо рівня науки!\n${requirements.requirements.map(r => `${r.science}: ${r.current}/${r.required}`).join('\n')}`);
+            return;
+        }
+
+        // Створюємо об'єкт корабля для відображення
+        const shipObj = {
+            id: `ship_${shipId}`,
+            name: shipName,
+            icon: shipId === 'fighter' ? '✈️' : '🚀'
+        };
+
+        // Викликаємо серверний метод для початку вивчення
+        startStudyOnServer(`ship_${shipId}`, nextLevel, shipObj);
     };
 
     // Додаємо можливість рухати вікно мишкою
