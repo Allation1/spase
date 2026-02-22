@@ -224,7 +224,6 @@ function renderTeraWindow() {
                             <div class="resources-info">
                                 <p>🔫 Лазерна гармата: <span id="tera-weapon-laser">0</span></p>
                                 <p>🚀 Ракета: <span id="tera-weapon-rocket">0</span></p>
-                                <p>⚔️ Плазмова гармата: <span id="tera-weapon-plasma">0</span></p>
                             </div>
                         </div>
                     </div>
@@ -1386,7 +1385,7 @@ async function cancelUpgrade(buildingId) {
             timerWindow.remove();
         }
 
-        console.log(`П��кращення для ${buildingId} скасовано`);
+        console.log(`П��кра��ення для ${buildingId} скасовано`);
     } catch (error) {
         console.error('Помилка при скасуванні покращення:', error);
     }
