@@ -101,6 +101,14 @@ function renderTeraWindow() {
                     padding: 5px 10px;
                     cursor: pointer;
                 ">Будівлі</button>
+                <button id="tera-production-tab-btn" style="
+                    background: #17607a;
+                    color: white;
+                    border: 1px solid #1fa2c7;
+                    border-radius: 4px 4px 0 0;
+                    padding: 5px 10px;
+                    cursor: pointer;
+                ">Виробництво</button>
             </div>
             <div id="tera-tabs-content" style="
                 padding: 10px;
@@ -185,6 +193,57 @@ function renderTeraWindow() {
                         <!-- Будівлі будуть додані тут динамічно -->
                     </div>
                 </div>
+                <div id="tera-production-tab-content" style="display: none;">
+                    <!-- Вкладки виробництва -->
+                    <div style="display: flex; margin-bottom: 10px;">
+                        <button id="tera-weapons-prod-tab-btn" style="
+                            background: #1fa2c7;
+                            color: white;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px 4px 0 0;
+                            padding: 5px 10px;
+                            cursor: pointer;
+                            margin-right: 2px;
+                        ">Зброя</button>
+                        <button id="tera-ammo-prod-tab-btn" style="
+                            background: #17607a;
+                            color: white;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px 4px 0 0;
+                            padding: 5px 10px;
+                            cursor: pointer;
+                        ">Боєприпаси</button>
+                    </div>
+                    <div id="tera-weapons-prod-content" style="
+                        padding: 10px;
+                        background: #134d5c;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 0 0 4px 4px;
+                    ">
+                        <div class="planet-content">
+                            <div class="resources-info">
+                                <p>🔫 Лазерна гармата: <span id="tera-weapon-laser">0</span></p>
+                                <p>🚀 Ракета: <span id="tera-weapon-rocket">0</span></p>
+                                <p>⚔️ Плазмова гармата: <span id="tera-weapon-plasma">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tera-ammo-prod-content" style="
+                        display: none;
+                        padding: 10px;
+                        background: #134d5c;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 0 0 4px 4px;
+                    ">
+                        <div class="planet-content">
+                            <div class="resources-info">
+                                <p>🔋 Енергокомірка: <span id="tera-ammo-energy">0</span></p>
+                                <p>💥 Бойова голівка: <span id="tera-ammo-warhead">0</span></p>
+                                <p>⚡ Плазмовий заряд: <span id="tera-ammo-plasma">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         `;
         document.body.appendChild(terraWindow);
@@ -218,6 +277,21 @@ function renderTeraWindow() {
 
         // Завантажити та відобразити будівлі
         loadAndRenderBuildings();
+    });
+
+    const productionTabBtn = document.getElementById('tera-production-tab-btn');
+    const productionTabContent = document.getElementById('tera-production-tab-content');
+
+    productionTabBtn.addEventListener('click', () => {
+        planetTabContent.style.display = 'none';
+        buildingsTabContent.style.display = 'none';
+        productionTabContent.style.display = 'block';
+        planetTabBtn.style.background = '#17607a';
+        buildingsTabBtn.style.background = '#17607a';
+        productionTabBtn.style.background = '#1fa2c7';
+
+        // Оновити відображення виробництва
+        updateProductionDisplay();
     });
 
     // Додаємо обробники для вкладок ресурсів
@@ -255,6 +329,26 @@ function renderTeraWindow() {
         populationResTabBtn.style.background = '#1fa2c7';
     });
 
+    // Додаємо обробники для вкладок виробництва
+    const weaponsProdTabBtn = document.getElementById('tera-weapons-prod-tab-btn');
+    const ammoProdTabBtn = document.getElementById('tera-ammo-prod-tab-btn');
+    const weaponsProdContent = document.getElementById('tera-weapons-prod-content');
+    const ammoProdContent = document.getElementById('tera-ammo-prod-content');
+
+    weaponsProdTabBtn.addEventListener('click', () => {
+        weaponsProdContent.style.display = 'block';
+        ammoProdContent.style.display = 'none';
+        weaponsProdTabBtn.style.background = '#1fa2c7';
+        ammoProdTabBtn.style.background = '#17607a';
+    });
+
+    ammoProdTabBtn.addEventListener('click', () => {
+        weaponsProdContent.style.display = 'none';
+        ammoProdContent.style.display = 'block';
+        weaponsProdTabBtn.style.background = '#17607a';
+        ammoProdTabBtn.style.background = '#1fa2c7';
+    });
+
     // Додаємо можливість рухати вікно мишкою
     let isDragging = false, offsetX = 0, offsetY = 0;
 
@@ -288,8 +382,10 @@ function renderTeraWindow() {
     // За замовчуванням показуємо вкладку планети
     planetTabContent.style.display = 'block';
     buildingsTabContent.style.display = 'none';
+    productionTabContent.style.display = 'none';
     planetTabBtn.style.background = '#1fa2c7';
     buildingsTabBtn.style.background = '#17607a';
+    productionTabBtn.style.background = '#17607a';
 
     // Оновити відображення ресурсів
     updateResourcesDisplay();
@@ -371,6 +467,57 @@ async function updateResourcesDisplay() {
         }
     } catch (error) {
         console.error('Помилка при отриманні даних планети Тера:', error);
+    }
+}
+
+// Функція для оновлення відображення виробництва
+async function updateProductionDisplay() {
+    try {
+        // Отримуємо дані з файлу production.json
+        const response = await fetch('/planets/tera/production.json');
+        let productionData = {};
+
+        if (response.ok) {
+            productionData = await response.json();
+        } else {
+            // Якщо файл не існує, використовуємо стандартні значення
+            productionData = {
+                weapons: {
+                    laser: 0,
+                    rocket: 0,
+                    plasma: 0
+                },
+                ammo: {
+                    energy: 0,
+                    warhead: 0,
+                    plasma: 0
+                }
+            };
+        }
+
+        // Оновлюємо значення зброї
+        if (document.getElementById('tera-weapon-laser')) {
+            document.getElementById('tera-weapon-laser').textContent = productionData.weapons?.laser || 0;
+        }
+        if (document.getElementById('tera-weapon-rocket')) {
+            document.getElementById('tera-weapon-rocket').textContent = productionData.weapons?.rocket || 0;
+        }
+        if (document.getElementById('tera-weapon-plasma')) {
+            document.getElementById('tera-weapon-plasma').textContent = productionData.weapons?.plasma || 0;
+        }
+
+        // Оновлюємо значення боєприпасів
+        if (document.getElementById('tera-ammo-energy')) {
+            document.getElementById('tera-ammo-energy').textContent = productionData.ammo?.energy || 0;
+        }
+        if (document.getElementById('tera-ammo-warhead')) {
+            document.getElementById('tera-ammo-warhead').textContent = productionData.ammo?.warhead || 0;
+        }
+        if (document.getElementById('tera-ammo-plasma')) {
+            document.getElementById('tera-ammo-plasma').textContent = productionData.ammo?.plasma || 0;
+        }
+    } catch (error) {
+        console.error('Помилка при отриманні даних виробництва:', error);
     }
 }
 
@@ -1241,7 +1388,7 @@ async function cancelUpgrade(buildingId) {
     }
 }
 
-// Експортуємо функцію в глобальну область
+// Експор��уємо функцію в глобальну область
 window.renderTeraWindow = renderTeraWindow;
 window.startBuilding = startBuilding;
 window.cancelBuilding = cancelBuilding;

@@ -1,0 +1,12 @@
+{
+  "weapons": {
+    "laser": 0,
+    "rocket": 0,
+    "plasma": 0
+  },
+  "ammo": {
+    "energy": 0,
+    "warhead": 0,
+    "plasma": 0
+  }
+}
