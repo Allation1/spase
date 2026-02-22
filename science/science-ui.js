@@ -62,7 +62,25 @@ function renderScienceBlocks() {
                 border-radius: 4px 4px 0 0;
                 padding: 5px 10px;
                 cursor: pointer;
+                margin-right: 2px;
             ">Будівлі</button>
+            <button id="weapons-tab-btn" style="
+                background: #17607a;
+                color: white;
+                border: 1px solid #1fa2c7;
+                border-radius: 4px 4px 0 0;
+                padding: 5px 10px;
+                cursor: pointer;
+                margin-right: 2px;
+            ">Озброєння</button>
+            <button id="ships-tab-btn" style="
+                background: #17607a;
+                color: white;
+                border: 1px solid #1fa2c7;
+                border-radius: 4px 4px 0 0;
+                padding: 5px 10px;
+                cursor: pointer;
+            ">Кораблі</button>
         </div>
         <div id="tabs-content" style="
             padding: 10px;
@@ -487,6 +505,134 @@ function renderScienceBlocks() {
                     </div>
                 </div>
             </div>
+            <div id="weapons-tab-content" style="display: none;">
+                <div id="weapons-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
+                    <div class="science-section" style="cursor: pointer; position: relative;">
+                        <div class="science-block-title">🔫 Лазерна гармата</div>
+                        <div class="science-level-indicator" style="
+                            background: #17607a;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            color: white;
+                            font-size: 0.6em;
+                            display: inline-block;
+                            text-align: center;
+                            width: fit-content;
+                            margin-top: -10px;
+                        " id="weapon-laser-level">0</div>
+                        <div class="science-controls" style="display: flex; align-items: center;">
+                            <input type="number" id="weapon-laser-count" value="1" min="1" style="
+                                width: 35px;
+                                height: 18px;
+                                background: #0e3a47;
+                                color: white;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin-right: 5px;
+                                -moz-appearance: textfield;
+                            ">
+                            <button class="study-btn" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                        </div>
+                    </div>
+                    <div class="science-section" style="cursor: pointer; position: relative;">
+                        <div class="science-block-title">🚀 Ракетна установка</div>
+                        <div class="science-level-indicator" style="
+                            background: #17607a;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            color: white;
+                            font-size: 0.6em;
+                            display: inline-block;
+                            text-align: center;
+                            width: fit-content;
+                            margin-top: -10px;
+                        " id="weapon-missile-level">0</div>
+                        <div class="science-controls" style="display: flex; align-items: center;">
+                            <input type="number" id="weapon-missile-count" value="1" min="1" style="
+                                width: 35px;
+                                height: 18px;
+                                background: #0e3a47;
+                                color: white;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin-right: 5px;
+                                -moz-appearance: textfield;
+                            ">
+                            <button class="study-btn" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ships-tab-content" style="display: none;">
+                <div id="ships-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
+                    <div class="science-section" style="cursor: pointer; position: relative;">
+                        <div class="science-block-title">✈️ Винищувач</div>
+                        <div class="science-level-indicator" style="
+                            background: #17607a;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            color: white;
+                            font-size: 0.6em;
+                            display: inline-block;
+                            text-align: center;
+                            width: fit-content;
+                            margin-top: -10px;
+                        " id="ship-fighter-level">0</div>
+                        <div class="science-controls" style="display: flex; align-items: center;">
+                            <input type="number" id="ship-fighter-count" value="1" min="1" style="
+                                width: 35px;
+                                height: 18px;
+                                background: #0e3a47;
+                                color: white;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin-right: 5px;
+                                -moz-appearance: textfield;
+                            ">
+                            <button class="study-btn" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                        </div>
+                    </div>
+                    <div class="science-section" style="cursor: pointer; position: relative;">
+                        <div class="science-block-title">🚀 Крейсер</div>
+                        <div class="science-level-indicator" style="
+                            background: #17607a;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            color: white;
+                            font-size: 0.6em;
+                            display: inline-block;
+                            text-align: center;
+                            width: fit-content;
+                            margin-top: -10px;
+                        " id="ship-cruiser-level">0</div>
+                        <div class="science-controls" style="display: flex; align-items: center;">
+                            <input type="number" id="ship-cruiser-count" value="1" min="1" style="
+                                width: 35px;
+                                height: 18px;
+                                background: #0e3a47;
+                                color: white;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin-right: 5px;
+                                -moz-appearance: textfield;
+                            ">
+                            <button class="study-btn" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     `;
 
@@ -511,6 +657,34 @@ function renderScienceBlocks() {
         buildingsTabContent.style.display = 'block';
         buildingsTabBtn.style.background = '#1fa2c7';
         basicTabBtn.style.background = '#17607a';
+    });
+
+    // Додаємо обробники для нових вкладок
+    const weaponsTabBtn = document.getElementById('weapons-tab-btn');
+    const shipsTabBtn = document.getElementById('ships-tab-btn');
+    const weaponsTabContent = document.getElementById('weapons-tab-content');
+    const shipsTabContent = document.getElementById('ships-tab-content');
+
+    weaponsTabBtn.addEventListener('click', () => {
+        basicTabContent.style.display = 'none';
+        buildingsTabContent.style.display = 'none';
+        weaponsTabContent.style.display = 'block';
+        shipsTabContent.style.display = 'none';
+        basicTabBtn.style.background = '#17607a';
+        buildingsTabBtn.style.background = '#17607a';
+        weaponsTabBtn.style.background = '#1fa2c7';
+        shipsTabBtn.style.background = '#17607a';
+    });
+
+    shipsTabBtn.addEventListener('click', () => {
+        basicTabContent.style.display = 'none';
+        buildingsTabContent.style.display = 'none';
+        weaponsTabContent.style.display = 'none';
+        shipsTabContent.style.display = 'block';
+        basicTabBtn.style.background = '#17607a';
+        buildingsTabBtn.style.background = '#17607a';
+        weaponsTabBtn.style.background = '#17607a';
+        shipsTabBtn.style.background = '#1fa2c7';
     });
 
     // Додаємо обробники для підказок
