@@ -262,8 +262,10 @@ function renderTeraWindow() {
     planetTabBtn.addEventListener('click', () => {
         planetTabContent.style.display = 'block';
         buildingsTabContent.style.display = 'none';
+        productionTabContent.style.display = 'none';
         planetTabBtn.style.background = '#1fa2c7';
         buildingsTabBtn.style.background = '#17607a';
+        productionTabBtn.style.background = '#17607a';
 
         // Оновити відображення ресурсів
         updateResourcesDisplay();
@@ -272,8 +274,10 @@ function renderTeraWindow() {
     buildingsTabBtn.addEventListener('click', () => {
         planetTabContent.style.display = 'none';
         buildingsTabContent.style.display = 'block';
+        productionTabContent.style.display = 'none';
         buildingsTabBtn.style.background = '#1fa2c7';
         planetTabBtn.style.background = '#17607a';
+        productionTabBtn.style.background = '#17607a';
 
         // Завантажити та відобразити будівлі
         loadAndRenderBuildings();
@@ -1382,7 +1386,7 @@ async function cancelUpgrade(buildingId) {
             timerWindow.remove();
         }
 
-        console.log(`Покращення для ${buildingId} скасовано`);
+        console.log(`П��кращення для ${buildingId} скасовано`);
     } catch (error) {
         console.error('Помилка при скасуванні покращення:', error);
     }
