@@ -50,6 +50,45 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.userSelect = '';
         });
     }
+
+    // Функціонал для вікна Проектів (кнопка 🏗️)
+    const projectsBtn = document.querySelectorAll('#buttons button')[7]; // Восьма кнопка (індекс 7)
+    const projectsWindow = document.getElementById('projects-window');
+
+    if (projectsBtn && projectsWindow) {
+        projectsBtn.addEventListener('click', function() {
+            if (projectsWindow.style.display === 'none' || projectsWindow.style.display === '') {
+                projectsWindow.style.display = 'block';
+                bringWindowToFront(projectsWindow);
+                renderProjects(); // Відобразити проекти при відкритті
+            } else {
+                projectsWindow.style.display = 'none';
+            }
+        });
+
+        // Додаємо можливість рухати вікно мишкою
+        let isDragging = false, offsetX = 0, offsetY = 0;
+
+        projectsWindow.querySelector('.science-window-title').addEventListener('mousedown', function(e) {
+            isDragging = true;
+            offsetX = e.clientX - projectsWindow.offsetLeft;
+            offsetY = e.clientY - projectsWindow.offsetTop;
+            document.body.style.userSelect = 'none';
+            bringWindowToFront(projectsWindow);
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                projectsWindow.style.left = (e.clientX - offsetX) + 'px';
+                projectsWindow.style.top = (e.clientY - offsetY) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            document.body.style.userSelect = '';
+        });
+    }
 });
 
 // Змінна для зберігання поточного обраного флоту
@@ -476,4 +515,61 @@ function closeFleetWindow() {
     if (fleetWindow) {
         fleetWindow.style.display = 'none';
     }
+}
+
+// Функція для закриття вікна Проектів
+function closeProjectsWindow() {
+    const projectsWindow = document.getElementById('projects-window');
+    if (projectsWindow) {
+        projectsWindow.style.display = 'none';
+    }
+}
+
+// Функція для відображення проектів
+function renderProjects() {
+    const projectsContent = document.getElementById('projects-content');
+    if (!projectsContent) return;
+
+    // Отримуємо рівень інженерного центру
+    let engineerCenterLevel = 0;
+    try {
+        const savedData = localStorage.getItem('scienceLevels');
+        if (savedData) {
+            const levels = JSON.parse(savedData);
+            engineerCenterLevel = levels.building_engineer_center || 0;
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні рівня інженерного центру:', e);
+    }
+
+    if (engineerCenterLevel === 0) {
+        projectsContent.innerHTML = `
+            <div style="padding: 20px; text-align: center; color: #aaa;">
+                <p>🚧 Для розробки проектів потрібен Інженерний центр</p>
+                <p>Побудуйте Інженерний центр у вкладці "Будівлі" на планеті Тера</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Відображаємо доступні проекти
+    projectsContent.innerHTML = `
+        <div style="padding: 20px;">
+            <h3 style="color: #1fa2c7; margin-bottom: 15px;">📋 Доступні проекти</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
+                <div class="science-section" style="background: #134d5c; border: 1px solid #1fa2c7; border-radius: 4px; padding: 15px;">
+                    <div style="font-size: 1.2em; margin-bottom: 10px;">🚀 Кораблі</div>
+                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 10px;">Дослідження космічного простору</div>
+                    <div style="color: #4ade80; font-size: 0.85em;">Рівень інженерного центру: ${engineerCenterLevel}</div>
+                    <button style="margin-top: 10px; padding: 8px 15px; background: #1fa2c7; color: white; border: none; border-radius: 4px; cursor: pointer;">Розробити</button>
+                </div>
+                <div class="science-section" style="background: #134d5c; border: 1px solid #1fa2c7; border-radius: 4px; padding: 15px;">
+                    <div style="font-size: 1.2em; margin-bottom: 10px;">🚀 Космічна станція</div>
+                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 10px;">Орбітальна дослідницька станція</div>
+                    <div style="color: #f59e0b; font-size: 0.85em;">Потрібен рівень: 3</div>
+                    <button style="margin-top: 10px; padding: 8px 15px; background: #555; color: #aaa; border: none; border-radius: 4px; cursor: not-allowed;" disabled>Заблоковано</button>
+                </div>
+            </div>
+        </div>
+    `;
 }
