@@ -595,20 +595,7 @@ function renderBuildings(buildingsData) {
         const buildingElement = document.createElement('div');
         buildingElement.className = 'science-section';
         buildingElement.style.cursor = 'pointer';
-        
-        // Для будівлі джерела додаємо відео між заголовком і кнопкою будувати
-        let videoHtml = '';
-        if (building.id === 'building_source') {
-            videoHtml = `
-                <div class="building-video-container" id="video-container-${building.id}">
-                    <video class="building-video" preload="auto" loop muted playsinline poster="video/001.mp4">
-                        <source src="video/001.mp4" type="video/mp4">
-                        Ваш браузер не підтримує відео.
-                    </video>
-                </div>
-            `;
-        }
-        
+
         buildingElement.innerHTML = `
             <div>
                 <div class="science-block-title" style="display: flex; align-items: center; position: relative; margin-bottom: 0px;">${building.icon} ${building.name}
@@ -639,7 +626,6 @@ function renderBuildings(buildingsData) {
                         " id="building-level-${building.id}">${level}</div>
                     </div>
                 </div>
-                ${videoHtml}
             </div>
             <div class="science-controls">
                 <input type="number" id="build-count-${building.id}" value="1" min="1" style="
@@ -718,36 +704,6 @@ function renderBuildings(buildingsData) {
                 button.addEventListener('mouseleave', () => {
                     tooltip.style.display = 'none';
                 });
-            }
-            
-            // Додаємо обробники для відео будівлі джерела
-            if (building.id === 'building_source') {
-                const videoContainer = document.getElementById(`video-container-${building.id}`);
-                if (videoContainer) {
-                    const video = videoContainer.querySelector('video');
-                    if (video) {
-                        // Завантажуємо перший кадр при відкритті
-                        video.load();
-                        video.muted = true; // Спочатку без звуку
-                        video.play().then(() => {
-                            video.pause(); // Зупиняємо на першому кадрі
-                            video.currentTime = 0;
-                        }).catch(() => {
-                            // Ігноруємо помилки автозапуску
-                        });
-
-                        videoContainer.addEventListener('mouseenter', () => {
-                            video.muted = false; // Увімкнути звук
-                            video.play();
-                        });
-
-                        videoContainer.addEventListener('mouseleave', () => {
-                            video.pause();
-                            video.currentTime = 0; // Повертаємо відео на початок
-                            video.muted = true; // Вимкнути звук
-                        });
-                    }
-                }
             }
         });
     }, 100); // Затримка для того, щоб елементи вже були додані до DOM
