@@ -169,8 +169,8 @@ function renderTeraWindow() {
                         border-radius: 0 0 4px 4px;
                     ">
                         <div class="planet-content">
-                            <div class="resources-info">
-                                <p>🔫 Лазерна гармата: <span id="tera-resource-laser">0</span></p>
+                            <div class="resources-info" id="tera-weapons-list">
+                                <!-- Зброя буде відображена динамічно -->
                             </div>
                         </div>
                     </div>
@@ -223,7 +223,64 @@ function renderTeraWindow() {
                         <div class="planet-content">
                             <div class="resources-info">
                                 <p>🔫 Лазерна гармата: <span id="tera-weapon-laser">0</span></p>
-                                <p>🚀 Ракета: <span id="tera-weapon-rocket">0</span></p>
+                            </div>
+                            <!-- Будівництво лазерних гармат -->
+                            <div style="margin-top: 15px; padding: 10px; background: #0e3a47; border: 1px solid #1fa2c7; border-radius: 4px;">
+                                <p style="margin-bottom: 10px; font-weight: bold;">🔨 Будівництво лазерної гармати</p>
+                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                    <label>
+                                        <span>Рівень (1-<span id="laser-max-level">10</span>):</span>
+                                        <input type="number" id="laser-build-level" min="1" value="1" style="
+                                            width: 70px;
+                                            margin-left: 5px;
+                                            padding: 5px;
+                                            background: #134d5c;
+                                            color: white;
+                                            border: 1px solid #1fa2c7;
+                                            border-radius: 4px;
+                                            text-align: center;
+                                        ">
+                                    </label>
+                                    <label>
+                                        <span>Кількість:</span>
+                                        <input type="number" id="laser-build-count" min="1" value="1" style="
+                                            width: 60px;
+                                            margin-left: 5px;
+                                            padding: 5px;
+                                            background: #134d5c;
+                                            color: white;
+                                            border: 1px solid #1fa2c7;
+                                            border-radius: 4px;
+                                            text-align: center;
+                                        ">
+                                    </label>
+                                    <button id="build-laser-btn" style="
+                                        padding: 5px 15px;
+                                        background: #1fa2c7;
+                                        color: white;
+                                        border: none;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                        font-weight: bold;
+                                    ">🔨 Будувати</button>
+                                    <span id="laser-build-time" style="color: #aaa; font-size: 12px;"></span>
+                                </div>
+                                <div id="laser-build-progress" style="
+                                    margin-top: 10px;
+                                    height: 20px;
+                                    background: #134d5c;
+                                    border: 1px solid #1fa2c7;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                    display: none;
+                                ">
+                                    <div id="laser-build-bar" style="
+                                        width: 0%;
+                                        height: 100%;
+                                        background: linear-gradient(90deg, #1fa2c7, #2ecc71);
+                                        transition: width 0.1s linear;
+                                    "></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -321,6 +378,9 @@ function renderTeraWindow() {
         basicResTabBtn.style.background = '#17607a';
         weaponsResTabBtn.style.background = '#1fa2c7';
         populationResTabBtn.style.background = '#17607a';
+
+        // Оновити відображення зброї
+        updateProductionDisplay();
     });
 
     populationResTabBtn.addEventListener('click', () => {
@@ -343,6 +403,9 @@ function renderTeraWindow() {
         ammoProdContent.style.display = 'none';
         weaponsProdTabBtn.style.background = '#1fa2c7';
         ammoProdTabBtn.style.background = '#17607a';
+
+        // Оновити максимальний рівень для будівництва
+        updateMaxLaserLevel();
     });
 
     ammoProdTabBtn.addEventListener('click', () => {
@@ -381,6 +444,12 @@ function renderTeraWindow() {
     closeBtn.onclick = () => {
         terraWindow.style.display = 'none';
     };
+
+    // Додаємо обробник для кнопки будівництва лазерної гармати
+    const buildLaserBtn = document.getElementById('build-laser-btn');
+    if (buildLaserBtn) {
+        buildLaserBtn.addEventListener('click', buildLaserWeapon);
+    }
 
     // За замовчуванням показуємо вкладку планети
     planetTabContent.style.display = 'block';
@@ -486,9 +555,12 @@ async function updateProductionDisplay() {
             // Якщо файл не існує, використовуємо стандартні значення
             productionData = {
                 weapons: {
-                    laser: 0,
-                    rocket: 0,
-                    plasma: 0
+                    laser: [
+                        {level: 1, count: 0}, {level: 2, count: 0}, {level: 3, count: 0},
+                        {level: 4, count: 0}, {level: 5, count: 0}, {level: 6, count: 0},
+                        {level: 7, count: 0}, {level: 8, count: 0}, {level: 9, count: 0},
+                        {level: 10, count: 0}
+                    ]
                 },
                 ammo: {
                     energy: 0,
@@ -498,15 +570,29 @@ async function updateProductionDisplay() {
             };
         }
 
-        // Оновлюємо значення зброї
+        // Оновлюємо значення зброї (загальна кількість для сумісності)
         if (document.getElementById('tera-weapon-laser')) {
-            document.getElementById('tera-weapon-laser').textContent = productionData.weapons?.laser || 0;
+            const totalLaser = productionData.weapons?.laser?.reduce((sum, l) => sum + (l.count || 0), 0) || 0;
+            document.getElementById('tera-weapon-laser').textContent = totalLaser;
         }
-        if (document.getElementById('tera-weapon-rocket')) {
-            document.getElementById('tera-weapon-rocket').textContent = productionData.weapons?.rocket || 0;
-        }
-        if (document.getElementById('tera-weapon-plasma')) {
-            document.getElementById('tera-weapon-plasma').textContent = productionData.weapons?.plasma || 0;
+
+        // Відображаємо тільки наявну зброю (count > 0) у вкладці "Ресурси → Зброя"
+        const weaponsList = document.getElementById('tera-weapons-list');
+        if (weaponsList && productionData.weapons?.laser && Array.isArray(productionData.weapons.laser)) {
+            const hasAnyWeapons = productionData.weapons.laser.some(l => l.count > 0);
+
+            if (hasAnyWeapons) {
+                // Фільтруємо тільки зброю з count > 0 і сортуємо за рівнем
+                const ownedWeapons = productionData.weapons.laser
+                    .filter(l => l.count > 0)
+                    .sort((a, b) => a.level - b.level);
+
+                weaponsList.innerHTML = ownedWeapons.map(l => 
+                    `<p>🔫 Лазерна гармата ${l.level}: <span style="color: #4ade80; font-weight: bold;">${l.count}</span></p>`
+                ).join('');
+            } else {
+                weaponsList.innerHTML = '<p style="color: #aaa;">Немає зброї</p>';
+            }
         }
 
         // Оновлюємо значення боєприпасів
@@ -521,6 +607,182 @@ async function updateProductionDisplay() {
         }
     } catch (error) {
         console.error('Помилка при отриманні даних виробництва:', error);
+    }
+}
+
+// Функція для оновлення максимального рівня лазерної гармати
+async function updateMaxLaserLevel() {
+    const maxLevelSpan = document.getElementById('laser-max-level');
+    const levelInput = document.getElementById('laser-build-level');
+
+    if (!maxLevelSpan || !levelInput) return;
+
+    let laserScienceLevel = 0;
+    try {
+        const response = await fetch('/api/science-levels');
+        if (response.ok) {
+            const levels = await response.json();
+            laserScienceLevel = levels.weapon_laser || 0;
+        } else {
+            const savedData = localStorage.getItem('scienceLevels');
+            if (savedData) {
+                const levels = JSON.parse(savedData);
+                laserScienceLevel = levels.weapon_laser || 0;
+            }
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні рівня науки лазерної гармати:', e);
+    }
+
+    maxLevelSpan.textContent = laserScienceLevel;
+    levelInput.max = laserScienceLevel;
+}
+
+// Функція для будівництва лазерної гармати
+async function buildLaserWeapon() {
+    const levelInput = document.getElementById('laser-build-level');
+    const countInput = document.getElementById('laser-build-count');
+    const buildTimeSpan = document.getElementById('laser-build-time');
+    const progressBar = document.getElementById('laser-build-progress');
+    const buildBar = document.getElementById('laser-build-bar');
+    const buildBtn = document.getElementById('build-laser-btn');
+    const maxLevelSpan = document.getElementById('laser-max-level');
+
+    // Отримуємо вивчений рівень науки "Лазерна гармата" (weapon_laser) з сервера
+    let laserScienceLevel = 0;
+    try {
+        const response = await fetch('/api/science-levels');
+        if (response.ok) {
+            const levels = await response.json();
+            laserScienceLevel = levels.weapon_laser || 0;
+            // Оновлюємо відображення максимального рівня
+            if (maxLevelSpan) {
+                maxLevelSpan.textContent = laserScienceLevel;
+            }
+        } else {
+            // Резерв: беремо з localStorage
+            const savedData = localStorage.getItem('scienceLevels');
+            if (savedData) {
+                const levels = JSON.parse(savedData);
+                laserScienceLevel = levels.weapon_laser || 0;
+                if (maxLevelSpan) {
+                    maxLevelSpan.textContent = laserScienceLevel;
+                }
+            }
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні рівня науки лазерної гармати:', e);
+        // Резерв: беремо з localStorage
+        const savedData = localStorage.getItem('scienceLevels');
+        if (savedData) {
+            const levels = JSON.parse(savedData);
+            laserScienceLevel = levels.weapon_laser || 0;
+            if (maxLevelSpan) {
+                maxLevelSpan.textContent = laserScienceLevel;
+            }
+        }
+    }
+
+    const selectedLevel = parseInt(levelInput.value);
+    const count = parseInt(countInput.value);
+
+    // Перевіряємо доступний рівень
+    if (selectedLevel > laserScienceLevel) {
+        alert(`❌ Недостатній рівень науки! Вивчено лазерний рівень: ${laserScienceLevel}, а потрібно: ${selectedLevel}`);
+        return;
+    }
+
+    if (selectedLevel < 1) {
+        alert('❌ Рівень має бути не менше 1');
+        return;
+    }
+
+    if (count < 1 || isNaN(count)) {
+        alert('❌ Введіть коректну кількість (мінімум 1)');
+        return;
+    }
+
+    // Розраховуємо час будівництва: 5с × рівень × кількість
+    const timePerUnit = selectedLevel * 5 * 1000; // мс
+    const totalTime = timePerUnit * count;
+
+    // Блокуємо кнопку
+    buildBtn.disabled = true;
+    buildBtn.style.background = '#555';
+    buildBtn.style.cursor = 'not-allowed';
+    progressBar.style.display = 'block';
+    buildBar.style.width = '0%';
+
+    let startTime = Date.now();
+    let remainingTime = totalTime;
+
+    const buildInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min((elapsed / totalTime) * 100, 100);
+        buildBar.style.width = progress + '%';
+
+        // Оновлюємо зворотний відлік
+        remainingTime = Math.max(totalTime - elapsed, 0);
+        const remainingSeconds = (remainingTime / 1000).toFixed(1);
+        buildTimeSpan.textContent = `⏱️ Залишилось: ${remainingSeconds}с`;
+
+        if (elapsed >= totalTime) {
+            clearInterval(buildInterval);
+            buildBtn.disabled = false;
+            buildBtn.style.background = '#1fa2c7';
+            buildBtn.style.cursor = 'pointer';
+            progressBar.style.display = 'none';
+            buildTimeSpan.textContent = '';
+
+            // Додаємо зброю у production.json
+            addLaserWeapons(selectedLevel, count);
+        }
+    }, 100);
+}
+
+// Функція для додавання лазерної зброї у production.json
+async function addLaserWeapons(level, count) {
+    try {
+        const response = await fetch('/planets/tera/production.json');
+        let productionData = {};
+
+        if (response.ok) {
+            productionData = await response.json();
+        } else {
+            productionData = {
+                weapons: {
+                    laser: [
+                        {level: 1, count: 0}, {level: 2, count: 0}, {level: 3, count: 0},
+                        {level: 4, count: 0}, {level: 5, count: 0}, {level: 6, count: 0},
+                        {level: 7, count: 0}, {level: 8, count: 0}, {level: 9, count: 0},
+                        {level: 10, count: 0}
+                    ]
+                },
+                ammo: { energy: 0, warhead: 0, plasma: 0 }
+            };
+        }
+
+        // Знаходимо потрібний рівень і додаємо кількість
+        const laserLevel = productionData.weapons.laser.find(l => l.level === level);
+        if (laserLevel) {
+            laserLevel.count += count;
+        }
+
+        // Зберігаємо оновлені дані
+        await fetch('/api/save-production', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(productionData)
+        });
+
+        console.log(`✅ Збудовано лазерних гармат ${level} рівня: ${count} шт.`);
+
+        // Невелика затримка перед оновленням відображення
+        setTimeout(() => {
+            updateProductionDisplay();
+        }, 100);
+    } catch (error) {
+        console.error('Помилка при збереженні виробництва:', error);
     }
 }
 
@@ -1102,7 +1364,7 @@ async function startUpgrade(buildingId, buildingName) {
                 centerLevel = levels.building_center || 0;
             }
         } catch (e) {
-            console.error('Помилка при отриманні рівня науки наукового центру:', e);
+            console.error('Помилка при отриманні рівня на��ки наукового центру:', e);
         }
 
         // Перевіряємо, чи не перевищує запит на покращення рівень відповідної науки
@@ -1130,10 +1392,10 @@ async function startUpgrade(buildingId, buildingName) {
             const targetLevel = currentLevel + levels;
 
             if (targetLevel > sourceLevel) {
-                return; // Просто виходимо, якщо умови не виконані
+                return; // Просто виходим��, якщо умови не в��конані
             }
         } else if (buildingId === 'building_stone_quarry') {
-            // Отримуємо рівень науки каменярні
+            // Отримуємо рівень науки кам��ня��ні
             let stoneQuarryScienceLevel = 0;
             try {
                 const savedData = localStorage.getItem('scienceLevels');

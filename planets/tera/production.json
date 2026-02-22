@@ -1,8 +1,47 @@
 {
   "weapons": {
-    "laser": 0,
-    "rocket": 0,
-    "plasma": 0
+    "laser": [
+      {
+        "level": 1,
+        "count": 6
+      },
+      {
+        "level": 2,
+        "count": 1
+      },
+      {
+        "level": 3,
+        "count": 1
+      },
+      {
+        "level": 4,
+        "count": 0
+      },
+      {
+        "level": 5,
+        "count": 3
+      },
+      {
+        "level": 6,
+        "count": 0
+      },
+      {
+        "level": 7,
+        "count": 0
+      },
+      {
+        "level": 8,
+        "count": 0
+      },
+      {
+        "level": 9,
+        "count": 0
+      },
+      {
+        "level": 10,
+        "count": 0
+      }
+    ]
   },
   "ammo": {
     "energy": 0,

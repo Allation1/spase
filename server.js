@@ -204,6 +204,25 @@ app.post('/api/save-science-levels', (req, res) => {
     }
 });
 
+// Ендпоінт для отримання рівнів наук
+app.get('/api/science-levels', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const scienceLevelsPath = path.join(__dirname, 'science', 'science-levels.json');
+
+    try {
+        if (fs.existsSync(scienceLevelsPath)) {
+            const scienceLevels = JSON.parse(fs.readFileSync(scienceLevelsPath, 'utf8'));
+            res.json(scienceLevels);
+        } else {
+            res.json({});
+        }
+    } catch (error) {
+        console.error('Помилка при отриманні рівнів наук:', error);
+        res.status(500).json({ success: false, message: 'Помилка при отриманні рівнів наук' });
+    }
+});
+
 // Ендпоінт для скасування вивчення науки
 app.post('/api/cancel-study', (req, res) => {
     if (activeStudy) {
@@ -219,6 +238,22 @@ app.post('/api/cancel-study', (req, res) => {
             success: false,
             message: 'Немає активного вивчення для скасування'
         });
+    }
+});
+
+// Ендпоінт для збереження виробництва
+app.post('/api/save-production', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const productionData = req.body;
+    const productionPath = path.join(__dirname, 'planets', 'tera', 'production.json');
+
+    try {
+        fs.writeFileSync(productionPath, JSON.stringify(productionData, null, 2));
+        res.json({ success: true, message: 'Виробництво збережено успішно' });
+    } catch (error) {
+        console.error('Помилка при збереженні виробництва:', error);
+        res.status(500).json({ success: false, message: 'Помилка при збереженні виробництва' });
     }
 });
 
