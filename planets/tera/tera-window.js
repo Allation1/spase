@@ -181,7 +181,7 @@ function renderTeraWindow() {
                     </div>
                 </div>
                 <div id="tera-buildings-tab-content" style="display: none;">
-                    <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
+                    <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px; max-height: 400px; overflow-y: auto; overflow-x: hidden;">
                         <!-- Будівлі будуть додані тут динамічно -->
                     </div>
                 </div>
@@ -470,11 +470,24 @@ function renderBuildings(buildingsData) {
                 console.error('Помилка при отриманні рівня науки складу:', e);
             }
             return currentLevel < warehouseScienceLevel; // Можна покращити, якщо поточний рівень менше рівня науки
+        } else if (buildingId === 'building_armory') {
+            // Для покращення зброярного заводу потрібен рівень науки зброярного заводу
+            let armoryScienceLevel = 0;
+            try {
+                const savedData = localStorage.getItem('scienceLevels');
+                if (savedData) {
+                    const levels = JSON.parse(savedData);
+                    armoryScienceLevel = levels.building_armory || 0;
+                }
+            } catch (e) {
+                console.error('Помилка при отриманні рівня науки зброярного заводу:', e);
+            }
+            return currentLevel < armoryScienceLevel; // Можна покращити, якщо поточний рівень менше рівня науки
         }
         return true; // Для інших будівель немає обмежень
     };
 
-    // Додаємо будівлі науковий центр, джерело, будинок, склад, каменярня та лісоруб
+    // Додаємо будівлі науковий центр, джерело, будинок, склад, каменярня, лісоруб та зброярний завод
     const buildings = [
         {
             id: 'building_center',
@@ -505,6 +518,11 @@ function renderBuildings(buildingsData) {
             id: 'building_wood_cutter',
             name: 'Лісоруб',
             icon: '🪵'
+        },
+        {
+            id: 'building_armory',
+            name: 'Зброярний завод',
+            icon: '🔫'
         }
     ];
 
@@ -558,6 +576,20 @@ function renderBuildings(buildingsData) {
                 console.error('Помилка при отриманні рівня науки складу:', e);
             }
             level = Math.min(level, warehouseLevel);
+        } else if (building.id === 'building_armory') {
+            // Отримуємо рівень науки зброярний завод
+            let armoryLevel = 0;
+            try {
+                // Спробуємо отримати рівень науки зброярний завод з localStorage
+                const savedData = localStorage.getItem('scienceLevels');
+                if (savedData) {
+                    const levels = JSON.parse(savedData);
+                    armoryLevel = levels.building_armory || 0;
+                }
+            } catch (e) {
+                console.error('Помилка при отриманні рівня науки зброярного заводу:', e);
+            }
+            level = Math.min(level, armoryLevel);
         }
 
         const buildingElement = document.createElement('div');
@@ -663,7 +695,8 @@ function renderBuildings(buildingsData) {
                       building.id === 'building_house' ? `<div>Рівень науки "Будинок": ${getScienceLevelFromLocalStorage('building_house')}</div>` :
                       building.id === 'building_warehouse' ? `<div>Рівень науки "Склад": ${getScienceLevelFromLocalStorage('building_warehouse')}</div>` :
                       building.id === 'building_stone_quarry' ? `<div>Рівень науки "Каменярня": ${getScienceLevelFromLocalStorage('stone_quarry_science')}</div>` :
-                      building.id === 'building_wood_cutter' ? `<div>Рівень науки "Лісоруб": ${getScienceLevelFromLocalStorage('wood_cutting_science')}</div>` : ''}
+                      building.id === 'building_wood_cutter' ? `<div>Рівень науки "Лісоруб": ${getScienceLevelFromLocalStorage('wood_cutting_science')}</div>` :
+                      building.id === 'building_armory' ? `<div>Рівень науки "Зброярний завод": ${getScienceLevelFromLocalStorage('building_armory')}</div>` : ''}
                 </div>` : ''}
             </div>
         `;
@@ -1067,6 +1100,25 @@ async function startUpgrade(buildingId, buildingName) {
             const targetLevel = currentLevel + levels;
 
             if (targetLevel > warehouseScienceLevel) {
+                return; // Просто виходимо, якщо умови не виконані
+            }
+        } else if (buildingId === 'building_armory') {
+            // Отримуємо рівень науки зброярного заводу
+            let armoryScienceLevel = 0;
+            try {
+                const savedData = localStorage.getItem('scienceLevels');
+                if (savedData) {
+                    const levels = JSON.parse(savedData);
+                    armoryScienceLevel = levels.building_armory || 0;
+                }
+            } catch (e) {
+                console.error('Помилка при отриманні рівня науки зброярного заводу:', e);
+            }
+
+            const currentLevel = buildingsData[buildingId].level;
+            const targetLevel = currentLevel + levels;
+
+            if (targetLevel > armoryScienceLevel) {
                 return; // Просто виходимо, якщо умови не виконані
             }
         }

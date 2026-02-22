@@ -34,5 +34,11 @@
     "level": 2,
     "construction_time": 0,
     "upgrade_time": 0
+  },
+  "building_armory": {
+    "count": 0,
+    "level": 0,
+    "construction_time": 0,
+    "upgrade_time": 0
   }
 }
