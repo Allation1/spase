@@ -62,7 +62,25 @@ function renderScienceBlocks() {
                 border-radius: 4px 4px 0 0;
                 padding: 5px 10px;
                 cursor: pointer;
+                margin-right: 2px;
             ">Будівлі</button>
+            <button id="weapons-tab-btn" style="
+                background: #17607a;
+                color: white;
+                border: 1px solid #1fa2c7;
+                border-radius: 4px 4px 0 0;
+                padding: 5px 10px;
+                cursor: pointer;
+                margin-right: 2px;
+            ">Озброєння</button>
+            <button id="ships-tab-btn" style="
+                background: #17607a;
+                color: white;
+                border: 1px solid #1fa2c7;
+                border-radius: 4px 4px 0 0;
+                padding: 5px 10px;
+                cursor: pointer;
+            ">Кораблі</button>
         </div>
         <div id="tabs-content" style="
             padding: 10px;
@@ -80,6 +98,12 @@ function renderScienceBlocks() {
     sciences.forEach(science => {
         scienceLevels[science.id] = window.scienceDataManager ? window.scienceDataManager.getScienceLevel(science.id) : 0;
     });
+
+    // Отримуємо рівні для озброєння та кораблів
+    const weaponLaserLevel = window.scienceDataManager ? window.scienceDataManager.getScienceLevel('weapon_laser') : 0;
+    const weaponMissileLevel = window.scienceDataManager ? window.scienceDataManager.getScienceLevel('weapon_missile') : 0;
+    const shipFighterLevel = window.scienceDataManager ? window.scienceDataManager.getScienceLevel('ship_fighter') : 0;
+    const shipCruiserLevel = window.scienceDataManager ? window.scienceDataManager.getScienceLevel('ship_cruiser') : 0;
 
     // Створюємо HTML для наук
     let sciencesHtml = '';
@@ -487,30 +511,199 @@ function renderScienceBlocks() {
                     </div>
                 </div>
             </div>
+            <div id="weapons-tab-content" style="display: none;">
+                <div id="weapons-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
+                    <div class="science-section" style="cursor: pointer; position: relative;">
+                        <div class="science-block-title">🔫 Лазерна гармата</div>
+                        <div class="science-level-indicator" style="
+                            background: #17607a;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            color: white;
+                            font-size: 0.6em;
+                            display: inline-block;
+                            text-align: center;
+                            width: fit-content;
+                            margin-top: -10px;
+                        " id="weapon-laser-level">${weaponLaserLevel}</div>
+                        <div class="science-controls" style="display: flex; align-items: center;">
+                            <input type="number" id="weapon-laser-count" value="1" min="1" style="
+                                width: 35px;
+                                height: 18px;
+                                background: #0e3a47;
+                                color: white;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin-right: 5px;
+                                -moz-appearance: textfield;
+                            ">
+                            <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                        </div>
+                    </div>
+                    <div class="science-section" style="cursor: pointer; position: relative;">
+                        <div class="science-block-title">🚀 Ракетна установка</div>
+                        <div class="science-level-indicator" style="
+                            background: #17607a;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            color: white;
+                            font-size: 0.6em;
+                            display: inline-block;
+                            text-align: center;
+                            width: fit-content;
+                            margin-top: -10px;
+                        " id="weapon-missile-level">${weaponMissileLevel}</div>
+                        <div class="science-controls" style="display: flex; align-items: center;">
+                            <input type="number" id="weapon-missile-count" value="1" min="1" style="
+                                width: 35px;
+                                height: 18px;
+                                background: #0e3a47;
+                                color: white;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin-right: 5px;
+                                -moz-appearance: textfield;
+                            ">
+                            <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ships-tab-content" style="display: none;">
+                <div id="ships-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
+                    <div class="science-section" style="cursor: pointer; position: relative;">
+                        <div class="science-block-title">✈️ Винищувач</div>
+                        <div class="science-level-indicator" style="
+                            background: #17607a;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            color: white;
+                            font-size: 0.6em;
+                            display: inline-block;
+                            text-align: center;
+                            width: fit-content;
+                            margin-top: -10px;
+                        " id="ship-fighter-level">${shipFighterLevel}</div>
+                        <div class="science-controls" style="display: flex; align-items: center;">
+                            <input type="number" id="ship-fighter-count" value="1" min="1" style="
+                                width: 35px;
+                                height: 18px;
+                                background: #0e3a47;
+                                color: white;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin-right: 5px;
+                                -moz-appearance: textfield;
+                            ">
+                            <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                        </div>
+                    </div>
+                    <div class="science-section" style="cursor: pointer; position: relative;">
+                        <div class="science-block-title">🚀 Крейсер</div>
+                        <div class="science-level-indicator" style="
+                            background: #17607a;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            padding: 2px 8px;
+                            color: white;
+                            font-size: 0.6em;
+                            display: inline-block;
+                            text-align: center;
+                            width: fit-content;
+                            margin-top: -10px;
+                        " id="ship-cruiser-level">${shipCruiserLevel}</div>
+                        <div class="science-controls" style="display: flex; align-items: center;">
+                            <input type="number" id="ship-cruiser-count" value="1" min="1" style="
+                                width: 35px;
+                                height: 18px;
+                                background: #0e3a47;
+                                color: white;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin-right: 5px;
+                                -moz-appearance: textfield;
+                            ">
+                            <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     `;
 
-    // Встановлюємо вміст вікна
+// Змінна для зберігання активної вкладки
+let activeScienceTab = 'basic';
+
+// Встановлюємо вміст вікна
     content.innerHTML = tabsHtml + sciencesHtml + buildingsHtml;
 
     // Додаємо обробники для вкладок
     const basicTabBtn = document.getElementById('basic-tab-btn');
     const buildingsTabBtn = document.getElementById('buildings-tab-btn');
+    const weaponsTabBtn = document.getElementById('weapons-tab-btn');
+    const shipsTabBtn = document.getElementById('ships-tab-btn');
     const basicTabContent = document.getElementById('basic-tab-content');
     const buildingsTabContent = document.getElementById('buildings-tab-content');
+    const weaponsTabContent = document.getElementById('weapons-tab-content');
+    const shipsTabContent = document.getElementById('ships-tab-content');
 
     basicTabBtn.addEventListener('click', () => {
         basicTabContent.style.display = 'block';
         buildingsTabContent.style.display = 'none';
+        weaponsTabContent.style.display = 'none';
+        shipsTabContent.style.display = 'none';
         basicTabBtn.style.background = '#1fa2c7';
         buildingsTabBtn.style.background = '#17607a';
+        weaponsTabBtn.style.background = '#17607a';
+        shipsTabBtn.style.background = '#17607a';
+        activeScienceTab = 'basic';
     });
 
     buildingsTabBtn.addEventListener('click', () => {
         basicTabContent.style.display = 'none';
         buildingsTabContent.style.display = 'block';
-        buildingsTabBtn.style.background = '#1fa2c7';
+        weaponsTabContent.style.display = 'none';
+        shipsTabContent.style.display = 'none';
         basicTabBtn.style.background = '#17607a';
+        buildingsTabBtn.style.background = '#1fa2c7';
+        weaponsTabBtn.style.background = '#17607a';
+        shipsTabBtn.style.background = '#17607a';
+        activeScienceTab = 'buildings';
+    });
+
+    weaponsTabBtn.addEventListener('click', () => {
+        basicTabContent.style.display = 'none';
+        buildingsTabContent.style.display = 'none';
+        weaponsTabContent.style.display = 'block';
+        shipsTabContent.style.display = 'none';
+        basicTabBtn.style.background = '#17607a';
+        buildingsTabBtn.style.background = '#17607a';
+        weaponsTabBtn.style.background = '#1fa2c7';
+        shipsTabBtn.style.background = '#17607a';
+        activeScienceTab = 'weapons';
+    });
+
+    shipsTabBtn.addEventListener('click', () => {
+        basicTabContent.style.display = 'none';
+        buildingsTabContent.style.display = 'none';
+        weaponsTabContent.style.display = 'none';
+        shipsTabContent.style.display = 'block';
+        basicTabBtn.style.background = '#17607a';
+        buildingsTabBtn.style.background = '#17607a';
+        weaponsTabBtn.style.background = '#17607a';
+        shipsTabBtn.style.background = '#1fa2c7';
+        activeScienceTab = 'ships';
     });
 
     // Додаємо обробники для підказок
@@ -681,6 +874,112 @@ function renderScienceBlocks() {
         startStudyOnServer(`building_${buildingId}`, nextLevel, buildingObj);
     };
 
+    // Функція для початку вивчення озброєння
+    window.startStudyForWeapon = function(weaponId, weaponName) {
+        // Отримуємо поточний рівень озброєння
+        const currentLevel = window.scienceDataManager.getScienceLevel(`weapon_${weaponId}`);
+        const nextLevel = currentLevel + 1;
+
+        // Отримуємо всі рівні наук для перевірки залежностей
+        const scienceLevels = window.scienceDataManager.getAllScienceLevels();
+
+        // Перевіряємо залежності для наступного рівня озброєння
+        let requirements = {
+            fulfilled: true,
+            requirements: []
+        };
+
+        if (weaponId === 'laser') {
+            // Для вивчення лазерної гармати: потрібен 1 рівень фізики на кожні 2 рівні зброї
+            const requiredPhysicsLevel = Math.ceil(nextLevel / 2);
+            requirements = {
+                fulfilled: scienceLevels.physics >= requiredPhysicsLevel,
+                requirements: [
+                    { science: 'Фізика', current: scienceLevels.physics, required: requiredPhysicsLevel }
+                ]
+            };
+        } else if (weaponId === 'missile') {
+            // Для вивчення ракетної установки: потрібен 1 рівень хімії на кожні 2 рівні зброї
+            const requiredChemistryLevel = Math.ceil(nextLevel / 2);
+            requirements = {
+                fulfilled: scienceLevels.chemistry >= requiredChemistryLevel,
+                requirements: [
+                    { science: 'Хімія', current: scienceLevels.chemistry, required: requiredChemistryLevel }
+                ]
+            };
+        }
+
+        // Якщо вимоги не виконані, не дозволяємо почати вивчення
+        if (!requirements.fulfilled) {
+            alert(`Недостатньо рівня науки!\n${requirements.requirements.map(r => `${r.science}: ${r.current}/${r.required}`).join('\n')}`);
+            return;
+        }
+
+        // Створюємо об'єкт озброєння для відображення
+        const weaponObj = {
+            id: `weapon_${weaponId}`,
+            name: weaponName,
+            icon: weaponId === 'laser' ? '🔫' : '🚀'
+        };
+
+        // Викликаємо серверний метод для початку вивчення
+        startStudyOnServer(`weapon_${weaponId}`, nextLevel, weaponObj);
+    };
+
+    // Функція для початку вивчення корабля
+    window.startStudyForShip = function(shipId, shipName) {
+        // Отримуємо поточний рівень корабля
+        const currentLevel = window.scienceDataManager.getScienceLevel(`ship_${shipId}`);
+        const nextLevel = currentLevel + 1;
+
+        // Отримуємо всі рівні наук для перевірки залежностей
+        const scienceLevels = window.scienceDataManager.getAllScienceLevels();
+
+        // Перевіряємо залежності для наступного рівня корабля
+        let requirements = {
+            fulfilled: true,
+            requirements: []
+        };
+
+        if (shipId === 'fighter') {
+            // Для вивчення винищувача: потрібен 1 рівень фізики на кожні 2 рівні корабля
+            const requiredPhysicsLevel = Math.ceil(nextLevel / 2);
+            requirements = {
+                fulfilled: scienceLevels.physics >= requiredPhysicsLevel,
+                requirements: [
+                    { science: 'Фізика', current: scienceLevels.physics, required: requiredPhysicsLevel }
+                ]
+            };
+        } else if (shipId === 'cruiser') {
+            // Для вивчення крейсера: потрібен 1 рівень фізики та 1 рівень хімії на кожні 2 рівні корабля
+            const requiredPhysicsLevel = Math.ceil(nextLevel / 2);
+            const requiredChemistryLevel = Math.ceil(nextLevel / 2);
+            requirements = {
+                fulfilled: scienceLevels.physics >= requiredPhysicsLevel && scienceLevels.chemistry >= requiredChemistryLevel,
+                requirements: [
+                    { science: 'Фізика', current: scienceLevels.physics, required: requiredPhysicsLevel },
+                    { science: 'Хімія', current: scienceLevels.chemistry, required: requiredChemistryLevel }
+                ]
+            };
+        }
+
+        // Якщо вимоги не виконані, не дозволяємо почати вивчення
+        if (!requirements.fulfilled) {
+            alert(`Недостатньо рівня науки!\n${requirements.requirements.map(r => `${r.science}: ${r.current}/${r.required}`).join('\n')}`);
+            return;
+        }
+
+        // Створюємо об'єкт корабля для відображення
+        const shipObj = {
+            id: `ship_${shipId}`,
+            name: shipName,
+            icon: shipId === 'fighter' ? '✈️' : '🚀'
+        };
+
+        // Викликаємо серверний метод для початку вивчення
+        startStudyOnServer(`ship_${shipId}`, nextLevel, shipObj);
+    };
+
     // Додаємо можливість рухати вікно мишкою
     let isDragging = false;
     let initialX = 0;
@@ -767,7 +1066,7 @@ function showStudyTimer(scienceObj, level, estimatedTime) {
         timerWindow.style.border = '2px solid #1fa2c7';
         timerWindow.style.borderRadius = '4px';
         timerWindow.style.padding = '10px';
-        timerWindow.style.zIndex = '1000';
+        timerWindow.style.zIndex = '99999';
         timerWindow.style.color = 'white';
         timerWindow.style.fontFamily = 'monospace';
         timerWindow.style.minWidth = '200px';
@@ -837,26 +1136,114 @@ function completeStudy(scienceId, level) {
                 window.scienceDataManager.setScienceLevel(scienceId, currentLevel + 1);
             }
 
-            // Оновлюємо відображення наук, зберігаючи активну вкладку
+            // Оновлюємо індикатор рівня безпосередньо
+            const levelIndicator = document.getElementById(`level-indicator-${scienceId}`);
+            if (levelIndicator && window.scienceDataManager) {
+                const newLevel = window.scienceDataManager.getScienceLevel(scienceId);
+                levelIndicator.textContent = newLevel;
+            }
+
+            // Оновлюємо індикатори для озброєння та кораблів
+            if (scienceId.startsWith('weapon_') || scienceId.startsWith('ship_')) {
+                if (window.scienceDataManager) {
+                    const laserLevel = window.scienceDataManager.getScienceLevel('weapon_laser');
+                    const missileLevel = window.scienceDataManager.getScienceLevel('weapon_missile');
+                    const fighterLevel = window.scienceDataManager.getScienceLevel('ship_fighter');
+                    const cruiserLevel = window.scienceDataManager.getScienceLevel('ship_cruiser');
+                    
+                    const laserIndicator = document.getElementById('weapon-laser-level');
+                    const missileIndicator = document.getElementById('weapon-missile-level');
+                    const fighterIndicator = document.getElementById('ship-fighter-level');
+                    const cruiserIndicator = document.getElementById('ship-cruiser-level');
+                    
+                    if (laserIndicator) laserIndicator.textContent = laserLevel || 0;
+                    if (missileIndicator) missileIndicator.textContent = missileLevel || 0;
+                    if (fighterIndicator) fighterIndicator.textContent = fighterLevel || 0;
+                    if (cruiserIndicator) cruiserIndicator.textContent = cruiserLevel || 0;
+                }
+            }
+
+            // Оно��люємо відображення наук, збер��гаючи активну вкладку
             if (window.renderScienceBlocks) {
                 // Зберігаємо активну вкладку перед оновленням
-                const activeTab = document.getElementById('buildings-tab-content')?.style.display === 'block' ? 'buildings' : 'basic';
+                const savedActiveTab = activeScienceTab;
                 window.renderScienceBlocks();
 
                 // Відновлюємо активну вкладку після оновлення
                 setTimeout(() => {
-                    if (activeTab === 'buildings') {
-                        const basicTabBtn = document.getElementById('basic-tab-btn');
-                        const buildingsTabBtn = document.getElementById('buildings-tab-btn');
-                        const basicTabContent = document.getElementById('basic-tab-content');
-                        const buildingsTabContent = document.getElementById('buildings-tab-content');
+                    const basicTabBtn = document.getElementById('basic-tab-btn');
+                    const buildingsTabBtn = document.getElementById('buildings-tab-btn');
+                    const weaponsTabBtn = document.getElementById('weapons-tab-btn');
+                    const shipsTabBtn = document.getElementById('ships-tab-btn');
+                    const basicTabContent = document.getElementById('basic-tab-content');
+                    const buildingsTabContent = document.getElementById('buildings-tab-content');
+                    const weaponsTabContent = document.getElementById('weapons-tab-content');
+                    const shipsTabContent = document.getElementById('ships-tab-content');
 
-                        if (basicTabContent && buildingsTabContent) {
-                            basicTabContent.style.display = 'none';
-                            buildingsTabContent.style.display = 'block';
-                            if (buildingsTabBtn) buildingsTabBtn.style.background = '#1fa2c7';
-                            if (basicTabBtn) basicTabBtn.style.background = '#17607a';
-                        }
+                    // Скидаємо всі вкладки
+                    if (basicTabContent) basicTabContent.style.display = 'none';
+                    if (buildingsTabContent) buildingsTabContent.style.display = 'none';
+                    if (weaponsTabContent) weaponsTabContent.style.display = 'none';
+                    if (shipsTabContent) shipsTabContent.style.display = 'none';
+                    if (basicTabBtn) basicTabBtn.style.background = '#17607a';
+                    if (buildingsTabBtn) buildingsTabBtn.style.background = '#17607a';
+                    if (weaponsTabBtn) weaponsTabBtn.style.background = '#17607a';
+                    if (shipsTabBtn) shipsTabBtn.style.background = '#17607a';
+
+                    // Відновлюємо активну вкладку
+                    if (savedActiveTab === 'basic' && basicTabContent && basicTabBtn) {
+                        basicTabContent.style.display = 'block';
+                        basicTabBtn.style.background = '#1fa2c7';
+                    } else if (savedActiveTab === 'buildings' && buildingsTabContent && buildingsTabBtn) {
+                        buildingsTabContent.style.display = 'block';
+                        buildingsTabBtn.style.background = '#1fa2c7';
+                    } else if (savedActiveTab === 'weapons' && weaponsTabContent && weaponsTabBtn) {
+                        weaponsTabContent.style.display = 'block';
+                        weaponsTabBtn.style.background = '#1fa2c7';
+                    } else if (savedActiveTab === 'ships' && shipsTabContent && shipsTabBtn) {
+                        shipsTabContent.style.display = 'block';
+                        shipsTabBtn.style.background = '#1fa2c7';
+                    }
+
+                    // Оновлюємо індикатори рівнів для всіх вкладок
+                    if (window.scienceDataManager) {
+                        // Оновлюємо індикатори для озброєння
+                        const laserLevel = window.scienceDataManager.getScienceLevel('weapon_laser');
+                        const missileLevel = window.scienceDataManager.getScienceLevel('weapon_missile');
+                        const laserIndicator = document.getElementById('weapon-laser-level');
+                        const missileIndicator = document.getElementById('weapon-missile-level');
+                        if (laserIndicator) laserIndicator.textContent = laserLevel || 0;
+                        if (missileIndicator) missileIndicator.textContent = missileLevel || 0;
+
+                        // Оновлюємо індикатори для кораблів
+                        const fighterLevel = window.scienceDataManager.getScienceLevel('ship_fighter');
+                        const cruiserLevel = window.scienceDataManager.getScienceLevel('ship_cruiser');
+                        const fighterIndicator = document.getElementById('ship-fighter-level');
+                        const cruiserIndicator = document.getElementById('ship-cruiser-level');
+                        if (fighterIndicator) fighterIndicator.textContent = fighterLevel || 0;
+                        if (cruiserIndicator) cruiserIndicator.textContent = cruiserLevel || 0;
+
+                        // Оновлюємо індикатори для будівель
+                        const centerLevel = window.scienceDataManager.getScienceLevel('building_center');
+                        const sourceLevel = window.scienceDataManager.getScienceLevel('building_source');
+                        const houseLevel = window.scienceDataManager.getScienceLevel('building_house');
+                        const warehouseLevel = window.scienceDataManager.getScienceLevel('building_warehouse');
+                        const stoneQuarryLevel = window.scienceDataManager.getScienceLevel('building_stone_quarry');
+                        const woodCutterLevel = window.scienceDataManager.getScienceLevel('building_wood_cutter');
+
+                        const centerIndicator = document.getElementById('building-level-center-indicator');
+                        const sourceIndicator = document.getElementById('building-level-source-indicator');
+                        const houseIndicator = document.getElementById('building-level-house-indicator');
+                        const warehouseIndicator = document.getElementById('building-level-warehouse-indicator');
+                        const stoneQuarryIndicator = document.getElementById('building-level-stone-quarry-indicator');
+                        const woodCutterIndicator = document.getElementById('building-level-wood-cutter-indicator');
+
+                        if (centerIndicator) centerIndicator.textContent = centerLevel || 0;
+                        if (sourceIndicator) sourceIndicator.textContent = sourceLevel || 0;
+                        if (houseIndicator) houseIndicator.textContent = houseLevel || 0;
+                        if (warehouseIndicator) warehouseIndicator.textContent = warehouseLevel || 0;
+                        if (stoneQuarryIndicator) stoneQuarryIndicator.textContent = stoneQuarryLevel || 0;
+                        if (woodCutterIndicator) woodCutterIndicator.textContent = woodCutterLevel || 0;
                     }
                 }, 100); // Невелика затримка для того, щоб DOM оновився
             }
@@ -893,23 +1280,84 @@ window.cancelStudy = function() {
             // Оновлюємо відображення наук, зберігаючи активну вкладку
             if (window.renderScienceBlocks) {
                 // Зберігаємо активну вкладку перед оновленням
-                const activeTab = document.getElementById('buildings-tab-content')?.style.display === 'block' ? 'buildings' : 'basic';
+                const savedActiveTab = activeScienceTab;
                 window.renderScienceBlocks();
 
                 // Відновлюємо активну вкладку після оновлення
                 setTimeout(() => {
-                    if (activeTab === 'buildings') {
-                        const basicTabBtn = document.getElementById('basic-tab-btn');
-                        const buildingsTabBtn = document.getElementById('buildings-tab-btn');
-                        const basicTabContent = document.getElementById('basic-tab-content');
-                        const buildingsTabContent = document.getElementById('buildings-tab-content');
+                    const basicTabBtn = document.getElementById('basic-tab-btn');
+                    const buildingsTabBtn = document.getElementById('buildings-tab-btn');
+                    const weaponsTabBtn = document.getElementById('weapons-tab-btn');
+                    const shipsTabBtn = document.getElementById('ships-tab-btn');
+                    const basicTabContent = document.getElementById('basic-tab-content');
+                    const buildingsTabContent = document.getElementById('buildings-tab-content');
+                    const weaponsTabContent = document.getElementById('weapons-tab-content');
+                    const shipsTabContent = document.getElementById('ships-tab-content');
 
-                        if (basicTabContent && buildingsTabContent) {
-                            basicTabContent.style.display = 'none';
-                            buildingsTabContent.style.display = 'block';
-                            if (buildingsTabBtn) buildingsTabBtn.style.background = '#1fa2c7';
-                            if (basicTabBtn) basicTabBtn.style.background = '#17607a';
-                        }
+                    // Скидаємо всі вкладки
+                    if (basicTabContent) basicTabContent.style.display = 'none';
+                    if (buildingsTabContent) buildingsTabContent.style.display = 'none';
+                    if (weaponsTabContent) weaponsTabContent.style.display = 'none';
+                    if (shipsTabContent) shipsTabContent.style.display = 'none';
+                    if (basicTabBtn) basicTabBtn.style.background = '#17607a';
+                    if (buildingsTabBtn) buildingsTabBtn.style.background = '#17607a';
+                    if (weaponsTabBtn) weaponsTabBtn.style.background = '#17607a';
+                    if (shipsTabBtn) shipsTabBtn.style.background = '#17607a';
+
+                    // Відновлюємо активну вкладку
+                    if (savedActiveTab === 'basic' && basicTabContent && basicTabBtn) {
+                        basicTabContent.style.display = 'block';
+                        basicTabBtn.style.background = '#1fa2c7';
+                    } else if (savedActiveTab === 'buildings' && buildingsTabContent && buildingsTabBtn) {
+                        buildingsTabContent.style.display = 'block';
+                        buildingsTabBtn.style.background = '#1fa2c7';
+                    } else if (savedActiveTab === 'weapons' && weaponsTabContent && weaponsTabBtn) {
+                        weaponsTabContent.style.display = 'block';
+                        weaponsTabBtn.style.background = '#1fa2c7';
+                    } else if (savedActiveTab === 'ships' && shipsTabContent && shipsTabBtn) {
+                        shipsTabContent.style.display = 'block';
+                        shipsTabBtn.style.background = '#1fa2c7';
+                    }
+
+                    // Оновлюємо індикатори рівнів для всіх вкладок
+                    if (window.scienceDataManager) {
+                        // Оновлюємо індикатори для озброєння
+                        const laserLevel = window.scienceDataManager.getScienceLevel('weapon_laser');
+                        const missileLevel = window.scienceDataManager.getScienceLevel('weapon_missile');
+                        const laserIndicator = document.getElementById('weapon-laser-level');
+                        const missileIndicator = document.getElementById('weapon-missile-level');
+                        if (laserIndicator) laserIndicator.textContent = laserLevel || 0;
+                        if (missileIndicator) missileIndicator.textContent = missileLevel || 0;
+
+                        // Оновлюємо індикатори для кораблів
+                        const fighterLevel = window.scienceDataManager.getScienceLevel('ship_fighter');
+                        const cruiserLevel = window.scienceDataManager.getScienceLevel('ship_cruiser');
+                        const fighterIndicator = document.getElementById('ship-fighter-level');
+                        const cruiserIndicator = document.getElementById('ship-cruiser-level');
+                        if (fighterIndicator) fighterIndicator.textContent = fighterLevel || 0;
+                        if (cruiserIndicator) cruiserIndicator.textContent = cruiserLevel || 0;
+
+                        // Оновлюємо індикатори для будівель
+                        const centerLevel = window.scienceDataManager.getScienceLevel('building_center');
+                        const sourceLevel = window.scienceDataManager.getScienceLevel('building_source');
+                        const houseLevel = window.scienceDataManager.getScienceLevel('building_house');
+                        const warehouseLevel = window.scienceDataManager.getScienceLevel('building_warehouse');
+                        const stoneQuarryLevel = window.scienceDataManager.getScienceLevel('building_stone_quarry');
+                        const woodCutterLevel = window.scienceDataManager.getScienceLevel('building_wood_cutter');
+
+                        const centerIndicator = document.getElementById('building-level-center-indicator');
+                        const sourceIndicator = document.getElementById('building-level-source-indicator');
+                        const houseIndicator = document.getElementById('building-level-house-indicator');
+                        const warehouseIndicator = document.getElementById('building-level-warehouse-indicator');
+                        const stoneQuarryIndicator = document.getElementById('building-level-stone-quarry-indicator');
+                        const woodCutterIndicator = document.getElementById('building-level-wood-cutter-indicator');
+
+                        if (centerIndicator) centerIndicator.textContent = centerLevel || 0;
+                        if (sourceIndicator) sourceIndicator.textContent = sourceLevel || 0;
+                        if (houseIndicator) houseIndicator.textContent = houseLevel || 0;
+                        if (warehouseIndicator) warehouseIndicator.textContent = warehouseLevel || 0;
+                        if (stoneQuarryIndicator) stoneQuarryIndicator.textContent = stoneQuarryLevel || 0;
+                        if (woodCutterIndicator) woodCutterIndicator.textContent = woodCutterLevel || 0;
                     }
                 }, 100); // Невелика затримка для того, щоб DOM оновився
             }

@@ -110,12 +110,73 @@ function renderTeraWindow() {
                 min-height: 200px;
             ">
                 <div id="tera-planet-tab-content" style="display: block;">
-                    <div class="planet-content">
-                        <div class="resources-info">
-                            <p>Населення: <span id="tera-resource-population">${terraData.resources['Населення']}</span></p>
-                            <p>Вода: <span id="tera-resource-water">${terraData.resources['Вода']}</span></p>
-                            <p>Деревина: <span id="tera-resource-wood">${terraData.resources['Деревина']}</span></p>
-                            <p>Каміння: <span id="tera-resource-stone">${terraData.resources['Каміння']}</span></p>
+                    <!-- Вкладки ресурсів -->
+                    <div style="display: flex; margin-bottom: 10px;">
+                        <button id="tera-basic-res-tab-btn" style="
+                            background: #1fa2c7;
+                            color: white;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px 4px 0 0;
+                            padding: 5px 10px;
+                            cursor: pointer;
+                            margin-right: 2px;
+                        ">Базові</button>
+                        <button id="tera-weapons-res-tab-btn" style="
+                            background: #17607a;
+                            color: white;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px 4px 0 0;
+                            padding: 5px 10px;
+                            cursor: pointer;
+                            margin-right: 2px;
+                        ">Зброя</button>
+                        <button id="tera-population-res-tab-btn" style="
+                            background: #17607a;
+                            color: white;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px 4px 0 0;
+                            padding: 5px 10px;
+                            cursor: pointer;
+                        ">Населення</button>
+                    </div>
+                    <div id="tera-basic-res-content" style="
+                        padding: 10px;
+                        background: #134d5c;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 0 0 4px 4px;
+                    ">
+                        <div class="planet-content">
+                            <div class="resources-info">
+                                <p>💧 Вода: <span id="tera-resource-water">${terraData.resources['Вода']}</span></p>
+                                <p>🪵 Деревина: <span id="tera-resource-wood">${terraData.resources['Деревина']}</span></p>
+                                <p>🪨 Каміння: <span id="tera-resource-stone">${terraData.resources['Каміння']}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tera-weapons-res-content" style="
+                        display: none;
+                        padding: 10px;
+                        background: #134d5c;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 0 0 4px 4px;
+                    ">
+                        <div class="planet-content">
+                            <div class="resources-info">
+                                <p>🔫 Лазерна гармата: <span id="tera-resource-laser">0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tera-population-res-content" style="
+                        display: none;
+                        padding: 10px;
+                        background: #134d5c;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 0 0 4px 4px;
+                    ">
+                        <div class="planet-content">
+                            <div class="resources-info">
+                                <p>👥 Населення: <span id="tera-resource-population">${terraData.resources['Населення']}</span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -157,6 +218,41 @@ function renderTeraWindow() {
 
         // Завантажити та відобразити будівлі
         loadAndRenderBuildings();
+    });
+
+    // Додаємо обробники для вкладок ресурсів
+    const basicResTabBtn = document.getElementById('tera-basic-res-tab-btn');
+    const weaponsResTabBtn = document.getElementById('tera-weapons-res-tab-btn');
+    const populationResTabBtn = document.getElementById('tera-population-res-tab-btn');
+    const basicResContent = document.getElementById('tera-basic-res-content');
+    const weaponsResContent = document.getElementById('tera-weapons-res-content');
+    const populationResContent = document.getElementById('tera-population-res-content');
+
+    basicResTabBtn.addEventListener('click', () => {
+        basicResContent.style.display = 'block';
+        weaponsResContent.style.display = 'none';
+        populationResContent.style.display = 'none';
+        basicResTabBtn.style.background = '#1fa2c7';
+        weaponsResTabBtn.style.background = '#17607a';
+        populationResTabBtn.style.background = '#17607a';
+    });
+
+    weaponsResTabBtn.addEventListener('click', () => {
+        basicResContent.style.display = 'none';
+        weaponsResContent.style.display = 'block';
+        populationResContent.style.display = 'none';
+        basicResTabBtn.style.background = '#17607a';
+        weaponsResTabBtn.style.background = '#1fa2c7';
+        populationResTabBtn.style.background = '#17607a';
+    });
+
+    populationResTabBtn.addEventListener('click', () => {
+        basicResContent.style.display = 'none';
+        weaponsResContent.style.display = 'none';
+        populationResContent.style.display = 'block';
+        basicResTabBtn.style.background = '#17607a';
+        weaponsResTabBtn.style.background = '#17607a';
+        populationResTabBtn.style.background = '#1fa2c7';
     });
 
     // Додаємо можливість рухати вікно мишкою
