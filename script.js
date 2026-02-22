@@ -530,46 +530,23 @@ function renderProjects() {
     const projectsContent = document.getElementById('projects-content');
     if (!projectsContent) return;
 
-    // Отримуємо рівень інженерного центру
-    let engineerCenterLevel = 0;
-    try {
-        const savedData = localStorage.getItem('scienceLevels');
-        if (savedData) {
-            const levels = JSON.parse(savedData);
-            engineerCenterLevel = levels.building_engineer_center || 0;
-        }
-    } catch (e) {
-        console.error('Помилка при отриманні рівня інженерного центру:', e);
-    }
-
-    if (engineerCenterLevel === 0) {
-        projectsContent.innerHTML = `
-            <div style="padding: 20px; text-align: center; color: #aaa;">
-                <p>🚧 Для розробки проектів потрібен Інженерний центр</p>
-                <p>Побудуйте Інженерний центр у вкладці "Будівлі" на планеті Тера</p>
-            </div>
-        `;
-        return;
-    }
-
-    // Відображаємо доступні проекти
+    // Просто кнопка "Розробити" зліва вгорі
     projectsContent.innerHTML = `
-        <div style="padding: 20px;">
-            <h3 style="color: #1fa2c7; margin-bottom: 15px;">📋 Доступні проекти</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px;">
-                <div class="science-section" style="background: #134d5c; border: 1px solid #1fa2c7; border-radius: 4px; padding: 15px;">
-                    <div style="font-size: 1.2em; margin-bottom: 10px;">🚀 Кораблі</div>
-                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 10px;">Дослідження космічного простору</div>
-                    <div style="color: #4ade80; font-size: 0.85em;">Рівень інженерного центру: ${engineerCenterLevel}</div>
-                    <button style="margin-top: 10px; padding: 8px 15px; background: #1fa2c7; color: white; border: none; border-radius: 4px; cursor: pointer;">Розробити</button>
-                </div>
-                <div class="science-section" style="background: #134d5c; border: 1px solid #1fa2c7; border-radius: 4px; padding: 15px;">
-                    <div style="font-size: 1.2em; margin-bottom: 10px;">🚀 Космічна станція</div>
-                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 10px;">Орбітальна дослідницька станція</div>
-                    <div style="color: #f59e0b; font-size: 0.85em;">Потрібен рівень: 3</div>
-                    <button style="margin-top: 10px; padding: 8px 15px; background: #555; color: #aaa; border: none; border-radius: 4px; cursor: not-allowed;" disabled>Заблоковано</button>
-                </div>
-            </div>
+        <div style="padding: 10px;">
+            <button id="develop-btn" style="
+                padding: 8px 15px;
+                background: #1fa2c7;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+            ">🔨 Розробити</button>
         </div>
     `;
+
+    // Додаємо обробник для кнопки
+    document.getElementById('develop-btn').addEventListener('click', function() {
+        alert('Розробка проектів ще не реалізована');
+    });
 }
