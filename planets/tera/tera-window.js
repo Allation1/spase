@@ -895,6 +895,19 @@ function renderBuildings(buildingsData) {
                 console.error('Помилка при отриманні рівня науки зброярного заводу:', e);
             }
             return currentLevel < armoryScienceLevel; // Можна покращити, якщо поточний рівень менше рівня науки
+        } else if (buildingId === 'building_engineer_center') {
+            // Для покращення інженерного центру потрібен рівень науки інженерного центру
+            let engineerScienceLevel = 0;
+            try {
+                const savedData = localStorage.getItem('scienceLevels');
+                if (savedData) {
+                    const levels = JSON.parse(savedData);
+                    engineerScienceLevel = levels.building_engineer_center || 0;
+                }
+            } catch (e) {
+                console.error('Помилка при отриманні рівня науки інженерного центру:', e);
+            }
+            return currentLevel < engineerScienceLevel; // Можна покращити, якщо поточний рівень менше рівня науки
         }
         return true; // Для інших будівель немає обмежень
     };
@@ -935,6 +948,11 @@ function renderBuildings(buildingsData) {
             id: 'building_armory',
             name: 'Зброярний завод',
             icon: '🔫'
+        },
+        {
+            id: 'building_engineer_center',
+            name: 'Інженерний центр',
+            icon: '⚙️'
         }
     ];
 
@@ -1002,6 +1020,20 @@ function renderBuildings(buildingsData) {
                 console.error('Помилка при отриманні рівня науки зброярного заводу:', e);
             }
             level = Math.min(level, armoryLevel);
+        } else if (building.id === 'building_engineer_center') {
+            // Отримуємо рівень науки інженерний центр
+            let engineerLevel = 0;
+            try {
+                // Спробуємо отримати рівень науки інженерний центр з localStorage
+                const savedData = localStorage.getItem('scienceLevels');
+                if (savedData) {
+                    const levels = JSON.parse(savedData);
+                    engineerLevel = levels.building_engineer_center || 0;
+                }
+            } catch (e) {
+                console.error('Помилка при отриманні рівня науки інженерного центру:', e);
+            }
+            level = Math.min(level, engineerLevel);
         }
 
         const buildingElement = document.createElement('div');

@@ -186,5 +186,16 @@ export const sciences = [
             { id: 'tech47', name: 'Організація простору', cost: 90 },
             { id: 'tech48', name: 'Ефективне управління', cost: 120 }
         ]
+    },
+    {
+        id: 'building_engineer_center',
+        name: 'Інженерний центр',
+        description: 'Центр розробки та проектування нових технологій',
+        icon: '⚙️',
+        technologies: [
+            { id: 'tech49', name: 'Базове проектування', cost: 70 },
+            { id: 'tech50', name: 'Інженерні розрахунки', cost: 100 },
+            { id: 'tech51', name: 'Передові технології', cost: 140 }
+        ]
     }
 ];
