@@ -1,3 +1,36 @@
 {
-  "fleets": []
+  "fleets": [
+    {
+      "name": "Перший",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "1",
+          "shipLevel": 1,
+          "weaponsCount": 2,
+          "weaponLevel": 4,
+          "count": 1
+        }
+      ],
+      "status": "На орбіті",
+      "coordinates": "0:2:4",
+      "createdAt": "23.02.2026"
+    },
+    {
+      "name": "Перший 1",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "2",
+          "shipLevel": 10,
+          "weaponsCount": 1,
+          "weaponLevel": 1,
+          "count": 1
+        }
+      ],
+      "status": "На орбіті",
+      "coordinates": "1:1:2",
+      "createdAt": "23.02.2026"
+    }
+  ]
 }

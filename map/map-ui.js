@@ -75,32 +75,29 @@ function openSolarSystemWindow() {
                 <div class="solar-system-objects">
                     <div class="planet-item" id="planet-item-1_1_1">
                         <span onclick="openPlanetWindow('Тера')">1 Тера (1:1:1)</span>
-                        <span class="fleet-icon-orbit" onclick="showFleetWindow()" title="Флот на орбіті">✈️</span>
                         <button class="flight-btn" onclick="initiateFlight('1:1:1')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_1"></div>
                     </div>
                     <div class="asteroid-field" id="asteroid-field-1_1_2">
                         <span>2 Астероїдне поле (1:1:2)</span>
                         <button class="flight-btn" onclick="initiateFlight('1:1:2')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_2"></div>
                     </div>
                     <div class="asteroid-field" id="asteroid-field-1_1_3">
                         <span>3 Астероїдне поле (1:1:3)</span>
                         <button class="flight-btn" onclick="initiateFlight('1:1:3')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_3"></div>
                     </div>
                     <div class="asteroid-field" id="asteroid-field-1_1_4">
                         <span>4 Астероїдне поле (1:1:4)</span>
                         <button class="flight-btn" onclick="initiateFlight('1:1:4')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_4"></div>
                     </div>
                     <div class="asteroid-field" id="asteroid-field-1_1_5">
                         <span>5 Астероїдне поле (1:1:5)</span>
                         <button class="flight-btn" onclick="initiateFlight('1:1:5')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_5"></div>
                     </div>
-                </div>
-                <div class="fleet-icons-overlay">
-                    <div class="fleet-icon-container" id="fleet-icon-1_1_1"></div>
-                    <div class="fleet-icon-container" id="fleet-icon-1_1_2"></div>
-                    <div class="fleet-icon-container" id="fleet-icon-1_1_3"></div>
-                    <div class="fleet-icon-container" id="fleet-icon-1_1_4"></div>
-                    <div class="fleet-icon-container" id="fleet-icon-1_1_5"></div>
                 </div>
             </div>
         `;
@@ -183,17 +180,145 @@ function openSolarSystemWindow() {
     solarSystemWindow.style.color = '#fff';
     solarSystemWindow.style.overflow = 'hidden';
     
-    // Оновлюємо відображення флоту після відкриття вікна
+    // Відображаємо флоти на орбіті Тери
     setTimeout(() => {
-        console.log('Opening solar system window, currentFleetOrbit:', currentFleetOrbit);
-        if (currentFleetOrbit) {
-            console.log('Calling updateFleetOrbitDisplay to show fleet at orbit:', currentFleetOrbit);
-            updateFleetOrbitDisplay(null, currentFleetOrbit);
+        displayFleetsOnOrbit();
+    }, 100);
+}
+
+// Функція для відображення флотів на орбітах
+async function displayFleetsOnOrbit() {
+    console.log('displayFleetsOnOrbit: виклик функції');
+    
+    // Завантажуємо флоти
+    let fleetsData = { fleets: [] };
+    try {
+        const response = await fetch('/planets/fleets.json');
+        if (response.ok) {
+            fleetsData = await response.json();
+            console.log('displayFleetsOnOrbit: отримано флоти:', fleetsData);
+        }
+    } catch (e) {
+        console.error('displayFleetsOnOrbit: помилка:', e);
+    }
+    
+    // Очищаємо всі контейнери для флотів
+    document.querySelectorAll('.fleet-orbit-icons').forEach(container => {
+        container.innerHTML = '';
+    });
+    
+    // Відображаємо кожен флот на відповідній орбіті
+    fleetsData.fleets.forEach((fleet, index) => {
+        if (!fleet.coordinates) return;
+        
+        console.log('displayFleetsOnOrbit: додаємо флот', fleet.name, 'на орбіту', fleet.coordinates);
+        
+        // Знаходимо контейнер для цієї орбіти
+        const orbitId = fleet.coordinates.replace(/:/g, '_');
+        const orbitContainer = document.getElementById(`fleet-orbit-${orbitId}`);
+        
+        if (!orbitContainer) {
+            console.log('displayFleetsOnOrbit: контейнер для орбіти', fleet.coordinates, 'не знайдено');
+            return;
         }
         
-        // Також викликаємо позиціонування іконок флоту
-        positionFleetIcons();
-    }, 100); // Затримка для того, щоб вікно повністю завантажилось
+        // Створюємо іконку флоту
+        const iconContainer = document.createElement('div');
+        iconContainer.style.cssText = `
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: inline-block;
+            margin: 2px;
+        `;
+        iconContainer.onmouseover = function() {
+            this.style.transform = 'scale(1.2)';
+            showFleetTooltip(fleet, this);
+        };
+        iconContainer.onmouseout = function() {
+            this.style.transform = 'scale(1)';
+            hideFleetTooltip();
+        };
+        iconContainer.onclick = function(e) {
+            e.stopPropagation();
+            openFleetDetailsFromMap(index);
+        };
+        
+        // SVG іконка флоту (червона)
+        iconContainer.innerHTML = `
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" style="
+                filter: drop-shadow(0 0 3px #ff0000);
+                display: block;
+            ">
+                <path d="M12 2 Q14 8 16 14 Q20 16 18 18 Q14 16 12 22 Q10 16 6 18 Q4 16 8 14 Q10 8 12 2 Z" 
+                      fill="#ff0000" 
+                      stroke="#ffffff" 
+                      stroke-width="0.5"/>
+            </svg>
+        `;
+        
+        orbitContainer.appendChild(iconContainer);
+    });
+    
+    console.log('displayFleetsOnOrbit: завершено');
+}
+
+// Функція для показу підказки флоту
+function showFleetTooltip(fleet, element) {
+    // Створюємо або знаходимо підказку
+    let tooltip = document.getElementById('fleet-tooltip');
+    if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.id = 'fleet-tooltip';
+        tooltip.style.cssText = `
+            position: absolute;
+            background: #0e3a47;
+            border: 2px solid #1fa2c7;
+            border-radius: 4px;
+            padding: 10px;
+            color: white;
+            font-size: 0.85em;
+            z-index: 1000;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        `;
+        document.body.appendChild(tooltip);
+    }
+    
+    // Формуємо вміст підказки
+    const totalShips = fleet.ships.reduce((sum, ship) => sum + ship.count, 0);
+    const totalHP = fleet.ships.reduce((sum, ship) => sum + (ship.shipLevel * 10 * ship.count), 0);
+    const totalDamage = fleet.ships.reduce((sum, ship) => sum + (ship.weaponsCount * ship.weaponLevel * ship.count), 0);
+    
+    tooltip.innerHTML = `
+        <div style="font-weight: bold; color: #1fa2c7; margin-bottom: 5px;">🚀 ${fleet.name}</div>
+        <div style="color: #aaa; font-size: 0.9em;">📦 Кораблів: <span style="color: #f59e0b;">${totalShips}</span></div>
+        <div style="color: #aaa; font-size: 0.9em;">❤️ HP: <span style="color: #ef4444;">${totalHP}</span></div>
+        <div style="color: #aaa; font-size: 0.9em;">⚔️ Урон: <span style="color: #4ade80;">${totalDamage}</span></div>
+        <div style="color: #666; font-size: 0.75em; margin-top: 5px;">📅 ${fleet.createdAt}</div>
+    `;
+    
+    // Позиціонуємо підказку біля іконки
+    const rect = element.getBoundingClientRect();
+    tooltip.style.left = (rect.right + 10) + 'px';
+    tooltip.style.top = rect.top + 'px';
+    tooltip.style.display = 'block';
+}
+
+// Функція для приховання підказки
+function hideFleetTooltip() {
+    const tooltip = document.getElementById('fleet-tooltip');
+    if (tooltip) {
+        tooltip.style.display = 'none';
+    }
+}
+
+// Функція для відкриття деталей флоту з карти
+async function openFleetDetailsFromMap(fleetIndex) {
+    // Відкриваємо тільки вікно деталей флоту, не вікно флотів
+    if (typeof openFleetDetails === 'function') {
+        openFleetDetails(fleetIndex);
+    }
 }
 
 // Функція для відкриття вікна планети
@@ -286,54 +411,73 @@ function showFleetWindow() {
 }
 
 // Функція для ініціювання польоту флоту
-function initiateFlight(destination) {
-    // Перевіряємо, чи вікно складу флоту відкрите
+async function initiateFlight(destination) {
+    // Перевіряємо, чи вікно деталей флоту відкрите і обрано флот
     const fleetDetailsWindow = document.getElementById('fleet-details-window');
+    const fleetIndex = window.currentSelectedFleetIndex;
+    
     if (!fleetDetailsWindow || fleetDetailsWindow.style.display === 'none') {
-        alert('Щоб виконати політ, спочатку відкрийте склад флоту (клікніть на флот у вікні Флоти)');
+        alert('Щоб виконати політ, спочатку відкрийте деталі флоту (клікніть на іконку флоту)');
         return;
     }
-
-    // Перевіряємо, чи обрано флот
-    if (typeof currentSelectedFleet === 'undefined' || !currentSelectedFleet) {
+    
+    if (typeof fleetIndex === 'undefined' || fleetIndex === null) {
         alert('Спочатку оберіть флот для відправлення');
         return;
     }
-
-    // Визначаємо, з якої орбіти вилітає флот (якщо він був десь)
-    let fromOrbit = null;
-    if (currentFleetOrbit) {
-        fromOrbit = currentFleetOrbit; // Зберігаємо повні координати попередньої орбіти
-    }
-
-    // Оновлюємо поточну орбіту флоту
-    currentFleetOrbit = destination;
-
-    // Оновлюємо відображення флоту (приховуємо з попередньої орбіти)
-    if (fromOrbit !== null) {
-        updateFleetOrbitDisplay(fromOrbit, null); // Приховуємо флот з попередньої орбіти
-    }
-
-    // Показуємо флот на новій орбіті після затримки, щоб дати час на анімацію
-    setTimeout(() => {
-        updateFleetOrbitDisplay(null, currentFleetOrbit); // Показуємо флот на новій орбіті
-        positionFleetIcons(); // Оновлюємо позиціонування іконок флоту
-    }, 1000); // Затримка 1 секунда для того, щоб анімація завершилася
-
-    // Отримуємо збережені налаштування флоту
-    const savedSettings = localStorage.getItem('fleetSettings');
-    if (!savedSettings) {
-        alert('Немає збережених налаштувань флоту');
+    
+    // Завантажуємо флоти
+    let fleetsData = { fleets: [] };
+    try {
+        const response = await fetch('/planets/fleets.json');
+        if (response.ok) {
+            fleetsData = await response.json();
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні флотів:', e);
+        alert('Помилка завантаження флотів');
         return;
     }
-
-    const settings = JSON.parse(savedSettings);
-
-    // Виконуємо анімацію польоту
-    animateFleetMovement(destination);
-
-    // Повідомляємо про початок польоту
-    console.log(`Флот "${currentSelectedFleet}" вирушає до: ${destination}`);
+    
+    const fleet = fleetsData.fleets[fleetIndex];
+    if (!fleet) {
+        alert('Флот не знайдено');
+        return;
+    }
+    
+    // Отримуємо поточні координати
+    const fromOrbit = fleet.coordinates || 'Невідомо';
+    
+    // Підтвердження польоту
+    if (!confirm(`Перемістити флот "${fleet.name}" з ${fromOrbit} на ${destination}?`)) {
+        return;
+    }
+    
+    // Оновлюємо координати флоту
+    fleet.coordinates = destination;
+    fleet.status = 'На орбіті';
+    
+    // Зберігаємо оновлені дані
+    try {
+        await fetch('/api/save-fleets', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(fleetsData)
+        });
+        
+        alert(`✅ Флот "${fleet.name}" переміщено на ${destination}`);
+        
+        // Оновлюємо відображення флотів
+        displayFleetsOnOrbit();
+        
+        // Оновлюємо вікно деталей флоту
+        if (typeof openFleetDetails === 'function') {
+            setTimeout(() => openFleetDetails(fleetIndex), 100);
+        }
+    } catch (error) {
+        console.error('Помилка при збереженні флоту:', error);
+        alert('Помилка при збереженні флоту');
+    }
 }
 
 // Функція для анімації переміщення флоту
@@ -713,30 +857,28 @@ function openBlueSolarSystemWindow() {
                     <div class="asteroid-field" id="asteroid-field-0_2_1">
                         <span>1 Астероїдне поле (0:2:1)</span>
                         <button class="flight-btn" onclick="initiateFlight('0:2:1')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_1"></div>
                     </div>
                     <div class="asteroid-field" id="asteroid-field-0_2_2">
                         <span>2 Астероїдне поле (0:2:2)</span>
                         <button class="flight-btn" onclick="initiateFlight('0:2:2')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_2"></div>
                     </div>
                     <div class="asteroid-field" id="asteroid-field-0_2_3">
                         <span>3 Астероїдне поле (0:2:3)</span>
                         <button class="flight-btn" onclick="initiateFlight('0:2:3')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_3"></div>
                     </div>
                     <div class="asteroid-field" id="asteroid-field-0_2_4">
                         <span>4 Астероїдне поле (0:2:4)</span>
                         <button class="flight-btn" onclick="initiateFlight('0:2:4')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_4"></div>
                     </div>
                     <div class="asteroid-field" id="asteroid-field-0_2_5">
                         <span>5 Астероїдне поле (0:2:5)</span>
                         <button class="flight-btn" onclick="initiateFlight('0:2:5')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_5"></div>
                     </div>
-                </div>
-                <div class="fleet-icons-overlay">
-                    <div class="fleet-icon-container" id="fleet-icon-0_2_1"></div>
-                    <div class="fleet-icon-container" id="fleet-icon-0_2_2"></div>
-                    <div class="fleet-icon-container" id="fleet-icon-0_2_3"></div>
-                    <div class="fleet-icon-container" id="fleet-icon-0_2_4"></div>
-                    <div class="fleet-icon-container" id="fleet-icon-0_2_5"></div>
                 </div>
             </div>
         `;
@@ -810,17 +952,10 @@ function openBlueSolarSystemWindow() {
     blueSolarSystemWindow.style.color = '#fff';
     blueSolarSystemWindow.style.overflow = 'hidden';
     
-    // Оновлюємо відображення флоту після відкриття вікна
+    // Оновлюємо відображення флотів
     setTimeout(() => {
-        console.log('Opening solar system window, currentFleetOrbit:', currentFleetOrbit);
-        if (currentFleetOrbit) {
-            console.log('Calling updateFleetOrbitDisplay to show fleet at orbit:', currentFleetOrbit);
-            updateFleetOrbitDisplay(null, currentFleetOrbit);
-        }
-        
-        // Також викликаємо позиціонування іконок флоту
-        positionFleetIcons();
-    }, 100); // Затримка для того, щоб вікно повністю завантажилось
+        displayFleetsOnOrbit();
+    }, 100);
 }
 
 // Викликаємо побудову карти при відкритті вікна
@@ -866,3 +1001,9 @@ document.addEventListener('DOMContentLoaded', function() {
         mapContainer.style.cursor = 'grab';
     }
 });
+
+// Експортуємо функції в глобальну область
+window.displayFleetsOnOrbit = displayFleetsOnOrbit;
+window.showFleetTooltip = showFleetTooltip;
+window.hideFleetTooltip = hideFleetTooltip;
+window.openFleetDetailsFromMap = openFleetDetailsFromMap;

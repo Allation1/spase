@@ -284,6 +284,21 @@ async function saveFleet() {
         closeCreateFleetWindow();
         updateFleetsDisplay();
         updateDockShipsDisplay();
+        
+        // Оновлюємо відображення флотів на орбіті Тери (якщо вікно відкрите)
+        if (typeof displayFleetsOnOrbit === 'function') {
+            displayFleetsOnOrbit();
+        }
+        
+        // Також оновлюємо, якщо вікно сонячної системи відкрите
+        const solarWindow = document.getElementById('solar-system-window');
+        if (solarWindow && solarWindow.style.display === 'block') {
+            setTimeout(() => {
+                if (typeof displayFleetsOnOrbit === 'function') {
+                    displayFleetsOnOrbit();
+                }
+            }, 200);
+        }
     } catch (error) {
         console.error('Помилка при збереженні флоту:', error);
         alert('❌ Помилка при збереженні флоту: ' + error.message);
@@ -381,6 +396,9 @@ async function openFleetDetails(fleetIndex) {
     const totalShips = fleet.ships.reduce((sum, ship) => sum + ship.count, 0);
     const totalHP = fleet.ships.reduce((sum, ship) => sum + (ship.shipLevel * 10 * ship.count), 0);
     const totalDamage = fleet.ships.reduce((sum, ship) => sum + (ship.weaponsCount * ship.weaponLevel * ship.count), 0);
+    
+    // Зберігаємо поточний обраний флот для переміщення
+    window.currentSelectedFleetIndex = fleetIndex;
 
     let fleetDetailsWindow = document.getElementById('fleet-details-window');
     let fleetDetailsContent = document.getElementById('fleet-details-content');
@@ -478,6 +496,16 @@ async function openFleetDetails(fleetIndex) {
             <div style="padding: 10px; background: #134d5c; border-radius: 4px; border: 1px solid #1fa2c7; margin-bottom: 20px;">
                 <div style="color: #aaa; font-size: 0.85em;">📊 Статус: <span style="color: #4ade80;">${fleet.status}</span></div>
                 <div style="color: #aaa; font-size: 0.75em; margin-top: 5px;">📅 Створено: ${fleet.createdAt}</div>
+                <div style="color: #aaa; font-size: 0.85em; margin-top: 5px;">📍 Координати: <span style="color: #f59e0b;">${fleet.coordinates || 'Немає'}</span></div>
+            </div>
+            
+            <div style="padding: 10px; background: #134d5c; border-radius: 4px; border: 1px solid #1fa2c7; margin-bottom: 20px;">
+                <div style="color: #aaa; font-size: 0.85em; margin-bottom: 5px;">ℹ️ Інструкція</div>
+                <div style="color: #aaa; font-size: 0.75em;">
+                    1. Відкрийте вікно сонячної системи (🌌)<br>
+                    2. Натисніть "Політ" біля потрібної орбіти<br>
+                    3. Флот переміститься на нову орбіту
+                </div>
             </div>
             
             <button onclick="deleteFleetFromDetails(${fleetIndex})" style="
@@ -497,6 +525,34 @@ async function openFleetDetails(fleetIndex) {
     fleetDetailsWindow.style.display = 'block';
     if (typeof bringWindowToFront === 'function') {
         bringWindowToFront(fleetDetailsWindow);
+    }
+
+    // Додаємо можливість рухати вікно мишкою
+    let isDragging = false, offsetX = 0, offsetY = 0;
+    const titleElement = fleetDetailsWindow.querySelector('.science-window-title');
+
+    if (titleElement) {
+        titleElement.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            offsetX = e.clientX - fleetDetailsWindow.offsetLeft;
+            offsetY = e.clientY - fleetDetailsWindow.offsetTop;
+            document.body.style.userSelect = 'none';
+            if (typeof bringWindowToFront === 'function') {
+                bringWindowToFront(fleetDetailsWindow);
+            }
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                fleetDetailsWindow.style.left = (e.clientX - offsetX) + 'px';
+                fleetDetailsWindow.style.top = (e.clientY - offsetY) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            document.body.style.userSelect = '';
+        });
     }
 }
 
@@ -575,6 +631,11 @@ async function deleteFleet(index) {
         
         updateFleetsDisplay();
         updateDockShipsDisplay();
+        
+        // Оновлюємо відображення флотів на орбіті Тери
+        if (typeof displayFleetsOnOrbit === 'function') {
+            displayFleetsOnOrbit();
+        }
     } catch (error) {
         console.error('Помилка при видаленні флоту:', error);
     }
@@ -648,6 +709,11 @@ async function deleteFleetFromDetails(fleetIndex) {
         closeFleetDetailsWindow();
         updateFleetsDisplay();
         updateDockShipsDisplay();
+        
+        // Оновлюємо відображення флотів на орбіті Тери
+        if (typeof displayFleetsOnOrbit === 'function') {
+            displayFleetsOnOrbit();
+        }
     } catch (error) {
         console.error('Помилка при видаленні флоту:', error);
     }
