@@ -82,6 +82,13 @@
             <!-- Форма проектування буде тут -->
         </div>
     </div>
+    <div id="weapon-stats-window" style="display:none;">
+        <div class="science-window-title">Характеристики зброї</div>
+        <button class="science-close-btn" onclick="closeWeaponStatsWindow()">✕</button>
+        <div class="science-window-content" id="weapon-stats-content">
+            <!-- Характеристики будуть тут -->
+        </div>
+    </div>
     <script src="script.js"></script> <!-- Підключає файл з JavaScript кодом -->
     <script src="clock.js"></script>
     <script src="science/science-data-manager.js"></script>
@@ -93,6 +100,7 @@
     <script type="module" src="planets/planet-data.js"></script>
     <script type="module" src="planets/planet-ui.js"></script>
     <script src="planets/tera/tera-window.js"></script>
+    <script src="planets/tera/weapon-stats.js"></script>
     <script src="planets/tera/resource-updater.js"></script>
     <script src="map/map-list.js"></script>
     <script src="map/map-ui.js"></script>

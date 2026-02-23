@@ -587,8 +587,12 @@ async function updateProductionDisplay() {
                     .filter(l => l.count > 0)
                     .sort((a, b) => a.level - b.level);
 
-                weaponsList.innerHTML = ownedWeapons.map(l => 
-                    `<p>🔫 Лазерна гармата ${l.level}: <span style="color: #4ade80; font-weight: bold;">${l.count}</span></p>`
+                weaponsList.innerHTML = ownedWeapons.map(l =>
+                    `<p style="margin-bottom: 8px;">🔫 <span style="
+                        color: #1fa2c7;
+                        cursor: pointer;
+                        text-decoration: underline;
+                    " onclick="openLaserWeaponStats(${l.level})">Лазерна гармата ${l.level}</span>: <span style="color: #4ade80; font-weight: bold;">${l.count}</span></p>`
                 ).join('');
             } else {
                 weaponsList.innerHTML = '<p style="color: #aaa;">Немає зброї</p>';
@@ -1334,7 +1338,7 @@ async function cancelBuilding(buildingId) {
             };
         }
 
-        // Скидаємо час будівництва
+        // Скидаємо час будівниц��ва
         buildingsData[buildingId].construction_time = 0;
 
         // Зберігаємо оновлені дані
@@ -1685,13 +1689,12 @@ async function cancelUpgrade(buildingId) {
     }
 }
 
-// Експор��уємо функцію в глобальну область
+
+// Експортуємо функції в глобальну область
 window.renderTeraWindow = renderTeraWindow;
 window.startBuilding = startBuilding;
 window.cancelBuilding = cancelBuilding;
 window.startUpgrade = startUpgrade;
 window.cancelUpgrade = cancelUpgrade;
 window.updateTeraResources = updateResourcesDisplay;
-
-// Додатково - перевіряємо, чи функція була успішно додана
-console.log('Функція renderTeraWindow додана до глобального об\'єкта window');
+window.openLaserWeaponStats = openLaserWeaponStats;
