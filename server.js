@@ -273,6 +273,22 @@ app.post('/api/save-ships', (req, res) => {
     }
 });
 
+// Ендпоінт для збереження флотів
+app.post('/api/save-fleets', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const fleetsData = req.body;
+    const fleetsPath = path.join(__dirname, 'planets', 'fleets.json');
+
+    try {
+        fs.writeFileSync(fleetsPath, JSON.stringify(fleetsData, null, 2));
+        res.json({ success: true, message: 'Флоти збережено успішно' });
+    } catch (error) {
+        console.error('Помилка при збереженні флотів:', error);
+        res.status(500).json({ success: false, message: 'Помилка при збереженні флотів' });
+    }
+});
+
 // Маршрут для отримання даних будівель
 app.get('/planets/tera/buildings.json', (req, res) => {
     const fs = require('fs');

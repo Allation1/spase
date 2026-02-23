@@ -59,13 +59,39 @@
         <button class="science-close-btn" onclick="closeFleetWindow()">✕</button>
         <div class="science-window-title">Флоти</div>
         <div class="fleet-content">
-            <div class="fleet-item" onclick="showFleetComposition('Винищувач')">
-                <div class="fleet-icon">✈️</div>
-                <div class="fleet-info">
-                    <div class="fleet-name">Винищувач</div>
-                    <div class="fleet-status">Статус: На базі</div>
+            <button id="create-fleet-btn" style="
+                padding: 10px 20px;
+                background: #1fa2c7;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+                margin-bottom: 15px;
+                width: 100%;
+            ">➕ Створити флот</button>
+            
+            <div style="margin-bottom: 15px; padding: 10px; background: #134d5c; border: 1px solid #1fa2c7; border-radius: 4px;">
+                <div style="font-weight: bold; color: #1fa2c7; margin-bottom: 10px;">📦 Кораблі у доці:</div>
+                <div id="dock-ships-list" style="color: #aaa; font-size: 0.9em;">
+                    <!-- Кораблі будуть відображені тут -->
                 </div>
             </div>
+            
+            <div id="fleets-list" style="
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 15px;
+            ">
+                <!-- Флоти будуть відображені тут -->
+            </div>
+        </div>
+    </div>
+    <div id="create-fleet-window" style="display:none;">
+        <div class="science-window-title">Створення флоту</div>
+        <button class="science-close-btn" onclick="closeCreateFleetWindow()">✕</button>
+        <div class="science-window-content" id="create-fleet-content">
+            <!-- Форма створення флоту буде тут -->
         </div>
     </div>
     <div id="projects-window" style="display:none;">
@@ -108,6 +134,7 @@
     <script type="module" src="planets/planet-ui.js"></script>
     <script src="planets/tera/weapon-stats.js"></script>
     <script src="planets/tera/ship-builder.js"></script>
+    <script src="planets/fleet-manager.js"></script>
     <script src="planets/tera/tera-window.js"></script>
     <script src="planets/tera/resource-updater.js"></script>
     <script src="map/map-list.js"></script>

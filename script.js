@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (fleetWindow.style.display === 'none' || fleetWindow.style.display === '') {
                 fleetWindow.style.display = 'block';
                 bringWindowToFront(fleetWindow);
+                // Оновити відображення флотів та кораблів у доці
+                updateFleetsDisplay();
+                updateDockShipsDisplay();
             } else {
                 fleetWindow.style.display = 'none';
             }
@@ -48,6 +51,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('mouseup', function() {
             isDragging = false;
             document.body.style.userSelect = '';
+        });
+    }
+
+    // Додаємо обробник для кнопки створення флоту
+    const createFleetBtn = document.getElementById('create-fleet-btn');
+    if (createFleetBtn) {
+        createFleetBtn.addEventListener('click', function() {
+            openCreateFleetWindow();
+            updateDockShipsDisplay();
         });
     }
 
