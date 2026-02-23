@@ -497,10 +497,23 @@ async function openFleetDetails(fleetIndex) {
             </div>
             
             <div style="padding: 10px; background: #134d5c; border-radius: 4px; border: 1px solid #1fa2c7; margin-bottom: 20px;">
-                <div style="color: #aaa; font-size: 0.85em;">📊 Статус: <span style="color: #4ade80;">${fleet.status}</span></div>
+                <div style="color: #aaa; font-size: 0.85em; margin-bottom: 5px;">📊 Статус: <span style="color: #4ade80;">${fleet.status}</span></div>
                 <div style="color: #aaa; font-size: 0.75em; margin-top: 5px;">📅 Створено: ${fleet.createdAt}</div>
                 <div style="color: #aaa; font-size: 0.85em; margin-top: 5px;">📍 Координати: <span style="color: #f59e0b;">${fleet.coordinates || 'Немає'}</span></div>
             </div>
+            
+            <button onclick="startBattle(${fleetIndex})" style="
+                padding: 12px 20px;
+                background: #ef4444;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 1em;
+                width: 100%;
+                margin-bottom: 10px;
+            ">⚔️ Почати бій</button>
             
             <div style="padding: 10px; background: #134d5c; border-radius: 4px; border: 1px solid #1fa2c7; margin-bottom: 20px;">
                 <div style="color: #aaa; font-size: 0.85em; margin-bottom: 5px;">ℹ️ Інструкція</div>
@@ -748,6 +761,23 @@ async function updateDockShipsDisplay() {
             <span style="color: #f59e0b; font-weight: bold;">${ship.count} шт</span>
         </div>
     `).join('');
+}
+
+// Функція для початку бою
+function startBattle(fleetIndex) {
+    // Знаходимо піратський флот на тій самій орбіті
+    let fleetsData = { fleets: [] };
+    try {
+        const savedData = localStorage.getItem('shipProjects');
+    } catch (e) {
+        console.error('Помилка:', e);
+    }
+    
+    // Для прикладу - відкриваємо бій з першим піратським флотом (індекс 2)
+    const pirateIndex = 2;
+    
+    // Відкриваємо вікно бою
+    window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + pirateIndex, '_blank');
 }
 
 // Експортуємо функції в глобальну область

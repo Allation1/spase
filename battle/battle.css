@@ -1,0 +1,375 @@
+/* Стилі для вікна бою */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0e3a47;
+    color: #fff;
+    overflow: hidden;
+}
+
+#battle-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 10px;
+    gap: 10px;
+}
+
+/* Верхня панель */
+#battle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #17607a;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+}
+
+#battle-info {
+    display: flex;
+    gap: 20px;
+    font-size: 1.2em;
+}
+
+#battle-timer {
+    color: #f59e0b;
+    font-weight: bold;
+}
+
+#battle-exit-btn {
+    padding: 8px 15px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#battle-exit-btn:hover {
+    background: #ef4444;
+}
+
+/* Основна частина */
+#battle-main {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.side-panel {
+    width: 200px;
+    background: #134d5c;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.side-panel h3 {
+    margin-bottom: 10px;
+    color: #1fa2c7;
+    font-size: 1em;
+}
+
+.ship-item {
+    background: #0e3a47;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border: 1px solid #1fa2c7;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ship-item:hover {
+    transform: scale(1.02);
+    border-color: #4ade80;
+}
+
+.ship-item.selected {
+    border-color: #f59e0b;
+    box-shadow: 0 0 10px #f59e0b;
+}
+
+.ship-item.enemy {
+    border-color: #ef4444;
+}
+
+.ship-item.enemy:hover {
+    border-color: #dc2626;
+}
+
+.ship-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.ship-stats {
+    font-size: 0.85em;
+    color: #aaa;
+}
+
+.ship-hp {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+/* Сітка бою */
+#battle-grid-container {
+    flex: 1;
+    background: #0e3a47;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#battle-grid {
+    display: grid;
+    grid-template-columns: repeat(20, 25px);
+    grid-template-rows: repeat(20, 25px);
+    gap: 1px;
+    background: #17607a;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.grid-cell {
+    width: 25px;
+    height: 25px;
+    background: #134d5c;
+    border: 1px solid #1fa2c7;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.grid-cell:hover {
+    background: #1fa2c7;
+}
+
+.grid-cell.valid-move {
+    background: rgba(74, 222, 128, 0.3);
+    border-color: #4ade80;
+}
+
+.grid-cell.valid-move:hover {
+    background: rgba(74, 222, 128, 0.6);
+}
+
+.grid-cell.valid-target {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: #ef4444;
+}
+
+.grid-cell.valid-target:hover {
+    background: rgba(239, 68, 68, 0.6);
+}
+
+.grid-cell.ship {
+    background: #0e3a47;
+}
+
+.grid-cell.ship.player {
+    border-color: #4ade80;
+}
+
+.grid-cell.ship.enemy {
+    border-color: #ef4444;
+}
+
+/* Нижня панель з діями */
+#battle-actions {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: #17607a;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    align-items: center;
+}
+
+#battle-actions button {
+    padding: 10px 20px;
+    background: #1fa2c7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#battle-actions button:hover {
+    background: #22d3ee;
+}
+
+#battle-actions button:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+#btn-end-round {
+    margin-left: auto;
+    background: #f59e0b;
+}
+
+#btn-end-round:hover {
+    background: #fbbf24;
+}
+
+#attack-options {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+#attack-options label {
+    cursor: pointer;
+}
+
+/* Вікно логів */
+#battle-logs {
+    height: 150px;
+    background: #134d5c;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#battle-logs h3 {
+    margin-bottom: 10px;
+    color: #1fa2c7;
+    font-size: 1em;
+}
+
+#logs-container {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    line-height: 1.6;
+}
+
+.log-entry {
+    margin-bottom: 5px;
+    padding: 5px;
+    background: #0e3a47;
+    border-radius: 4px;
+    border-left: 3px solid #1fa2c7;
+}
+
+.log-entry.move {
+    border-left-color: #4ade80;
+}
+
+.log-entry.attack {
+    border-left-color: #ef4444;
+}
+
+.log-entry.damage {
+    border-left-color: #f59e0b;
+}
+
+.log-entry.destroy {
+    border-left-color: #dc2626;
+}
+
+/* Модальне вікно */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-content {
+    background: #134d5c;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    padding: 20px;
+    min-width: 400px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-content h3 {
+    margin-bottom: 15px;
+    color: #1fa2c7;
+}
+
+#target-list {
+    margin-bottom: 15px;
+}
+
+.target-item {
+    background: #0e3a47;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border: 1px solid #1fa2c7;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.target-item:hover {
+    border-color: #ef4444;
+    background: #17607a;
+}
+
+.target-item.selected {
+    border-color: #f59e0b;
+    box-shadow: 0 0 10px #f59e0b;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal-content button:hover {
+    background: #ef4444;
+}
+
+/* Адаптивність */
+@media (max-width: 1200px) {
+    .side-panel {
+        width: 150px;
+    }
+    
+    #battle-grid {
+        grid-template-columns: repeat(20, 20px);
+        grid-template-rows: repeat(20, 20px);
+    }
+    
+    .grid-cell {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+}

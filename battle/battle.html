@@ -1,0 +1,78 @@
+<!-- Вікно бою -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бій</title>
+    <link rel="stylesheet" href="../battle/battle.css">
+</head>
+<body>
+    <div id="battle-container">
+        <!-- Верхня панель з таймером -->
+        <div id="battle-header">
+            <div id="battle-info">
+                <span id="battle-round">Раунд: 1</span>
+                <span id="battle-timer">Час: 60с</span>
+            </div>
+            <button id="battle-exit-btn" onclick="exitBattle()">✕ Вихід</button>
+        </div>
+
+        <!-- Основна частина з сіткою -->
+        <div id="battle-main">
+            <!-- Панель гравця зліва -->
+            <div id="player-panel" class="side-panel">
+                <h3>🔵 Ваші кораблі</h3>
+                <div id="player-ships"></div>
+            </div>
+
+            <!-- Сітка бою -->
+            <div id="battle-grid-container">
+                <div id="battle-grid"></div>
+            </div>
+
+            <!-- Панель противника справа -->
+            <div id="enemy-panel" class="side-panel">
+                <h3>🔴 Кораблі противника</h3>
+                <div id="enemy-ships"></div>
+            </div>
+        </div>
+
+        <!-- Нижня панель з діями -->
+        <div id="battle-actions">
+            <div id="ship-actions" style="display: none;">
+                <button id="btn-move" onclick="showMoveMode()">🚀 Перемістити</button>
+                <button id="btn-attack" onclick="showAttackMode()">⚔️ Атака</button>
+                <button id="btn-cancel" onclick="cancelActions()">✕ Скасувати</button>
+            </div>
+            <div id="attack-options" style="display: none;">
+                <label>
+                    <input type="radio" name="attack-type" value="single" checked> По одному
+                </label>
+                <label>
+                    <input type="radio" name="attack-type" value="all"> По всім
+                </label>
+                <button id="btn-save-attack" onclick="saveAttack()">💾 Зберегти атаку</button>
+            </div>
+            <button id="btn-end-round" onclick="endRound()">⏭️ Завершити раунд</button>
+        </div>
+
+        <!-- Вікно логів -->
+        <div id="battle-logs">
+            <h3>📜 Логи бою</h3>
+            <div id="logs-container"></div>
+        </div>
+
+        <!-- Вікно вибору цілі -->
+        <div id="target-select-window" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h3>Оберіть ціль для атаки</h3>
+                <div id="target-list"></div>
+                <button onclick="closeTargetWindow()">✕ Скасувати</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../battle/battle.js"></script>
+</body>
+</html>

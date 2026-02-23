@@ -289,6 +289,22 @@ app.post('/api/save-fleets', (req, res) => {
     }
 });
 
+// Ендпоінт для збереження бою
+app.post('/api/save-battle', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const battleData = req.body;
+    const battlePath = path.join(__dirname, 'battle', 'battle.json');
+
+    try {
+        fs.writeFileSync(battlePath, JSON.stringify(battleData, null, 2));
+        res.json({ success: true, message: 'Бій збережено успішно' });
+    } catch (error) {
+        console.error('Помилка при збереженні бою:', error);
+        res.status(500).json({ success: false, message: 'Помилка при збереженні бою' });
+    }
+});
+
 // Маршрут для отримання даних будівель
 app.get('/planets/tera/buildings.json', (req, res) => {
     const fs = require('fs');
