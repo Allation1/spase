@@ -222,14 +222,27 @@ async function displayFleetsOnOrbit() {
             return;
         }
         
+        // Перевіряємо, чи це піратський флот
+        const isPirate = fleet.type === 'pirate';
+        
         // Створюємо іконку флоту
         const iconContainer = document.createElement('div');
         iconContainer.style.cssText = `
-            cursor: pointer;
+            cursor: ${isPirate ? 'default' : 'pointer'};
             transition: transform 0.2s;
             display: inline-block;
             margin: 2px;
         `;
+        
+        if (!isPirate) {
+            // Для наших флотів — клік відкриває деталі
+            iconContainer.onclick = function(e) {
+                e.stopPropagation();
+                openFleetDetailsFromMap(index);
+            };
+        }
+        
+        // Для всіх флотів — підказка при наведенні
         iconContainer.onmouseover = function() {
             this.style.transform = 'scale(1.2)';
             showFleetTooltip(fleet, this);
@@ -238,19 +251,18 @@ async function displayFleetsOnOrbit() {
             this.style.transform = 'scale(1)';
             hideFleetTooltip();
         };
-        iconContainer.onclick = function(e) {
-            e.stopPropagation();
-            openFleetDetailsFromMap(index);
-        };
         
-        // SVG іконка флоту (червона)
+        // SVG іконка флоту (червона для наших, чорна для піратів)
+        const iconColor = isPirate ? '#000000' : '#ff0000';
+        const iconShadow = isPirate ? 'drop-shadow(0 0 3px #000000)' : 'drop-shadow(0 0 3px #ff0000)';
+        
         iconContainer.innerHTML = `
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" style="
-                filter: drop-shadow(0 0 3px #ff0000);
+                filter: ${iconShadow};
                 display: block;
             ">
                 <path d="M12 2 Q14 8 16 14 Q20 16 18 18 Q14 16 12 22 Q10 16 6 18 Q4 16 8 14 Q10 8 12 2 Z" 
-                      fill="#ff0000" 
+                      fill="${iconColor}" 
                       stroke="#ffffff" 
                       stroke-width="0.5"/>
             </svg>
@@ -285,18 +297,32 @@ function showFleetTooltip(fleet, element) {
         document.body.appendChild(tooltip);
     }
     
+    // Перевіряємо, чи це піратський флот
+    const isPirate = fleet.type === 'pirate';
+    
     // Формуємо вміст підказки
     const totalShips = fleet.ships.reduce((sum, ship) => sum + ship.count, 0);
-    const totalHP = fleet.ships.reduce((sum, ship) => sum + (ship.shipLevel * 10 * ship.count), 0);
-    const totalDamage = fleet.ships.reduce((sum, ship) => sum + (ship.weaponsCount * ship.weaponLevel * ship.count), 0);
     
-    tooltip.innerHTML = `
-        <div style="font-weight: bold; color: #1fa2c7; margin-bottom: 5px;">🚀 ${fleet.name}</div>
-        <div style="color: #aaa; font-size: 0.9em;">📦 Кораблів: <span style="color: #f59e0b;">${totalShips}</span></div>
-        <div style="color: #aaa; font-size: 0.9em;">❤️ HP: <span style="color: #ef4444;">${totalHP}</span></div>
-        <div style="color: #aaa; font-size: 0.9em;">⚔️ Урон: <span style="color: #4ade80;">${totalDamage}</span></div>
-        <div style="color: #666; font-size: 0.75em; margin-top: 5px;">📅 ${fleet.createdAt}</div>
-    `;
+    if (isPirate) {
+        // Для піратів показуємо тільки загальну кількість
+        tooltip.innerHTML = `
+            <div style="font-weight: bold; color: #666; margin-bottom: 5px;">☠️ ${fleet.name}</div>
+            <div style="color: #aaa; font-size: 0.9em;">📦 Кораблів: <span style="color: #f59e0b;">${totalShips}</span></div>
+            <div style="color: #666; font-size: 0.75em; margin-top: 5px;">⚠️ Ворожий флот</div>
+        `;
+    } else {
+        // Для наших флотів показуємо повну інформацію
+        const totalHP = fleet.ships.reduce((sum, ship) => sum + (ship.shipLevel * 10 * ship.count), 0);
+        const totalDamage = fleet.ships.reduce((sum, ship) => sum + (ship.weaponsCount * ship.weaponLevel * ship.count), 0);
+        
+        tooltip.innerHTML = `
+            <div style="font-weight: bold; color: #1fa2c7; margin-bottom: 5px;">🚀 ${fleet.name}</div>
+            <div style="color: #aaa; font-size: 0.9em;">📦 Кораблів: <span style="color: #f59e0b;">${totalShips}</span></div>
+            <div style="color: #aaa; font-size: 0.9em;">❤️ HP: <span style="color: #ef4444;">${totalHP}</span></div>
+            <div style="color: #aaa; font-size: 0.9em;">⚔️ Урон: <span style="color: #4ade80;">${totalDamage}</span></div>
+            <div style="color: #666; font-size: 0.75em; margin-top: 5px;">📅 ${fleet.createdAt}</div>
+        `;
+    }
     
     // Позиціонуємо підказку біля іконки
     const rect = element.getBoundingClientRect();

@@ -31,6 +31,40 @@
       "status": "На орбіті",
       "coordinates": "1:1:2",
       "createdAt": "23.02.2026"
+    },
+    {
+      "name": "Піратський патруль",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Винищувач",
+          "shipLevel": 1,
+          "weaponsCount": 2,
+          "weaponLevel": 1,
+          "count": 1
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "1:1:3",
+      "createdAt": "23.02.2026"
+    },
+    {
+      "name": "Піратський загін",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Винищувач",
+          "shipLevel": 1,
+          "weaponsCount": 2,
+          "weaponLevel": 1,
+          "count": 1
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "0:2:2",
+      "createdAt": "23.02.2026"
     }
   ]
 }
