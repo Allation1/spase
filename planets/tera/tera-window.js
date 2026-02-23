@@ -145,7 +145,16 @@ function renderTeraWindow() {
                             border-radius: 4px 4px 0 0;
                             padding: 5px 10px;
                             cursor: pointer;
+                            margin-right: 2px;
                         ">Населення</button>
+                        <button id="tera-dock-res-tab-btn" style="
+                            background: #17607a;
+                            color: white;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px 4px 0 0;
+                            padding: 5px 10px;
+                            cursor: pointer;
+                        ">🚢 Док</button>
                     </div>
                     <div id="tera-basic-res-content" style="
                         padding: 10px;
@@ -187,6 +196,17 @@ function renderTeraWindow() {
                             </div>
                         </div>
                     </div>
+                    <div id="tera-dock-res-content" style="
+                        display: none;
+                        padding: 10px;
+                        background: #134d5c;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 0 0 4px 4px;
+                    ">
+                        <div class="planet-content">
+                            <p style="color: #aaa; text-align: center; padding: 20px;">🚧 Док у розробці</p>
+                        </div>
+                    </div>
                 </div>
                 <div id="tera-buildings-tab-content" style="display: none;">
                     <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px; max-height: 400px; overflow-y: auto; overflow-x: hidden;">
@@ -212,7 +232,16 @@ function renderTeraWindow() {
                             border-radius: 4px 4px 0 0;
                             padding: 5px 10px;
                             cursor: pointer;
+                            margin-right: 2px;
                         ">Боєприпаси</button>
+                        <button id="tera-shipyard-prod-tab-btn" style="
+                            background: #17607a;
+                            color: white;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px 4px 0 0;
+                            padding: 5px 10px;
+                            cursor: pointer;
+                        ">🚢 Суднобудування</button>
                     </div>
                     <div id="tera-weapons-prod-content" style="
                         padding: 10px;
@@ -299,6 +328,17 @@ function renderTeraWindow() {
                             </div>
                         </div>
                     </div>
+                    <div id="tera-shipyard-prod-content" style="
+                        display: none;
+                        padding: 10px;
+                        background: #134d5c;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 0 0 4px 4px;
+                    ">
+                        <div class="planet-content">
+                            <p style="color: #aaa; text-align: center; padding: 20px;">🚧 Суднобудування у розробці</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -358,26 +398,32 @@ function renderTeraWindow() {
     const basicResTabBtn = document.getElementById('tera-basic-res-tab-btn');
     const weaponsResTabBtn = document.getElementById('tera-weapons-res-tab-btn');
     const populationResTabBtn = document.getElementById('tera-population-res-tab-btn');
+    const dockResTabBtn = document.getElementById('tera-dock-res-tab-btn');
     const basicResContent = document.getElementById('tera-basic-res-content');
     const weaponsResContent = document.getElementById('tera-weapons-res-content');
     const populationResContent = document.getElementById('tera-population-res-content');
+    const dockResContent = document.getElementById('tera-dock-res-content');
 
     basicResTabBtn.addEventListener('click', () => {
         basicResContent.style.display = 'block';
         weaponsResContent.style.display = 'none';
         populationResContent.style.display = 'none';
+        dockResContent.style.display = 'none';
         basicResTabBtn.style.background = '#1fa2c7';
         weaponsResTabBtn.style.background = '#17607a';
         populationResTabBtn.style.background = '#17607a';
+        dockResTabBtn.style.background = '#17607a';
     });
 
     weaponsResTabBtn.addEventListener('click', () => {
         basicResContent.style.display = 'none';
         weaponsResContent.style.display = 'block';
         populationResContent.style.display = 'none';
+        dockResContent.style.display = 'none';
         basicResTabBtn.style.background = '#17607a';
         weaponsResTabBtn.style.background = '#1fa2c7';
         populationResTabBtn.style.background = '#17607a';
+        dockResTabBtn.style.background = '#17607a';
 
         // Оновити відображення зброї
         updateProductionDisplay();
@@ -387,22 +433,39 @@ function renderTeraWindow() {
         basicResContent.style.display = 'none';
         weaponsResContent.style.display = 'none';
         populationResContent.style.display = 'block';
+        dockResContent.style.display = 'none';
         basicResTabBtn.style.background = '#17607a';
         weaponsResTabBtn.style.background = '#17607a';
         populationResTabBtn.style.background = '#1fa2c7';
+        dockResTabBtn.style.background = '#17607a';
+    });
+
+    dockResTabBtn.addEventListener('click', () => {
+        basicResContent.style.display = 'none';
+        weaponsResContent.style.display = 'none';
+        populationResContent.style.display = 'none';
+        dockResContent.style.display = 'block';
+        basicResTabBtn.style.background = '#17607a';
+        weaponsResTabBtn.style.background = '#17607a';
+        populationResTabBtn.style.background = '#17607a';
+        dockResTabBtn.style.background = '#1fa2c7';
     });
 
     // Додаємо обробники для вкладок виробництва
     const weaponsProdTabBtn = document.getElementById('tera-weapons-prod-tab-btn');
     const ammoProdTabBtn = document.getElementById('tera-ammo-prod-tab-btn');
+    const shipyardProdTabBtn = document.getElementById('tera-shipyard-prod-tab-btn');
     const weaponsProdContent = document.getElementById('tera-weapons-prod-content');
     const ammoProdContent = document.getElementById('tera-ammo-prod-content');
+    const shipyardProdContent = document.getElementById('tera-shipyard-prod-content');
 
     weaponsProdTabBtn.addEventListener('click', () => {
         weaponsProdContent.style.display = 'block';
         ammoProdContent.style.display = 'none';
+        shipyardProdContent.style.display = 'none';
         weaponsProdTabBtn.style.background = '#1fa2c7';
         ammoProdTabBtn.style.background = '#17607a';
+        shipyardProdTabBtn.style.background = '#17607a';
 
         // Оновити максимальний рівень для будівництва
         updateMaxLaserLevel();
@@ -411,8 +474,19 @@ function renderTeraWindow() {
     ammoProdTabBtn.addEventListener('click', () => {
         weaponsProdContent.style.display = 'none';
         ammoProdContent.style.display = 'block';
+        shipyardProdContent.style.display = 'none';
         weaponsProdTabBtn.style.background = '#17607a';
         ammoProdTabBtn.style.background = '#1fa2c7';
+        shipyardProdTabBtn.style.background = '#17607a';
+    });
+
+    shipyardProdTabBtn.addEventListener('click', () => {
+        weaponsProdContent.style.display = 'none';
+        ammoProdContent.style.display = 'none';
+        shipyardProdContent.style.display = 'block';
+        weaponsProdTabBtn.style.background = '#17607a';
+        ammoProdTabBtn.style.background = '#17607a';
+        shipyardProdTabBtn.style.background = '#1fa2c7';
     });
 
     // Додаємо можливість рухати вікно мишкою
@@ -1250,7 +1324,7 @@ async function startBuilding(buildingId, buildingName) {
             console.error('Помилка при збереженні даних будівель');
         }
     } catch (error) {
-        console.error('Помилка при будівництві будівлі:', error);
+        console.error('Помилка при будівництві б��дівлі:', error);
     }
 }
 
