@@ -257,6 +257,22 @@ app.post('/api/save-production', (req, res) => {
     }
 });
 
+// Ендпоінт для збереження кораблів
+app.post('/api/save-ships', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const shipsData = req.body;
+    const shipsPath = path.join(__dirname, 'planets', 'tera', 'ships.json');
+
+    try {
+        fs.writeFileSync(shipsPath, JSON.stringify(shipsData, null, 2));
+        res.json({ success: true, message: 'Кораблі збережено успішно' });
+    } catch (error) {
+        console.error('Помилка при збереженні кораблів:', error);
+        res.status(500).json({ success: false, message: 'Помилка при збереженні кораблів' });
+    }
+});
+
 // Маршрут для отримання даних будівель
 app.get('/planets/tera/buildings.json', (req, res) => {
     const fs = require('fs');

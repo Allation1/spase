@@ -204,7 +204,13 @@ function renderTeraWindow() {
                         border-radius: 0 0 4px 4px;
                     ">
                         <div class="planet-content">
-                            <p style="color: #aaa; text-align: center; padding: 20px;">🚧 Док у розробці</p>
+                            <div id="tera-ships-list" style="
+                                display: grid;
+                                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                                gap: 15px;
+                            ">
+                                <!-- Кораблі будуть відображені тут -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -336,7 +342,66 @@ function renderTeraWindow() {
                         border-radius: 0 0 4px 4px;
                     ">
                         <div class="planet-content">
-                            <p style="color: #aaa; text-align: center; padding: 20px;">🚧 Суднобудування у розробці</p>
+                            <!-- Будівництво кораблів -->
+                            <div style="padding: 10px; background: #0e3a47; border: 1px solid #1fa2c7; border-radius: 4px;">
+                                <p style="margin-bottom: 10px; font-weight: bold;">🚢 Будівництво кораблів</p>
+                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                    <label>
+                                        <span>Проект:</span>
+                                        <select id="ship-project-select" style="
+                                            margin-left: 5px;
+                                            padding: 5px;
+                                            background: #134d5c;
+                                            color: white;
+                                            border: 1px solid #1fa2c7;
+                                            border-radius: 4px;
+                                            cursor: pointer;
+                                            min-width: 200px;
+                                        ">
+                                            <option value="">-- Виберіть проект --</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        <span>Кількість:</span>
+                                        <input type="number" id="ship-build-count" min="1" value="1" style="
+                                            width: 60px;
+                                            margin-left: 5px;
+                                            padding: 5px;
+                                            background: #134d5c;
+                                            color: white;
+                                            border: 1px solid #1fa2c7;
+                                            border-radius: 4px;
+                                            text-align: center;
+                                        ">
+                                    </label>
+                                    <button id="build-ship-btn" style="
+                                        padding: 5px 15px;
+                                        background: #1fa2c7;
+                                        color: white;
+                                        border: none;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                        font-weight: bold;
+                                    ">🔨 Будувати</button>
+                                    <span id="ship-build-time" style="color: #aaa; font-size: 12px;"></span>
+                                </div>
+                                <div id="ship-build-progress" style="
+                                    margin-top: 10px;
+                                    height: 20px;
+                                    background: #134d5c;
+                                    border: 1px solid #1fa2c7;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                    display: none;
+                                ">
+                                    <div id="ship-build-bar" style="
+                                        width: 0%;
+                                        height: 100%;
+                                        background: linear-gradient(90deg, #1fa2c7, #2ecc71);
+                                        transition: width 0.1s linear;
+                                    "></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -449,6 +514,9 @@ function renderTeraWindow() {
         weaponsResTabBtn.style.background = '#17607a';
         populationResTabBtn.style.background = '#17607a';
         dockResTabBtn.style.background = '#1fa2c7';
+
+        // Оновити відображення кораблів
+        updateDockDisplay();
     });
 
     // Додаємо обробники для вкладок виробництва
@@ -487,6 +555,9 @@ function renderTeraWindow() {
         weaponsProdTabBtn.style.background = '#17607a';
         ammoProdTabBtn.style.background = '#17607a';
         shipyardProdTabBtn.style.background = '#1fa2c7';
+
+        // Завантажити список проектів
+        loadShipProjects();
     });
 
     // Додаємо можливість рухати вікно мишкою
@@ -523,6 +594,12 @@ function renderTeraWindow() {
     const buildLaserBtn = document.getElementById('build-laser-btn');
     if (buildLaserBtn) {
         buildLaserBtn.addEventListener('click', buildLaserWeapon);
+    }
+
+    // Додаємо обробник для кнопки будівництва корабля
+    const buildShipBtn = document.getElementById('build-ship-btn');
+    if (buildShipBtn) {
+        buildShipBtn.addEventListener('click', buildShip);
     }
 
     // За замовчуванням показуємо вкладку планети

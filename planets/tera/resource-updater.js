@@ -12,8 +12,6 @@ async function updateResourcesDisplay() {
         if (window.updateTeraResources) {
             window.updateTeraResources();
         }
-
-        console.log('Відображення ресурсів оновлено:', resources);
     } catch (error) {
         console.error('Помилка при оновленні відображення ресурсів:', error);
     }
@@ -28,8 +26,6 @@ function startResourceDisplayUpdates() {
 
     // Створюємо інтервал для оновлення відображення ресурсів кожні 2 секунди
     window.resourceDisplayUpdateInterval = setInterval(updateResourcesDisplay, 2000);
-
-    console.log('Оновлення відображення ресурсів запущено (кожні 2 секунди)');
 }
 
 // Запускаємо оновлення відображення ресурсів
