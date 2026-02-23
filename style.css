@@ -517,6 +517,7 @@ body { /* Встановлюємо фон для всієї сторінки */
     padding: 15px;
     height: calc(100% - 50px);
     overflow-y: auto;
+    max-height: calc(90vh - 50px);
 }
 
 #ship-stats-window .science-window-title {

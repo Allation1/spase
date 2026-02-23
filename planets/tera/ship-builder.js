@@ -204,61 +204,30 @@ async function updateDockDisplay() {
             return;
         }
 
-        // Відображаємо кораблі
+        // Відображаємо кораблі (тільки назва і кількість)
         shipsList.innerHTML = shipsData.ships.map((ship, index) => {
-            const hp = ship.shipLevel * 10;
-            const totalDamage = ship.weaponsCount > 0 ? (ship.weaponsCount * ship.weaponLevel * ship.count) : 0;
-
             return `
                 <div style="
                     background: #134d5c;
                     border: 1px solid #1fa2c7;
                     border-radius: 4px;
-                    padding: 15px;
+                    padding: 12px 15px;
                     cursor: pointer;
                     transition: transform 0.2s, box-shadow 0.2s;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
                 "
                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(31,162,199,0.3)';"
                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
                 onclick="openShipStats(${index})"
                 >
-                    <div style="font-size: 1.2em; font-weight: bold; margin-bottom: 10px; color: #1fa2c7;">
+                    <div style="font-size: 1.1em; font-weight: bold; color: #1fa2c7;">
                         🚀 ${ship.projectName}
                     </div>
-                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 5px;">
-                        Рівень корпусу: <span style="color: #4ade80;">${ship.shipLevel}</span>
+                    <div style="color: #f59e0b; font-weight: bold; font-size: 1.1em;">
+                        ${ship.count} шт
                     </div>
-                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 5px;">
-                        Гармати: <span style="color: #4ade80;">${ship.weaponsCount}</span> шт 
-                        ${ship.weaponLevel > 0 ? `(рівень ${ship.weaponLevel})` : ''}
-                    </div>
-                    <div style="color: #aaa; font-size: 0.9em; margin-bottom: 10px;">
-                        Кількість: <span style="color: #f59e0b; font-weight: bold;">${ship.count}</span> шт
-                    </div>
-                    <div style="
-                        padding: 8px;
-                        background: #0e3a47;
-                        border-radius: 4px;
-                        text-align: center;
-                        color: #aaa;
-                        font-size: 0.85em;
-                    ">
-                        ❤️ HP: ${hp} | ⚔️ Урон: ${totalDamage}
-                    </div>
-                    <div style="margin-top: 8px; font-size: 0.75em; color: #666; text-align: right;">
-                        📅 Збудовано: ${ship.builtAt}
-                    </div>
-                    <button onclick="event.stopPropagation(); deleteShip(${index})" style="
-                        margin-top: 10px;
-                        padding: 5px 10px;
-                        background: #dc2626;
-                        color: white;
-                        border: none;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        font-size: 0.85em;
-                        width: 100%;
-                    ">🗑️ Видалити</button>
                 </div>
             `;
         }).join('');
@@ -348,6 +317,19 @@ async function openShipStats(shipIndex) {
                     ${hp} HP × ${ship.count} кораблів
                 </div>
             </div>
+            
+            <button onclick="deleteShipFromStats(${shipIndex})" style="
+                margin-top: 20px;
+                padding: 12px 20px;
+                background: #dc2626;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 1em;
+                width: 100%;
+            ">🔓 Розібрати</button>
         </div>
     `;
 
@@ -411,6 +393,36 @@ async function deleteShip(index) {
     }
 }
 
+// Функція для видалення корабля з вікна характеристик
+async function deleteShipFromStats(index) {
+    if (!confirm('Розібрати цей корабель на запчастини?')) return;
+
+    try {
+        const response = await fetch('/planets/tera/ships.json');
+        let shipsData = { ships: [] };
+
+        if (response.ok) {
+            shipsData = await response.json();
+        }
+
+        shipsData.ships.splice(index, 1);
+
+        await fetch('/api/save-ships', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(shipsData)
+        });
+
+        // Закрити вікно характеристик
+        closeShipStatsWindow();
+        
+        // Оновити відображення
+        updateDockDisplay();
+    } catch (error) {
+        console.error('Помилка при розбиранні корабля:', error);
+    }
+}
+
 // Функція для закриття вікна характеристик корабля
 function closeShipStatsWindow() {
     const statsWindow = document.getElementById('ship-stats-window');
@@ -425,4 +437,5 @@ window.buildShip = buildShip;
 window.updateDockDisplay = updateDockDisplay;
 window.openShipStats = openShipStats;
 window.deleteShip = deleteShip;
+window.deleteShipFromStats = deleteShipFromStats;
 window.closeShipStatsWindow = closeShipStatsWindow;

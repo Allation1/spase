@@ -5,6 +5,14 @@
       "shipLevel": 1,
       "weaponsCount": 2,
       "weaponLevel": 4,
+      "count": 3,
+      "builtAt": "23.02.2026"
+    },
+    {
+      "projectName": "2",
+      "shipLevel": 10,
+      "weaponsCount": 1,
+      "weaponLevel": 1,
       "count": 1,
       "builtAt": "23.02.2026"
     }
