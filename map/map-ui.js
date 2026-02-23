@@ -471,10 +471,49 @@ async function initiateFlight(destination) {
         return;
     }
     
+    // Перевіряємо, чи є флоти на орбіті призначення
+    const fleetsOnOrbit = fleetsData.fleets.filter(f => 
+        f.coordinates === destination && f.type !== 'pirate'
+    );
+    
+    const pirateFleetsOnOrbit = fleetsData.fleets.filter(f => 
+        f.coordinates === destination && f.type === 'pirate'
+    );
+    
+    // Якщо на орбіті є пірати — автоматичний бій
+    if (pirateFleetsOnOrbit.length > 0) {
+        const pirate = pirateFleetsOnOrbit[0];
+        if (!confirm(`⚠️ На орбіті ${destination} виявлено піратський флот "${pirate.name}"! Почати бій?`)) {
+            return;
+        }
+        
+        // Знаходимо індекс піратського флоту
+        const pirateIndex = fleetsData.fleets.findIndex(f => f === pirate);
+        
+        // Відкриваємо бій
+        window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + pirateIndex, '_blank');
+        return;
+    }
+    
+    // Якщо на орбіті є інші гравці
+    if (fleetsOnOrbit.length > 0) {
+        const otherFleet = fleetsOnOrbit[0];
+        if (!confirm(`⚠️ На орбіті ${destination} виявлено флот "${otherFleet.name}"! Почати бій?`)) {
+            return;
+        }
+        
+        // Знаходимо індекс іншого флоту
+        const otherIndex = fleetsData.fleets.findIndex(f => f === otherFleet);
+        
+        // Відкриваємо бій
+        window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + otherIndex, '_blank');
+        return;
+    }
+    
     // Отримуємо поточні координати
     const fromOrbit = fleet.coordinates || 'Невідомо';
     
-    // Підтвердження польоту
+    // Підтвердження польоту (якщо немає бою)
     if (!confirm(`Перемістити флот "${fleet.name}" з ${fromOrbit} на ${destination}?`)) {
         return;
     }

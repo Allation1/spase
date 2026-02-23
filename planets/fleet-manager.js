@@ -764,20 +764,49 @@ async function updateDockShipsDisplay() {
 }
 
 // Функція для початку бою
-function startBattle(fleetIndex) {
-    // Знаходимо піратський флот на тій самій орбіті
+async function startBattle(fleetIndex) {
+    // Завантажуємо флоти
     let fleetsData = { fleets: [] };
     try {
-        const savedData = localStorage.getItem('shipProjects');
+        const response = await fetch('/planets/fleets.json');
+        if (response.ok) {
+            fleetsData = await response.json();
+        }
     } catch (e) {
-        console.error('Помилка:', e);
+        console.error('Помилка при отриманні флотів:', e);
+        alert('Помилка завантаження флотів');
+        return;
     }
     
-    // Для прикладу - відкриваємо бій з першим піратським флотом (індекс 2)
-    const pirateIndex = 2;
+    const fleet = fleetsData.fleets[fleetIndex];
+    if (!fleet) {
+        alert('Флот не знайдено');
+        return;
+    }
     
-    // Відкриваємо вікно бою
-    window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + pirateIndex, '_blank');
+    // Шукаємо піратський флот на тій самій орбіті
+    const pirateFleet = fleetsData.fleets.find(f => 
+        f.type === 'pirate' && f.coordinates === fleet.coordinates
+    );
+    
+    if (pirateFleet) {
+        const pirateIndex = fleetsData.fleets.findIndex(f => f === pirateFleet);
+        
+        // Відкриваємо бій з піратами
+        window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + pirateIndex, '_blank');
+    } else {
+        // Якщо немає піратів, шукаємо інший флот
+        const otherFleet = fleetsData.fleets.find(f => 
+            f.type !== 'pirate' && f !== fleet && f.coordinates === fleet.coordinates
+        );
+        
+        if (otherFleet) {
+            const otherIndex = fleetsData.fleets.findIndex(f => f === otherFleet);
+            window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + otherIndex, '_blank');
+        } else {
+            alert('Немає противників на орбіті ' + (fleet.coordinates || 'невідомо'));
+        }
+    }
 }
 
 // Експортуємо функції в глобальну область
