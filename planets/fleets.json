@@ -65,6 +65,21 @@
       "status": "Патрулює",
       "coordinates": "0:2:2",
       "createdAt": "23.02.2026"
+    },
+    {
+      "name": "Тест",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "1",
+          "shipLevel": 1,
+          "weaponsCount": 2,
+          "weaponLevel": 4,
+          "count": 10
+        }
+      ],
+      "status": "На базі",
+      "createdAt": "23.02.2026"
     }
   ]
 }

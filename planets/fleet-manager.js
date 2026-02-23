@@ -328,12 +328,15 @@ async function updateFleetsDisplay() {
         console.error('Помилка при отриманні флотів:', e);
     }
     
-    if (fleetsData.fleets.length === 0) {
+    // Фільтруємо тільки свої флоти (не піратські)
+    const playerFleets = fleetsData.fleets.filter(fleet => fleet.type !== 'pirate');
+    
+    if (playerFleets.length === 0) {
         fleetsList.innerHTML = '<p style="color: #aaa; text-align: center; grid-column: 1/-1;">Немає створених флотів</p>';
         return;
     }
     
-    fleetsList.innerHTML = fleetsData.fleets.map((fleet, index) => {
+    fleetsList.innerHTML = playerFleets.map((fleet, index) => {
         const totalShips = fleet.ships.reduce((sum, ship) => sum + ship.count, 0);
         return `
             <div style="
