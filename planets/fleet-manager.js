@@ -226,22 +226,64 @@ async function saveFleet() {
     // Додаємо новий флот
     fleetsData.fleets.push(fleet);
     
-    // Зберігаємо
+    // Віднімаємо кораблі з доку
+    let shipsData = { ships: [] };
     try {
-        const saveResponse = await fetch('/api/save-fleets', {
+        const response = await fetch('/planets/tera/ships.json');
+        if (response.ok) {
+            shipsData = await response.json();
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні кораблів:', e);
+    }
+    
+    // Віднімаємо вибрані кораблі
+    selectedShips.forEach(selectedShip => {
+        const shipInDock = shipsData.ships.find(s => 
+            s.projectName === selectedShip.projectName &&
+            s.shipLevel === selectedShip.shipLevel &&
+            s.weaponsCount === selectedShip.weaponsCount &&
+            s.weaponLevel === selectedShip.weaponLevel
+        );
+        
+        if (shipInDock) {
+            shipInDock.count -= selectedShip.count;
+            // Якщо кількість стала 0 або від'ємна, видаляємо корабель
+            if (shipInDock.count <= 0) {
+                shipsData.ships = shipsData.ships.filter(s => s !== shipInDock);
+            }
+        }
+    });
+    
+    // Зберігаємо флоти
+    try {
+        const saveFleetsResponse = await fetch('/api/save-fleets', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(fleetsData)
         });
         
-        if (saveResponse.ok) {
-            alert(`✅ Флот "${fleetName}" створено!`);
-            closeCreateFleetWindow();
-            updateFleetsDisplay();
-        } else {
-            const errorData = await saveResponse.json();
-            throw new Error(errorData.message || 'Помилка збереження');
+        if (!saveFleetsResponse.ok) {
+            const errorData = await saveFleetsResponse.json();
+            throw new Error(errorData.message || 'Помилка збереження флоту');
         }
+        
+        // Зберігаємо оновлені кораблі
+        const saveShipsResponse = await fetch('/api/save-ships', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(shipsData)
+        });
+        
+        if (!saveShipsResponse.ok) {
+            const errorData = await saveShipsResponse.json();
+            throw new Error(errorData.message || 'Помилка збереження кораблів');
+        }
+        
+        alert(`✅ Флот "${fleetName}" створено! Кораблі переміщено з доку.`);
+        closeCreateFleetWindow();
+        updateFleetsDisplay();
+        updateDockShipsDisplay();
     } catch (error) {
         console.error('Помилка при збереженні флоту:', error);
         alert('❌ Помилка при збереженні флоту: ' + error.message);
@@ -468,7 +510,7 @@ function closeFleetDetailsWindow() {
 
 // Функція для видалення флоту
 async function deleteFleet(index) {
-    if (!confirm('Розформувати цей флот?')) return;
+    if (!confirm('Розформувати цей флот? Кораблі повернуться у док.')) return;
     
     try {
         const response = await fetch('/planets/fleets.json');
@@ -478,6 +520,51 @@ async function deleteFleet(index) {
             fleetsData = await response.json();
         }
         
+        // Отримуємо кораблі флоту перед видаленням
+        const fleetShips = fleetsData.fleets[index]?.ships || [];
+        
+        // Завантажуємо кораблі з доку
+        let shipsData = { ships: [] };
+        try {
+            const shipsResponse = await fetch('/planets/tera/ships.json');
+            if (shipsResponse.ok) {
+                shipsData = await shipsResponse.json();
+            }
+        } catch (e) {
+            console.error('Помилка при отриманні кораблів:', e);
+        }
+        
+        // Повертаємо кораблі у док
+        fleetShips.forEach(fleetShip => {
+            const existingShip = shipsData.ships.find(s => 
+                s.projectName === fleetShip.projectName &&
+                s.shipLevel === fleetShip.shipLevel &&
+                s.weaponsCount === fleetShip.weaponsCount &&
+                s.weaponLevel === fleetShip.weaponLevel
+            );
+            
+            if (existingShip) {
+                existingShip.count += fleetShip.count;
+            } else {
+                shipsData.ships.push({
+                    projectName: fleetShip.projectName,
+                    shipLevel: fleetShip.shipLevel,
+                    weaponsCount: fleetShip.weaponsCount,
+                    weaponLevel: fleetShip.weaponLevel,
+                    count: fleetShip.count,
+                    builtAt: new Date().toLocaleDateString('uk-UA')
+                });
+            }
+        });
+        
+        // Зберігаємо оновлені кораблі
+        await fetch('/api/save-ships', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(shipsData)
+        });
+        
+        // Видаляємо флот
         fleetsData.fleets.splice(index, 1);
         
         await fetch('/api/save-fleets', {
@@ -487,6 +574,7 @@ async function deleteFleet(index) {
         });
         
         updateFleetsDisplay();
+        updateDockShipsDisplay();
     } catch (error) {
         console.error('Помилка при видаленні флоту:', error);
     }
@@ -494,7 +582,7 @@ async function deleteFleet(index) {
 
 // Функція для видалення флоту з вікна деталей
 async function deleteFleetFromDetails(fleetIndex) {
-    if (!confirm('Розформувати цей флот?')) return;
+    if (!confirm('Розформувати цей флот? Кораблі повернуться у док.')) return;
     
     try {
         const response = await fetch('/planets/fleets.json');
@@ -504,6 +592,51 @@ async function deleteFleetFromDetails(fleetIndex) {
             fleetsData = await response.json();
         }
         
+        // Отримуємо кораблі флоту перед видаленням
+        const fleetShips = fleetsData.fleets[fleetIndex]?.ships || [];
+        
+        // Завантажуємо кораблі з доку
+        let shipsData = { ships: [] };
+        try {
+            const shipsResponse = await fetch('/planets/tera/ships.json');
+            if (shipsResponse.ok) {
+                shipsData = await shipsResponse.json();
+            }
+        } catch (e) {
+            console.error('Помилка при отриманні кораблів:', e);
+        }
+        
+        // Повертаємо кораблі у док
+        fleetShips.forEach(fleetShip => {
+            const existingShip = shipsData.ships.find(s => 
+                s.projectName === fleetShip.projectName &&
+                s.shipLevel === fleetShip.shipLevel &&
+                s.weaponsCount === fleetShip.weaponsCount &&
+                s.weaponLevel === fleetShip.weaponLevel
+            );
+            
+            if (existingShip) {
+                existingShip.count += fleetShip.count;
+            } else {
+                shipsData.ships.push({
+                    projectName: fleetShip.projectName,
+                    shipLevel: fleetShip.shipLevel,
+                    weaponsCount: fleetShip.weaponsCount,
+                    weaponLevel: fleetShip.weaponLevel,
+                    count: fleetShip.count,
+                    builtAt: new Date().toLocaleDateString('uk-UA')
+                });
+            }
+        });
+        
+        // Зберігаємо оновлені кораблі
+        await fetch('/api/save-ships', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(shipsData)
+        });
+        
+        // Видаляємо флот
         fleetsData.fleets.splice(fleetIndex, 1);
         
         await fetch('/api/save-fleets', {
@@ -514,6 +647,7 @@ async function deleteFleetFromDetails(fleetIndex) {
         
         closeFleetDetailsWindow();
         updateFleetsDisplay();
+        updateDockShipsDisplay();
     } catch (error) {
         console.error('Помилка при видаленні флоту:', error);
     }
