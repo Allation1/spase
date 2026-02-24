@@ -895,9 +895,10 @@ async function buildLaserWeapon() {
     }, 100);
 }
 
-// Функція для додавання лазерної зброї у production.json
+// Функція для додавання лазерної зброї у production.json та weapons.json
 async function addLaserWeapons(level, count) {
     try {
+        // Оновлюємо production.json
         const response = await fetch('/planets/tera/production.json');
         let productionData = {};
 
@@ -923,14 +924,48 @@ async function addLaserWeapons(level, count) {
             laserLevel.count += count;
         }
 
-        // Зберігаємо оновлені дані
+        // Зберігаємо оновлені дані виробництва
         await fetch('/api/save-production', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(productionData)
         });
 
+        // ДОДАЄМО ЗБРОЮ У weapons.json (СКЛАД)
+        const weaponsResponse = await fetch('/planets/tera/weapons.json?t=' + Date.now());
+        let weaponsData = { weapons: [] };
+        
+        if (weaponsResponse.ok) {
+            weaponsData = await weaponsResponse.json();
+        }
+        
+        // Знаходимо або створюємо запис для лазерної зброї цього рівня
+        let weaponEntry = weaponsData.weapons.find(w => 
+            w.type === 'laser' && w.level === level
+        );
+        
+        if (weaponEntry) {
+            // Додаємо до існуючої кількості
+            weaponEntry.count += count;
+        } else {
+            // Створюємо новий запис
+            weaponsData.weapons.push({
+                type: 'laser',
+                level: level,
+                count: count,
+                addedAt: new Date().toLocaleDateString('uk-UA')
+            });
+        }
+        
+        // Зберігаємо оновлений склад зброї
+        await fetch('/api/save-weapons', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(weaponsData)
+        });
+
         console.log(`✅ Збудовано лазерних гармат ${level} рівня: ${count} шт.`);
+        console.log(`📦 Додано на склад: ${count} гармат ${level} рівня`);
 
         // Невелика затримка перед оновленням відображення
         setTimeout(() => {
