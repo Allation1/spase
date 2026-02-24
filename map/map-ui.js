@@ -88,7 +88,7 @@ function openSolarSystemWindow() {
         solarSystemWindow.innerHTML = `
             <div class="solar-system-title">
                 <span>Сонячна система</span>
-                <span class="coordinates-display">(1:1)</span>
+                <span class="coordinates-display">(2:2)</span>
                 <button class="solar-system-close-btn" onclick="closeSolarSystemWindow()">✕</button>
             </div>
             <div class="solar-system-content">
@@ -96,30 +96,30 @@ function openSolarSystemWindow() {
                     <img src="images/002.png" alt="Сонце" class="solar-star-img">
                 </div>
                 <div class="solar-system-objects">
-                    <div class="planet-item" id="planet-item-1_1_1">
-                        <span onclick="openPlanetWindow('Тера')">1 Тера (1:1:1)</span>
-                        <button class="flight-btn" onclick="initiateFlight('1:1:1')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_1"></div>
+                    <div class="planet-item" id="planet-item-2_2_1">
+                        <span onclick="openPlanetWindow('Тера')">1 Тера (2:2:1)</span>
+                        <button class="flight-btn" onclick="initiateFlight('2:2:1')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-2_2_1"></div>
                     </div>
-                    <div class="asteroid-field" id="asteroid-field-1_1_2">
-                        <span>2 Астероїдне поле (1:1:2)</span>
-                        <button class="flight-btn" onclick="initiateFlight('1:1:2')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_2"></div>
+                    <div class="asteroid-field" id="asteroid-field-2_2_2">
+                        <span>2 Астероїдне поле (2:2:2)</span>
+                        <button class="flight-btn" onclick="initiateFlight('2:2:2')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-2_2_2"></div>
                     </div>
-                    <div class="asteroid-field" id="asteroid-field-1_1_3">
-                        <span>3 Астероїдне поле (1:1:3)</span>
-                        <button class="flight-btn" onclick="initiateFlight('1:1:3')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_3"></div>
+                    <div class="asteroid-field" id="asteroid-field-2_2_3">
+                        <span>3 Астероїдне поле (2:2:3)</span>
+                        <button class="flight-btn" onclick="initiateFlight('2:2:3')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-2_2_3"></div>
                     </div>
-                    <div class="asteroid-field" id="asteroid-field-1_1_4">
-                        <span>4 Астероїдне поле (1:1:4)</span>
-                        <button class="flight-btn" onclick="initiateFlight('1:1:4')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_4"></div>
+                    <div class="asteroid-field" id="asteroid-field-2_2_4">
+                        <span>4 Астероїдне поле (2:2:4)</span>
+                        <button class="flight-btn" onclick="initiateFlight('2:2:4')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-2_2_4"></div>
                     </div>
-                    <div class="asteroid-field" id="asteroid-field-1_1_5">
-                        <span>5 Астероїдне поле (1:1:5)</span>
-                        <button class="flight-btn" onclick="initiateFlight('1:1:5')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-1_1_5"></div>
+                    <div class="asteroid-field" id="asteroid-field-2_2_5">
+                        <span>5 Астероїдне поле (2:2:5)</span>
+                        <button class="flight-btn" onclick="initiateFlight('2:2:5')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-2_2_5"></div>
                     </div>
                 </div>
             </div>
@@ -932,7 +932,7 @@ function openBlueSolarSystemWindow() {
         blueSolarSystemWindow.innerHTML = `
             <div class="solar-system-title">
                 <span>Блакитна сонячна система</span>
-                <span class="coordinates-display">(0:2)</span>
+                <span class="coordinates-display">(0:4)</span>
                 <button class="solar-system-close-btn" onclick="closeBlueSolarSystemWindow()">✕</button>
             </div>
             <div class="solar-system-content">
@@ -940,30 +940,30 @@ function openBlueSolarSystemWindow() {
                     <img src="images/003.png" alt="Блакитне сонце" class="blue-solar-star-img">
                 </div>
                 <div class="asteroid-fields-container">
-                    <div class="asteroid-field" id="asteroid-field-0_2_1">
-                        <span>1 Астероїдне поле (0:2:1)</span>
-                        <button class="flight-btn" onclick="initiateFlight('0:2:1')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_1"></div>
+                    <div class="asteroid-field" id="asteroid-field-0_4_1">
+                        <span>1 Астероїдне поле (0:4:1)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:4:1')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_4_1"></div>
                     </div>
-                    <div class="asteroid-field" id="asteroid-field-0_2_2">
-                        <span>2 Астероїдне поле (0:2:2)</span>
-                        <button class="flight-btn" onclick="initiateFlight('0:2:2')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_2"></div>
+                    <div class="asteroid-field" id="asteroid-field-0_4_2">
+                        <span>2 Астероїдне поле (0:4:2)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:4:2')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_4_2"></div>
                     </div>
-                    <div class="asteroid-field" id="asteroid-field-0_2_3">
-                        <span>3 Астероїдне поле (0:2:3)</span>
-                        <button class="flight-btn" onclick="initiateFlight('0:2:3')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_3"></div>
+                    <div class="asteroid-field" id="asteroid-field-0_4_3">
+                        <span>3 Астероїдне поле (0:4:3)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:4:3')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_4_3"></div>
                     </div>
-                    <div class="asteroid-field" id="asteroid-field-0_2_4">
-                        <span>4 Астероїдне поле (0:2:4)</span>
-                        <button class="flight-btn" onclick="initiateFlight('0:2:4')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_4"></div>
+                    <div class="asteroid-field" id="asteroid-field-0_4_4">
+                        <span>4 Астероїдне поле (0:4:4)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:4:4')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_4_4"></div>
                     </div>
-                    <div class="asteroid-field" id="asteroid-field-0_2_5">
-                        <span>5 Астероїдне поле (0:2:5)</span>
-                        <button class="flight-btn" onclick="initiateFlight('0:2:5')">Політ</button>
-                        <div class="fleet-orbit-icons" id="fleet-orbit-0_2_5"></div>
+                    <div class="asteroid-field" id="asteroid-field-0_4_5">
+                        <span>5 Астероїдне поле (0:4:5)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:4:5')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_4_5"></div>
                     </div>
                 </div>
             </div>
