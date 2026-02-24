@@ -485,11 +485,12 @@ async function executeMoves() {
             continue;
         }
 
-        // Обчислюємо напрямок руху
+        // Обчислюємо напрямок руху (з діагоналлю)
         let dx = 0, dy = 0;
         if (ship.x < target.toX) dx = 1;
         else if (ship.x > target.toX) dx = -1;
-        else if (ship.y < target.toY) dy = 1;
+        
+        if (ship.y < target.toY) dy = 1;
         else if (ship.y > target.toY) dy = -1;
 
         const newX = ship.x + dx;
