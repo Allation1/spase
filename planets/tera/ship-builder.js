@@ -65,6 +65,54 @@ async function buildShip() {
         return;
     }
 
+    // ПЕРЕВІРКА НАЯВНОСТІ ЗБРОЇ НА СКЛАДІ
+    const requiredWeapons = project.weaponsCount * count;
+    const weaponLevel = project.weaponLevel;
+    
+    try {
+        const weaponsResponse = await fetch('/planets/tera/weapons.json?t=' + Date.now());
+        let weaponsData = { weapons: [] };
+        
+        if (weaponsResponse.ok) {
+            weaponsData = await weaponsResponse.json();
+        }
+        
+        // Знаходимо зброю потрібного типу та рівня
+        const requiredWeapon = weaponsData.weapons.find(w => 
+            w.type === 'laser' && w.level === weaponLevel
+        );
+        
+        const availableCount = requiredWeapon ? requiredWeapon.count : 0;
+        
+        if (availableCount < requiredWeapons) {
+            alert(`❌ Недостатньо зброї на складі!\n\nПотрібно: ${requiredWeapons} гармат ${weaponLevel} рівня\nНа складі: ${availableCount}\n\nВиробіть необхідну кількість зброї на Зброярному заводі.`);
+            return;
+        }
+        
+        // Віднімаємо зброю зі складу
+        if (requiredWeapon) {
+            requiredWeapon.count -= requiredWeapons;
+            // Якщо зброя закінчилась, видаляємо
+            if (requiredWeapon.count <= 0) {
+                weaponsData.weapons = weaponsData.weapons.filter(w => w !== requiredWeapon);
+            }
+        }
+        
+        // Зберігаємо оновлений склад зброї
+        await fetch('/api/save-weapons', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(weaponsData)
+        });
+        
+        console.log(`Використано ${requiredWeapons} гармат ${weaponLevel} рівня для будівництва`);
+        
+    } catch (e) {
+        console.error('Помилка при перевірці зброї:', e);
+        alert('❌ Помилка перевірки зброї на складі');
+        return;
+    }
+
     // Розраховуємо час будівництва: 10с × рівень корабля × кількість
     const timePerUnit = project.shipLevel * 10 * 1000; // мс
     const totalTime = timePerUnit * count;

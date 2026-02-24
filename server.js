@@ -305,6 +305,41 @@ app.post('/api/save-battle', (req, res) => {
     }
 });
 
+// Ендпоінт для збереження зброї
+app.post('/api/save-weapons', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const weaponsData = req.body;
+    const weaponsPath = path.join(__dirname, 'planets', 'tera', 'weapons.json');
+
+    try {
+        fs.writeFileSync(weaponsPath, JSON.stringify(weaponsData, null, 2));
+        res.json({ success: true, message: 'Зброю збережено успішно' });
+    } catch (error) {
+        console.error('Помилка при збереженні зброї:', error);
+        res.status(500).json({ success: false, message: 'Помилка при збереженні зброї' });
+    }
+});
+
+// Ендпоінт для отримання зброї
+app.get('/planets/tera/weapons.json', (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const weaponsPath = path.join(__dirname, 'planets', 'tera', 'weapons.json');
+
+    try {
+        if (fs.existsSync(weaponsPath)) {
+            const weaponsData = JSON.parse(fs.readFileSync(weaponsPath, 'utf8'));
+            res.json(weaponsData);
+        } else {
+            res.json({ weapons: [] });
+        }
+    } catch (error) {
+        console.error('Помилка при отриманні зброї:', error);
+        res.json({ weapons: [] });
+    }
+});
+
 // Маршрут для отримання даних будівель
 app.get('/planets/tera/buildings.json', (req, res) => {
     const fs = require('fs');
