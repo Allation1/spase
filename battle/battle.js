@@ -586,9 +586,13 @@ async function checkBattleEnd() {
     });
 
     if (enemyShips.length === 0) {
-        setTimeout(() => {
+        setTimeout(async () => {
             alert('🎉 ПЕРЕМОГА! Всі ворожі флоти знищено!');
             if (roundTimer) clearInterval(roundTimer);
+            
+            // Видаляємо піратський флот з fleets.json
+            await deleteEnemyFleet();
+            
             fetch('/api/save-battle', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -620,6 +624,35 @@ async function checkBattleEnd() {
     }
 
     return false;
+}
+
+// Видалення ворожого флоту після перемоги
+async function deleteEnemyFleet() {
+    try {
+        // Отримуємо всі флоти
+        const response = await fetch('/planets/fleets.json');
+        if (!response.ok) return;
+        
+        const fleetsData = await response.json();
+        
+        // Знаходимо флот противника за індексом
+        const defenderIndex = battleData.defender;
+        if (defenderIndex >= 0 && defenderIndex < fleetsData.fleets.length) {
+            // Видаляємо флот з масиву
+            fleetsData.fleets.splice(defenderIndex, 1);
+            
+            // Зберігаємо оновлений список флотів
+            await fetch('/api/save-fleets', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(fleetsData)
+            });
+            
+            console.log('Флот противника видалено:', defenderIndex);
+        }
+    } catch (e) {
+        console.error('Помилка видалення флоту:', e);
+    }
 }
 
 // Завершення раунду
