@@ -1,3 +1,34 @@
 {
-  "weapons": []
+  "weapons": [
+    {
+      "type": "laser",
+      "level": 1,
+      "count": 31,
+      "migratedAt": "24.02.2026"
+    },
+    {
+      "type": "laser",
+      "level": 2,
+      "count": 1,
+      "migratedAt": "24.02.2026"
+    },
+    {
+      "type": "laser",
+      "level": 3,
+      "count": 1,
+      "migratedAt": "24.02.2026"
+    },
+    {
+      "type": "laser",
+      "level": 4,
+      "count": 2,
+      "migratedAt": "24.02.2026"
+    },
+    {
+      "type": "laser",
+      "level": 5,
+      "count": 3,
+      "migratedAt": "24.02.2026"
+    }
+  ]
 }
