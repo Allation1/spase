@@ -133,50 +133,29 @@ async function buildShip() {
 
             // ВІДНІМАЄМО ЗБРОЮ ЗІ СКЛАДУ ПІСЛЯ ЗАВЕРШЕННЯ БУДІВНИЦТВА
             if (weaponsData) {
-                console.log('🔍 Початок віднімання зброї:');
-                console.log('  weaponsData:', JSON.stringify(weaponsData));
-                console.log('  weaponLevel:', weaponLevel);
-                console.log('  requiredWeapons:', requiredWeapons);
+                const requiredWeapon = weaponsData.weapons.find(w => 
+                    w.type === 'laser' && w.level === weaponLevel
+                );
                 
-                const requiredWeapon = weaponsData.weapons.find(w => {
-                    const match = w.type === 'laser' && w.level === weaponLevel;
-                    console.log(`  Перевірка: type=${w.type}, level=${w.level}, count=${w.count} → ${match ? 'ЗНАЙДЕНО' : 'не підходить'}`);
-                    return match;
-                });
-                
-                console.log('  Знайдено зброю:', requiredWeapon ? `так, count=${requiredWeapon.count}` : 'ні');
-
                 if (requiredWeapon) {
-                    const oldCount = requiredWeapon.count;
                     requiredWeapon.count -= requiredWeapons;
-                    console.log(`  Віднімання: ${oldCount} - ${requiredWeapons} = ${requiredWeapon.count}`);
-                    
                     // Якщо зброя закінчилась, видаляємо
                     if (requiredWeapon.count <= 0) {
                         weaponsData.weapons = weaponsData.weapons.filter(w => w !== requiredWeapon);
-                        console.log('  Зброя закінчилась, видалено зі списку');
                     }
-                } else {
-                    console.error('❌ ПОМИЛКА: Зброю потрібного рівня не знайдено!');
-                    console.error('  Шукали: type=laser, level=' + weaponLevel);
-                    console.error('  Доступна зброя:', weaponsData.weapons.map(w => `level ${w.level}: ${w.count} шт.`));
                 }
-
+                
                 // Зберігаємо оновлений склад зброї
                 try {
-                    console.log('  Збереження:', JSON.stringify(weaponsData));
                     await fetch('/api/save-weapons', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(weaponsData)
                     });
                     console.log(`✅ Використано ${requiredWeapons} гармат ${weaponLevel} рівня для будівництва`);
-                    console.log('📦 Оновлений склад зброї:', weaponsData);
                 } catch (e) {
                     console.error('Помилка при збереженні зброї:', e);
                 }
-            } else {
-                console.error('❌ weaponsData is null!');
             }
 
             // Додаємо корабель у ships.json
