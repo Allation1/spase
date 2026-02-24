@@ -28,7 +28,10 @@
 
             <!-- Сітка бою -->
             <div id="battle-grid-container">
-                <div id="battle-grid"></div>
+                <div id="battle-grid-wrapper">
+                    <svg id="battle-overlay"></svg>
+                    <div id="battle-grid"></div>
+                </div>
             </div>
 
             <!-- Панель противника справа -->
@@ -40,20 +43,7 @@
 
         <!-- Нижня панель з діями -->
         <div id="battle-actions">
-            <div id="ship-actions" style="display: none;">
-                <button id="btn-move" onclick="showMoveMode()">🚀 Перемістити</button>
-                <button id="btn-attack" onclick="showAttackMode()">⚔️ Атака</button>
-                <button id="btn-cancel" onclick="cancelActions()">✕ Скасувати</button>
-            </div>
-            <div id="attack-options" style="display: none;">
-                <label>
-                    <input type="radio" name="attack-type" value="single" checked> По одному
-                </label>
-                <label>
-                    <input type="radio" name="attack-type" value="all"> По всім
-                </label>
-                <button id="btn-save-attack" onclick="saveAttack()">💾 Зберегти атаку</button>
-            </div>
+            <button id="btn-clear-actions" onclick="clearAllActions()" style="background: #f59e0b;">🗑️ Скасувати дії</button>
             <button id="btn-end-round" onclick="endRound()">⏭️ Завершити раунд</button>
         </div>
 
@@ -61,15 +51,6 @@
         <div id="battle-logs">
             <h3>📜 Логи бою</h3>
             <div id="logs-container"></div>
-        </div>
-
-        <!-- Вікно вибору цілі -->
-        <div id="target-select-window" class="modal" style="display: none;">
-            <div class="modal-content">
-                <h3>Оберіть ціль для атаки</h3>
-                <div id="target-list"></div>
-                <button onclick="closeTargetWindow()">✕ Скасувати</button>
-            </div>
         </div>
     </div>
 

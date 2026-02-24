@@ -502,18 +502,29 @@ async function openFleetDetails(fleetIndex) {
                 <div style="color: #aaa; font-size: 0.85em; margin-top: 5px;">📍 Координати: <span style="color: #f59e0b;">${fleet.coordinates || 'Немає'}</span></div>
             </div>
             
-            <button onclick="startBattle(${fleetIndex})" style="
+            <button id="start-battle-btn-${fleetIndex}" onclick="startBattle(${fleetIndex})" style="
                 padding: 12px 20px;
-                background: #ef4444;
-                color: white;
+                background: #555;
+                color: #aaa;
                 border: none;
                 border-radius: 4px;
-                cursor: pointer;
+                cursor: not-allowed;
                 font-weight: bold;
                 font-size: 1em;
                 width: 100%;
                 margin-bottom: 10px;
-            ">⚔️ Почати бій</button>
+            " disabled>⚔️ Почати бій</button>
+            <div id="battle-status-${fleetIndex}" style="
+                padding: 10px;
+                background: #0e3a47;
+                border-radius: 4px;
+                margin-bottom: 10px;
+                text-align: center;
+                color: #aaa;
+                font-size: 0.85em;
+            ">
+                📡 Пошук противника на орбіті...
+            </div>
             
             <div style="padding: 10px; background: #134d5c; border-radius: 4px; border: 1px solid #1fa2c7; margin-bottom: 20px;">
                 <div style="color: #aaa; font-size: 0.85em; margin-bottom: 5px;">ℹ️ Інструкція</div>
@@ -542,6 +553,9 @@ async function openFleetDetails(fleetIndex) {
     if (typeof bringWindowToFront === 'function') {
         bringWindowToFront(fleetDetailsWindow);
     }
+
+    // Перевіряємо наявність противників на орбіті
+    checkEnemiesOnOrbit(fleetIndex, fleet.coordinates);
 
     // Додаємо можливість рухати вікно мишкою
     let isDragging = false, offsetX = 0, offsetY = 0;
@@ -777,21 +791,21 @@ async function startBattle(fleetIndex) {
         alert('Помилка завантаження флотів');
         return;
     }
-    
+
     const fleet = fleetsData.fleets[fleetIndex];
     if (!fleet) {
         alert('Флот не знайдено');
         return;
     }
-    
+
     // Шукаємо піратський флот на тій самій орбіті
     const pirateFleet = fleetsData.fleets.find(f => 
         f.type === 'pirate' && f.coordinates === fleet.coordinates
     );
-    
+
     if (pirateFleet) {
         const pirateIndex = fleetsData.fleets.findIndex(f => f === pirateFleet);
-        
+
         // Відкриваємо бій з піратами
         window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + pirateIndex, '_blank');
     } else {
@@ -799,7 +813,7 @@ async function startBattle(fleetIndex) {
         const otherFleet = fleetsData.fleets.find(f => 
             f.type !== 'pirate' && f !== fleet && f.coordinates === fleet.coordinates
         );
-        
+
         if (otherFleet) {
             const otherIndex = fleetsData.fleets.findIndex(f => f === otherFleet);
             window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + otherIndex, '_blank');
@@ -807,6 +821,70 @@ async function startBattle(fleetIndex) {
             alert('Немає противників на орбіті ' + (fleet.coordinates || 'невідомо'));
         }
     }
+}
+
+// Функція для перевірки противників на орбіті
+async function checkEnemiesOnOrbit(fleetIndex, coordinates) {
+    const statusElement = document.getElementById(`battle-status-${fleetIndex}`);
+    const battleBtn = document.getElementById(`start-battle-btn-${fleetIndex}`);
+    
+    if (!statusElement || !battleBtn) return;
+    
+    let fleetsData = { fleets: [] };
+    try {
+        const response = await fetch('/planets/fleets.json');
+        if (response.ok) {
+            fleetsData = await response.json();
+        }
+    } catch (e) {
+        console.error('Помилка при отриманні флотів:', e);
+        statusElement.textContent = '❌ Помилка перевірки';
+        return;
+    }
+    
+    const fleet = fleetsData.fleets[fleetIndex];
+    if (!fleet) {
+        statusElement.textContent = '❌ Флот не знайдено';
+        return;
+    }
+    
+    // Шукаємо піратський флот на тій самій орбіті
+    const pirateFleet = fleetsData.fleets.find(f => 
+        f.type === 'pirate' && f.coordinates === coordinates
+    );
+    
+    if (pirateFleet) {
+        statusElement.innerHTML = '⚠️ <span style="color: #ef4444;">Піратський флот на орбіті!</span>';
+        statusElement.style.color = '#ef4444';
+        battleBtn.disabled = false;
+        battleBtn.style.background = '#ef4444';
+        battleBtn.style.color = 'white';
+        battleBtn.style.cursor = 'pointer';
+        return;
+    }
+    
+    // Шукаємо інший флот гравця
+    const otherFleet = fleetsData.fleets.find(f => 
+        f.type !== 'pirate' && f !== fleet && f.coordinates === coordinates
+    );
+    
+    if (otherFleet) {
+        statusElement.innerHTML = '⚠️ <span style="color: #f59e0b;">Флот гравця на орбіті!</span>';
+        statusElement.style.color = '#f59e0b';
+        battleBtn.disabled = false;
+        battleBtn.style.background = '#f59e0b';
+        battleBtn.style.color = 'white';
+        battleBtn.style.cursor = 'pointer';
+        return;
+    }
+    
+    // Немає противників
+    statusElement.innerHTML = '✅ <span style="color: #4ade80;">Орбіта чиста</span>';
+    statusElement.style.color = '#4ade80';
+    battleBtn.disabled = true;
+    battleBtn.style.background = '#555';
+    battleBtn.style.color = '#aaa';
+    battleBtn.style.cursor = 'not-allowed';
 }
 
 // Експортуємо функції в глобальну область
@@ -820,3 +898,5 @@ window.deleteFleet = deleteFleet;
 window.deleteFleetFromDetails = deleteFleetFromDetails;
 window.updateDockShipsDisplay = updateDockShipsDisplay;
 window.validateShipCount = validateShipCount;
+window.startBattle = startBattle;
+window.checkEnemiesOnOrbit = checkEnemiesOnOrbit;
