@@ -530,14 +530,13 @@ function renderScienceBlocks() {
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-laser-count" value="1" min="1" style="
                                 width: 35px;
-                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 5px;
+                                margin-right: 2px;
                                 -moz-appearance: textfield;
                             ">
                             <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')">Вивчити</button>
@@ -560,14 +559,13 @@ function renderScienceBlocks() {
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-missile-count" value="1" min="1" style="
                                 width: 35px;
-                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 5px;
+                                margin-right: 2px;
                                 -moz-appearance: textfield;
                             ">
                             <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')">Вивчити</button>
@@ -594,14 +592,13 @@ function renderScienceBlocks() {
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-fighter-count" value="1" min="1" style="
                                 width: 35px;
-                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 5px;
+                                margin-right: 2px;
                                 -moz-appearance: textfield;
                             ">
                             <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')">Вивчити</button>
@@ -624,14 +621,13 @@ function renderScienceBlocks() {
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-cruiser-count" value="1" min="1" style="
                                 width: 35px;
-                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 5px;
+                                margin-right: 2px;
                                 -moz-appearance: textfield;
                             ">
                             <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')">Вивчити</button>
@@ -1169,7 +1165,7 @@ function completeStudy(scienceId, level) {
                 const savedActiveTab = activeScienceTab;
                 window.renderScienceBlocks();
 
-                // Відновлюємо активну вкладку після оновлення
+                // Відновлюємо активну вкладку після он��влення
                 setTimeout(() => {
                     const basicTabBtn = document.getElementById('basic-tab-btn');
                     const buildingsTabBtn = document.getElementById('buildings-tab-btn');
