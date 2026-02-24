@@ -1,3 +1,930 @@
 {
-  "activeBattle": null
+  "activeBattle": {
+    "attacker": 1,
+    "defender": 2,
+    "attackerName": "Перший 1",
+    "defenderName": "Піратський патруль",
+    "attackerShips": [
+      {
+        "shipIndex": 0,
+        "projectName": "2",
+        "shipLevel": 10,
+        "weaponsCount": 1,
+        "weaponLevel": 1,
+        "count": 1
+      }
+    ],
+    "defenderShips": [
+      {
+        "shipIndex": 0,
+        "projectName": "Винищувач",
+        "shipLevel": 1,
+        "weaponsCount": 2,
+        "weaponLevel": 1,
+        "count": 1
+      }
+    ],
+    "grid": [
+      {
+        "x": 1,
+        "y": 10,
+        "shipIndex": 0,
+        "side": "player",
+        "count": 1,
+        "currentHP": 100,
+        "maxHP": 100,
+        "projectName": "2",
+        "shipLevel": 10,
+        "weaponsCount": 1,
+        "weaponLevel": 1
+      },
+      {
+        "x": 15,
+        "y": 10,
+        "shipIndex": 0,
+        "side": "enemy",
+        "count": 1,
+        "currentHP": 10,
+        "maxHP": 10,
+        "projectName": "Винищувач",
+        "shipLevel": 1,
+        "weaponsCount": 2,
+        "weaponLevel": 1
+      }
+    ],
+    "round": 79,
+    "roundTimeLeft": 5,
+    "logs": [
+      {
+        "round": 1,
+        "message": "Бій почався! Перший 1 проти Піратський патруль",
+        "type": "normal"
+      },
+      {
+        "round": 1,
+        "message": "Обрано: 2 на позиції (0:10)",
+        "type": "normal"
+      },
+      {
+        "round": 1,
+        "message": "2 тримає в прицілі: Винищувач (дистанція: 15)",
+        "type": "target"
+      },
+      {
+        "round": 1,
+        "message": "2 прямує до (24:10)",
+        "type": "move"
+      },
+      {
+        "round": 1,
+        "message": "2 зняв з прицілу Винищувач",
+        "type": "normal"
+      },
+      {
+        "round": 1,
+        "message": "2 тримає в прицілі: Винищувач (дистанція: 15)",
+        "type": "target"
+      },
+      {
+        "round": 1,
+        "message": "2 зняв з прицілу Винищувач",
+        "type": "normal"
+      },
+      {
+        "round": 1,
+        "message": "2 (0:10) → перемістився на (1:10)",
+        "type": "move"
+      },
+      {
+        "round": 2,
+        "message": "=== Раунд 2 ===",
+        "type": "normal"
+      },
+      {
+        "round": 2,
+        "message": "2 (1:10) → перемістився на (2:10)",
+        "type": "move"
+      },
+      {
+        "round": 3,
+        "message": "=== Раунд 3 ===",
+        "type": "normal"
+      },
+      {
+        "round": 3,
+        "message": "2 (2:10) → перемістився на (3:10)",
+        "type": "move"
+      },
+      {
+        "round": 4,
+        "message": "=== Раунд 4 ===",
+        "type": "normal"
+      },
+      {
+        "round": 4,
+        "message": "2 (3:10) → перемістився на (4:10)",
+        "type": "move"
+      },
+      {
+        "round": 5,
+        "message": "=== Раунд 5 ===",
+        "type": "normal"
+      },
+      {
+        "round": 5,
+        "message": "2 (4:10) → перемістився на (5:10)",
+        "type": "move"
+      },
+      {
+        "round": 6,
+        "message": "=== Раунд 6 ===",
+        "type": "normal"
+      },
+      {
+        "round": 6,
+        "message": "2 (5:10) → перемістився на (6:10)",
+        "type": "move"
+      },
+      {
+        "round": 7,
+        "message": "=== Раунд 7 ===",
+        "type": "normal"
+      },
+      {
+        "round": 7,
+        "message": "2 (6:10) → перемістився на (7:10)",
+        "type": "move"
+      },
+      {
+        "round": 8,
+        "message": "=== Раунд 8 ===",
+        "type": "normal"
+      },
+      {
+        "round": 8,
+        "message": "2 (7:10) → перемістився на (8:10)",
+        "type": "move"
+      },
+      {
+        "round": 9,
+        "message": "=== Раунд 9 ===",
+        "type": "normal"
+      },
+      {
+        "round": 9,
+        "message": "2 (8:10) → перемістився на (9:10)",
+        "type": "move"
+      },
+      {
+        "round": 10,
+        "message": "=== Раунд 10 ===",
+        "type": "normal"
+      },
+      {
+        "round": 10,
+        "message": "2 (9:10) → перемістився на (10:10)",
+        "type": "move"
+      },
+      {
+        "round": 11,
+        "message": "=== Раунд 11 ===",
+        "type": "normal"
+      },
+      {
+        "round": 11,
+        "message": "2 (10:10) → перемістився на (11:10)",
+        "type": "move"
+      },
+      {
+        "round": 12,
+        "message": "=== Раунд 12 ===",
+        "type": "normal"
+      },
+      {
+        "round": 12,
+        "message": "2 (11:10) → перемістився на (12:10)",
+        "type": "move"
+      },
+      {
+        "round": 13,
+        "message": "=== Раунд 13 ===",
+        "type": "normal"
+      },
+      {
+        "round": 13,
+        "message": "2 (12:10) → перемістився на (13:10)",
+        "type": "move"
+      },
+      {
+        "round": 14,
+        "message": "=== Раунд 14 ===",
+        "type": "normal"
+      },
+      {
+        "round": 14,
+        "message": "2 (13:10) → перемістився на (14:10)",
+        "type": "move"
+      },
+      {
+        "round": 15,
+        "message": "=== Раунд 15 ===",
+        "type": "normal"
+      },
+      {
+        "round": 15,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 16,
+        "message": "=== Раунд 16 ===",
+        "type": "normal"
+      },
+      {
+        "round": 16,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 17,
+        "message": "=== Раунд 17 ===",
+        "type": "normal"
+      },
+      {
+        "round": 17,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 18,
+        "message": "=== Раунд 18 ===",
+        "type": "normal"
+      },
+      {
+        "round": 18,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 19,
+        "message": "=== Раунд 19 ===",
+        "type": "normal"
+      },
+      {
+        "round": 19,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 20,
+        "message": "=== Раунд 20 ===",
+        "type": "normal"
+      },
+      {
+        "round": 20,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 21,
+        "message": "=== Раунд 21 ===",
+        "type": "normal"
+      },
+      {
+        "round": 21,
+        "message": "2 прямує до (15:9)",
+        "type": "move"
+      },
+      {
+        "round": 21,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 22,
+        "message": "=== Раунд 22 ===",
+        "type": "normal"
+      },
+      {
+        "round": 22,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 23,
+        "message": "=== Раунд 23 ===",
+        "type": "normal"
+      },
+      {
+        "round": 23,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 24,
+        "message": "=== Раунд 24 ===",
+        "type": "normal"
+      },
+      {
+        "round": 24,
+        "message": "2 прямує до (14:8)",
+        "type": "move"
+      },
+      {
+        "round": 24,
+        "message": "2 (14:10) → перемістився на (14:9)",
+        "type": "move"
+      },
+      {
+        "round": 25,
+        "message": "=== Раунд 25 ===",
+        "type": "normal"
+      },
+      {
+        "round": 25,
+        "message": "2 (14:9) → перемістився на (14:8)",
+        "type": "move"
+      },
+      {
+        "round": 26,
+        "message": "=== Раунд 26 ===",
+        "type": "normal"
+      },
+      {
+        "round": 26,
+        "message": "2 прямує до (24:9)",
+        "type": "move"
+      },
+      {
+        "round": 26,
+        "message": "2 (14:8) → перемістився на (15:8)",
+        "type": "move"
+      },
+      {
+        "round": 27,
+        "message": "=== Раунд 27 ===",
+        "type": "normal"
+      },
+      {
+        "round": 27,
+        "message": "2 (15:8) → перемістився на (16:8)",
+        "type": "move"
+      },
+      {
+        "round": 28,
+        "message": "=== Раунд 28 ===",
+        "type": "normal"
+      },
+      {
+        "round": 28,
+        "message": "2 (16:8) → перемістився на (17:8)",
+        "type": "move"
+      },
+      {
+        "round": 29,
+        "message": "=== Раунд 29 ===",
+        "type": "normal"
+      },
+      {
+        "round": 29,
+        "message": "2 (17:8) → перемістився на (18:8)",
+        "type": "move"
+      },
+      {
+        "round": 30,
+        "message": "=== Раунд 30 ===",
+        "type": "normal"
+      },
+      {
+        "round": 30,
+        "message": "2 (18:8) → перемістився на (19:8)",
+        "type": "move"
+      },
+      {
+        "round": 31,
+        "message": "=== Раунд 31 ===",
+        "type": "normal"
+      },
+      {
+        "round": 31,
+        "message": "2 (19:8) → перемістився на (20:8)",
+        "type": "move"
+      },
+      {
+        "round": 32,
+        "message": "=== Раунд 32 ===",
+        "type": "normal"
+      },
+      {
+        "round": 32,
+        "message": "2 (20:8) → перемістився на (21:8)",
+        "type": "move"
+      },
+      {
+        "round": 33,
+        "message": "=== Раунд 33 ===",
+        "type": "normal"
+      },
+      {
+        "round": 33,
+        "message": "2 (21:8) → перемістився на (22:8)",
+        "type": "move"
+      },
+      {
+        "round": 34,
+        "message": "=== Раунд 34 ===",
+        "type": "normal"
+      },
+      {
+        "round": 34,
+        "message": "2 (22:8) → перемістився на (23:8)",
+        "type": "move"
+      },
+      {
+        "round": 35,
+        "message": "=== Раунд 35 ===",
+        "type": "normal"
+      },
+      {
+        "round": 35,
+        "message": "2 (23:8) → перемістився на (24:8)",
+        "type": "move"
+      },
+      {
+        "round": 36,
+        "message": "=== Раунд 36 ===",
+        "type": "normal"
+      },
+      {
+        "round": 36,
+        "message": "2 (24:8) → перемістився на (24:9)",
+        "type": "move"
+      },
+      {
+        "round": 37,
+        "message": "=== Раунд 37 ===",
+        "type": "normal"
+      },
+      {
+        "round": 37,
+        "message": "2 прямує до (16:10)",
+        "type": "move"
+      },
+      {
+        "round": 37,
+        "message": "2 (24:9) → перемістився на (23:9)",
+        "type": "move"
+      },
+      {
+        "round": 38,
+        "message": "=== Раунд 38 ===",
+        "type": "normal"
+      },
+      {
+        "round": 38,
+        "message": "2 (23:9) → перемістився на (22:9)",
+        "type": "move"
+      },
+      {
+        "round": 39,
+        "message": "=== Раунд 39 ===",
+        "type": "normal"
+      },
+      {
+        "round": 39,
+        "message": "2 (22:9) → перемістився на (21:9)",
+        "type": "move"
+      },
+      {
+        "round": 40,
+        "message": "=== Раунд 40 ===",
+        "type": "normal"
+      },
+      {
+        "round": 40,
+        "message": "2 (21:9) → перемістився на (20:9)",
+        "type": "move"
+      },
+      {
+        "round": 41,
+        "message": "=== Раунд 41 ===",
+        "type": "normal"
+      },
+      {
+        "round": 41,
+        "message": "2 (20:9) → перемістився на (19:9)",
+        "type": "move"
+      },
+      {
+        "round": 42,
+        "message": "=== Раунд 42 ===",
+        "type": "normal"
+      },
+      {
+        "round": 42,
+        "message": "2 (19:9) → перемістився на (18:9)",
+        "type": "move"
+      },
+      {
+        "round": 43,
+        "message": "=== Раунд 43 ===",
+        "type": "normal"
+      },
+      {
+        "round": 43,
+        "message": "2 (18:9) → перемістився на (17:9)",
+        "type": "move"
+      },
+      {
+        "round": 44,
+        "message": "=== Раунд 44 ===",
+        "type": "normal"
+      },
+      {
+        "round": 44,
+        "message": "2 (17:9) → перемістився на (16:9)",
+        "type": "move"
+      },
+      {
+        "round": 45,
+        "message": "=== Раунд 45 ===",
+        "type": "normal"
+      },
+      {
+        "round": 45,
+        "message": "2 (16:9) → перемістився на (16:10)",
+        "type": "move"
+      },
+      {
+        "round": 46,
+        "message": "=== Раунд 46 ===",
+        "type": "normal"
+      },
+      {
+        "round": 46,
+        "message": "2 досягнуто цілі (16:10)",
+        "type": "normal"
+      },
+      {
+        "round": 47,
+        "message": "=== Раунд 47 ===",
+        "type": "normal"
+      },
+      {
+        "round": 48,
+        "message": "=== Раунд 48 ===",
+        "type": "normal"
+      },
+      {
+        "round": 48,
+        "message": "2 прямує до (0:9)",
+        "type": "move"
+      },
+      {
+        "round": 48,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 49,
+        "message": "=== Раунд 49 ===",
+        "type": "normal"
+      },
+      {
+        "round": 49,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 50,
+        "message": "=== Раунд 50 ===",
+        "type": "normal"
+      },
+      {
+        "round": 50,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 51,
+        "message": "=== Раунд 51 ===",
+        "type": "normal"
+      },
+      {
+        "round": 51,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 52,
+        "message": "=== Раунд 52 ===",
+        "type": "normal"
+      },
+      {
+        "round": 52,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 53,
+        "message": "=== Раунд 53 ===",
+        "type": "normal"
+      },
+      {
+        "round": 53,
+        "message": "2 заблоковано на шляху до цілі",
+        "type": "normal"
+      },
+      {
+        "round": 54,
+        "message": "=== Раунд 54 ===",
+        "type": "normal"
+      },
+      {
+        "round": 54,
+        "message": "2 прямує до (17:8)",
+        "type": "move"
+      },
+      {
+        "round": 54,
+        "message": "2 (16:10) → перемістився на (17:10)",
+        "type": "move"
+      },
+      {
+        "round": 55,
+        "message": "=== Раунд 55 ===",
+        "type": "normal"
+      },
+      {
+        "round": 55,
+        "message": "2 (17:10) → перемістився на (17:9)",
+        "type": "move"
+      },
+      {
+        "round": 56,
+        "message": "=== Раунд 56 ===",
+        "type": "normal"
+      },
+      {
+        "round": 56,
+        "message": "2 (17:9) → перемістився на (17:8)",
+        "type": "move"
+      },
+      {
+        "round": 57,
+        "message": "=== Раунд 57 ===",
+        "type": "normal"
+      },
+      {
+        "round": 57,
+        "message": "2 досягнуто цілі (17:8)",
+        "type": "normal"
+      },
+      {
+        "round": 58,
+        "message": "=== Раунд 58 ===",
+        "type": "normal"
+      },
+      {
+        "round": 59,
+        "message": "=== Раунд 59 ===",
+        "type": "normal"
+      },
+      {
+        "round": 59,
+        "message": "2 прямує до (14:10)",
+        "type": "move"
+      },
+      {
+        "round": 59,
+        "message": "2 (17:8) → перемістився на (16:8)",
+        "type": "move"
+      },
+      {
+        "round": 60,
+        "message": "=== Раунд 60 ===",
+        "type": "normal"
+      },
+      {
+        "round": 60,
+        "message": "2 (16:8) → перемістився на (15:8)",
+        "type": "move"
+      },
+      {
+        "round": 61,
+        "message": "=== Раунд 61 ===",
+        "type": "normal"
+      },
+      {
+        "round": 61,
+        "message": "2 (15:8) → перемістився на (14:8)",
+        "type": "move"
+      },
+      {
+        "round": 62,
+        "message": "=== Раунд 62 ===",
+        "type": "normal"
+      },
+      {
+        "round": 62,
+        "message": "2 (14:8) → перемістився на (14:9)",
+        "type": "move"
+      },
+      {
+        "round": 63,
+        "message": "=== Раунд 63 ===",
+        "type": "normal"
+      },
+      {
+        "round": 63,
+        "message": "2 (14:9) → перемістився на (14:10)",
+        "type": "move"
+      },
+      {
+        "round": 64,
+        "message": "=== Раунд 64 ===",
+        "type": "normal"
+      },
+      {
+        "round": 64,
+        "message": "2 прямує до (0:10)",
+        "type": "move"
+      },
+      {
+        "round": 64,
+        "message": "2 (14:10) → перемістився на (13:10)",
+        "type": "move"
+      },
+      {
+        "round": 65,
+        "message": "=== Раунд 65 ===",
+        "type": "normal"
+      },
+      {
+        "round": 65,
+        "message": "2 (13:10) → перемістився на (12:10)",
+        "type": "move"
+      },
+      {
+        "round": 66,
+        "message": "=== Раунд 66 ===",
+        "type": "normal"
+      },
+      {
+        "round": 66,
+        "message": "2 (12:10) → перемістився на (11:10)",
+        "type": "move"
+      },
+      {
+        "round": 67,
+        "message": "=== Раунд 67 ===",
+        "type": "normal"
+      },
+      {
+        "round": 67,
+        "message": "2 (11:10) → перемістився на (10:10)",
+        "type": "move"
+      },
+      {
+        "round": 68,
+        "message": "=== Раунд 68 ===",
+        "type": "normal"
+      },
+      {
+        "round": 68,
+        "message": "2 (10:10) → перемістився на (9:10)",
+        "type": "move"
+      },
+      {
+        "round": 69,
+        "message": "=== Раунд 69 ===",
+        "type": "normal"
+      },
+      {
+        "round": 69,
+        "message": "2 (9:10) → перемістився на (8:10)",
+        "type": "move"
+      },
+      {
+        "round": 70,
+        "message": "=== Раунд 70 ===",
+        "type": "normal"
+      },
+      {
+        "round": 70,
+        "message": "2 (8:10) → перемістився на (7:10)",
+        "type": "move"
+      },
+      {
+        "round": 71,
+        "message": "=== Раунд 71 ===",
+        "type": "normal"
+      },
+      {
+        "round": 71,
+        "message": "2 (7:10) → перемістився на (6:10)",
+        "type": "move"
+      },
+      {
+        "round": 72,
+        "message": "=== Раунд 72 ===",
+        "type": "normal"
+      },
+      {
+        "round": 72,
+        "message": "2 (6:10) → перемістився на (5:10)",
+        "type": "move"
+      },
+      {
+        "round": 73,
+        "message": "=== Раунд 73 ===",
+        "type": "normal"
+      },
+      {
+        "round": 73,
+        "message": "2 (5:10) → перемістився на (4:10)",
+        "type": "move"
+      },
+      {
+        "round": 74,
+        "message": "=== Раунд 74 ===",
+        "type": "normal"
+      },
+      {
+        "round": 74,
+        "message": "2 (4:10) → перемістився на (3:10)",
+        "type": "move"
+      },
+      {
+        "round": 75,
+        "message": "=== Раунд 75 ===",
+        "type": "normal"
+      },
+      {
+        "round": 75,
+        "message": "2 (3:10) → перемістився на (2:10)",
+        "type": "move"
+      },
+      {
+        "round": 76,
+        "message": "=== Раунд 76 ===",
+        "type": "normal"
+      },
+      {
+        "round": 76,
+        "message": "2 (2:10) → перемістився на (1:10)",
+        "type": "move"
+      },
+      {
+        "round": 77,
+        "message": "=== Раунд 77 ===",
+        "type": "normal"
+      },
+      {
+        "round": 77,
+        "message": "2 (1:10) → перемістився на (0:10)",
+        "type": "move"
+      },
+      {
+        "round": 78,
+        "message": "=== Раунд 78 ===",
+        "type": "normal"
+      },
+      {
+        "round": 78,
+        "message": "2 прямує до (10:10)",
+        "type": "move"
+      },
+      {
+        "round": 78,
+        "message": "2 тримає в прицілі: Винищувач (дистанція: 15)",
+        "type": "target"
+      },
+      {
+        "round": 78,
+        "message": "2 (0:10) → перемістився на (1:10)",
+        "type": "move"
+      },
+      {
+        "round": 78,
+        "message": "2 не може атакувати Винищувач - занадто далеко (14 > 10)",
+        "type": "normal"
+      },
+      {
+        "round": 79,
+        "message": "=== Раунд 79 ===",
+        "type": "normal"
+      }
+    ],
+    "actions": [],
+    "autoMoveTargets": {
+      "0": {
+        "toX": 10,
+        "toY": 10
+      }
+    },
+    "targetedEnemies": {
+      "0": 0
+    }
+  }
 }
