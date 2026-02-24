@@ -111,6 +111,7 @@
     min-width: 60px; /* Уніфікована мінімальна ширина */
     margin: 0 1px; /* Мінімальні відступи */
     align-self: flex-end; /* Вирівнюємо по нижньому краю */
+    box-sizing: border-box; /* Враховуємо border у загальному розмірі */
 }
 
 .study-btn:hover {
