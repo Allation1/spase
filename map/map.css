@@ -40,15 +40,15 @@
 
 #space-map {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     gap: 0; /* Прибираємо відступи між клітинками */
     width: 100%;
     height: 100%;
     margin: 0 auto;
     background: #09303a; /* Повертаємо початковий колір фону */
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 500px;
     transition: none; /* Вимикаємо переходи для кращої продуктивності при перетягуванні */
     transform-origin: 0 0; /* Встановлюємо початок координат у верхній лівий кут */
     overflow: visible; /* Дозволяємо вмісту виходити за межі контейнера при перетягуванні */
@@ -74,11 +74,11 @@
 }
 
 /* Останній ряд і стовпець - прибираємо зайві лінії */
-.space-cell:nth-child(3n) { /* Кожна третя клітинка (остання в ряді) */
+.space-cell:nth-child(5n) { /* Кожна п'ята клітинка (остання в ряді) */
     border-right: none;
 }
 
-.space-cell:nth-child(n+7) { /* Останній ряд (клітинки 7, 8, 9) */
+.space-cell:nth-child(n+21) { /* Останній ряд (клітинки 21-25) */
     border-bottom: none;
 }
 .space-cell-label {
@@ -114,6 +114,34 @@
     background-color: #1E90FF; /* Блакитний колір для сонця */
     border-radius: 50%; /* Робимо круглим */
     box-shadow: 0 0 10px #00BFFF, 0 0 20px #87CEEB; /* Ефект світіння для блакитного сонця */
+    z-index: 3; /* Розміщуємо над іншими елементами */
+    cursor: pointer; /* Змінюємо курсор при наведенні */
+}
+
+.red-sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-color: #DC143C; /* Червоний колір для сонця */
+    border-radius: 50%; /* Робимо круглим */
+    box-shadow: 0 0 10px #FF0000, 0 0 20px #8B0000; /* Ефект світіння для червоного сонця */
+    z-index: 3; /* Розміщуємо над іншими елементами */
+    cursor: pointer; /* Змінюємо курсор при наведенні */
+}
+
+.green-sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-color: #228B22; /* Зелений колір для сонця */
+    border-radius: 50%; /* Робимо круглим */
+    box-shadow: 0 0 10px #32CD32, 0 0 20px #006400; /* Ефект світіння для зеленого сонця */
     z-index: 3; /* Розміщуємо над іншими елементами */
     cursor: pointer; /* Змінюємо курсор при наведенні */
 }

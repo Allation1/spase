@@ -1,4 +1,5 @@
 let mapScale = 1;
+const GRID_SIZE = 5; // Розмір сітки 5x5
 
 function renderSpaceMap() {
     const mapContainer = document.getElementById('space-map');
@@ -7,8 +8,8 @@ function renderSpaceMap() {
     mapContainer.style.transform = `scale(${mapScale})`;
     mapContainer.style.transformOrigin = '0 0';
 
-    for (let y = 0; y < 3; y++) {
-        for (let x = 0; x < 3; x++) {
+    for (let y = 0; y < GRID_SIZE; y++) {
+        for (let x = 0; x < GRID_SIZE; x++) {
             const cell = document.createElement('div');
             cell.className = 'space-cell';
 
@@ -18,26 +19,48 @@ function renderSpaceMap() {
             label.textContent = `${x}:${y}`;
             cell.appendChild(label);
 
-            // Додаємо сонце у клітинку з координатами 1:1
-            if (x === 1 && y === 1) {
+            // Сонячна система 1: Жовте сонце (центр)
+            if (x === 2 && y === 2) {
                 const sun = document.createElement('div');
                 sun.className = 'sun';
                 sun.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Зупиняємо поширення події
+                    e.stopPropagation();
                     openSolarSystemWindow();
                 });
                 cell.appendChild(sun);
             }
-            
-            // Додаємо другу сонячну систему у клітинку з координатами 0:2
-            if (x === 0 && y === 2) {
+
+            // Сонячна система 2: Блакитне сонце (ліворуч знизу)
+            if (x === 0 && y === 4) {
                 const blueSun = document.createElement('div');
                 blueSun.className = 'blue-sun';
                 blueSun.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Зупиняємо поширення події
+                    e.stopPropagation();
                     openBlueSolarSystemWindow();
                 });
                 cell.appendChild(blueSun);
+            }
+
+            // Сонячна система 3: Червоне сонце (праворуч зверху)
+            if (x === 4 && y === 0) {
+                const redSun = document.createElement('div');
+                redSun.className = 'red-sun';
+                redSun.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    openRedSolarSystemWindow();
+                });
+                cell.appendChild(redSun);
+            }
+
+            // Сонячна система 4: Зелене сонце (ліворуч зверху)
+            if (x === 0 && y === 0) {
+                const greenSun = document.createElement('div');
+                greenSun.className = 'green-sun';
+                greenSun.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    openGreenSolarSystemWindow();
+                });
+                cell.appendChild(greenSun);
             }
 
             mapContainer.appendChild(cell);
@@ -589,9 +612,9 @@ function moveFleetIcon(destination) {
                 const x = parseInt(match[1]);
                 const y = parseInt(match[2]);
                 const orbit = parseInt(match[3]);
-                
-                // Знаходимо клітинку за координатами
-                const cellIndex = y * 3 + x; // Для сітки 3x3 - це правильна формула
+
+                // Знаходимо клітинку за координатами (для сітки 5x5)
+                const cellIndex = y * GRID_SIZE + x;
                 const allCells = Array.from(mapContainer.querySelectorAll('.space-cell'));
                 const startCell = allCells[cellIndex];
                 
@@ -662,10 +685,8 @@ function moveFleetIcon(destination) {
         console.log(`Parsed coordinates: x=${x}, y=${y}, orbit=${orbit}`);
         
         // Знаходимо клітинку за координатами
-        // У нашій сітці: індекс 0 - (0,0), індекс 1 - (1,0), індекс 2 - (2,0)
-        // індекс 3 - (0,1), індекс 4 - (1,1), індекс 5 - (2,1)
-        // індекс 6 - (0,2), індекс 7 - (1,2), індекс 8 - (2,2)
-        const cellIndex = y * 3 + x; // Для сітки 3x3 - це правильна формула
+        // Для сітки 5x5: індекс = y * 5 + x
+        const cellIndex = y * GRID_SIZE + x;
         console.log(`Calculated cell index: ${cellIndex}`);
         
         const allCells = Array.from(mapContainer.querySelectorAll('.space-cell'));
@@ -1023,6 +1044,235 @@ function openBlueSolarSystemWindow() {
     }, 100);
 }
 
+// Функція для відкриття вікна червоної сонячної системи
+function openRedSolarSystemWindow() {
+    let redSolarSystemWindow = document.getElementById('red-solar-system-window');
+
+    if (!redSolarSystemWindow) {
+        redSolarSystemWindow = document.createElement('div');
+        redSolarSystemWindow.id = 'red-solar-system-window';
+        redSolarSystemWindow.className = 'solar-system-window';
+        redSolarSystemWindow.innerHTML = `
+            <div class="solar-system-title">
+                <span>Червона сонячна система</span>
+                <span class="coordinates-display">(4:0)</span>
+                <button class="solar-system-close-btn" onclick="closeRedSolarSystemWindow()">✕</button>
+            </div>
+            <div class="solar-system-content">
+                <div class="solar-center">
+                    <img src="images/004.png" alt="Червоне сонце" class="solar-star-img" style="filter: hue-rotate(140deg);">
+                </div>
+                <div class="solar-system-objects">
+                    <div class="planet-item" id="planet-item-4_0_1">
+                        <span onclick="openPlanetWindow('Вулкан')">1 Вулкан (4:0:1)</span>
+                        <button class="flight-btn" onclick="initiateFlight('4:0:1')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-4_0_1"></div>
+                    </div>
+                    <div class="asteroid-field" id="asteroid-field-4_0_2">
+                        <span>2 Астероїдне поле (4:0:2)</span>
+                        <button class="flight-btn" onclick="initiateFlight('4:0:2')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-4_0_2"></div>
+                    </div>
+                    <div class="asteroid-field" id="asteroid-field-4_0_3">
+                        <span>3 Астероїдне поле (4:0:3)</span>
+                        <button class="flight-btn" onclick="initiateFlight('4:0:3')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-4_0_3"></div>
+                    </div>
+                    <div class="asteroid-field" id="asteroid-field-4_0_4">
+                        <span>4 Астероїдне поле (4:0:4)</span>
+                        <button class="flight-btn" onclick="initiateFlight('4:0:4')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-4_0_4"></div>
+                    </div>
+                    <div class="asteroid-field" id="asteroid-field-4_0_5">
+                        <span>5 Астероїдне поле (4:0:5)</span>
+                        <button class="flight-btn" onclick="initiateFlight('4:0:5')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-4_0_5"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(redSolarSystemWindow);
+
+        redSolarSystemWindow.addEventListener('click', function(e) {
+            if (e.target === redSolarSystemWindow) {
+                redSolarSystemWindow.style.display = 'none';
+            }
+        });
+
+        const titleBar = redSolarSystemWindow.querySelector('.solar-system-title');
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        titleBar.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            const rect = redSolarSystemWindow.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            redSolarSystemWindow.style.left = rect.left + 'px';
+            redSolarSystemWindow.style.top = rect.top + 'px';
+            redSolarSystemWindow.style.transform = 'none';
+            document.body.style.userSelect = 'none';
+            bringWindowToFront(redSolarSystemWindow);
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                const newLeft = e.clientX - offsetX;
+                const newTop = e.clientY - offsetY;
+                redSolarSystemWindow.style.left = newLeft + 'px';
+                redSolarSystemWindow.style.top = newTop + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            document.body.style.userSelect = '';
+        });
+    }
+
+    redSolarSystemWindow.style.display = 'block';
+    redSolarSystemWindow.style.position = 'fixed';
+    redSolarSystemWindow.style.top = '50%';
+    redSolarSystemWindow.style.left = '50%';
+    redSolarSystemWindow.style.transform = 'translate(-50%, -50%)';
+    redSolarSystemWindow.style.width = '400px';
+    redSolarSystemWindow.style.height = '400px';
+    redSolarSystemWindow.style.background = '#0e3a47';
+    redSolarSystemWindow.style.border = '2px solid #1fa2c7';
+    redSolarSystemWindow.style.borderRadius = '4px';
+    redSolarSystemWindow.style.boxShadow = '2px 4px 16px rgba(0,0,0,0.3)';
+    redSolarSystemWindow.style.zIndex = '300';
+    redSolarSystemWindow.style.color = '#fff';
+    redSolarSystemWindow.style.overflow = 'hidden';
+
+    setTimeout(() => {
+        displayFleetsOnOrbit();
+    }, 100);
+}
+
+// Функція для відкриття вікна зеленої сонячної системи
+function openGreenSolarSystemWindow() {
+    let greenSolarSystemWindow = document.getElementById('green-solar-system-window');
+
+    if (!greenSolarSystemWindow) {
+        greenSolarSystemWindow = document.createElement('div');
+        greenSolarSystemWindow.id = 'green-solar-system-window';
+        greenSolarSystemWindow.className = 'solar-system-window';
+        greenSolarSystemWindow.innerHTML = `
+            <div class="solar-system-title">
+                <span>Зелена сонячна система</span>
+                <span class="coordinates-display">(0:0)</span>
+                <button class="solar-system-close-btn" onclick="closeGreenSolarSystemWindow()">✕</button>
+            </div>
+            <div class="solar-system-content">
+                <div class="solar-center">
+                    <img src="images/002.png" alt="Зелене сонце" class="solar-star-img" style="filter: hue-rotate(90deg);">
+                </div>
+                <div class="solar-system-objects">
+                    <div class="planet-item" id="planet-item-0_0_1">
+                        <span onclick="openPlanetWindow('Едем')">1 Едем (0:0:1)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:0:1')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_0_1"></div>
+                    </div>
+                    <div class="asteroid-field" id="asteroid-field-0_0_2">
+                        <span>2 Астероїдне поле (0:0:2)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:0:2')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_0_2"></div>
+                    </div>
+                    <div class="asteroid-field" id="asteroid-field-0_0_3">
+                        <span>3 Астероїдне поле (0:0:3)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:0:3')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_0_3"></div>
+                    </div>
+                    <div class="asteroid-field" id="asteroid-field-0_0_4">
+                        <span>4 Астероїдне поле (0:0:4)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:0:4')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_0_4"></div>
+                    </div>
+                    <div class="asteroid-field" id="asteroid-field-0_0_5">
+                        <span>5 Астероїдне поле (0:0:5)</span>
+                        <button class="flight-btn" onclick="initiateFlight('0:0:5')">Політ</button>
+                        <div class="fleet-orbit-icons" id="fleet-orbit-0_0_5"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(greenSolarSystemWindow);
+
+        greenSolarSystemWindow.addEventListener('click', function(e) {
+            if (e.target === greenSolarSystemWindow) {
+                greenSolarSystemWindow.style.display = 'none';
+            }
+        });
+
+        const titleBar = greenSolarSystemWindow.querySelector('.solar-system-title');
+        let isDragging = false;
+        let offsetX, offsetY;
+
+        titleBar.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            const rect = greenSolarSystemWindow.getBoundingClientRect();
+            offsetX = e.clientX - rect.left;
+            offsetY = e.clientY - rect.top;
+            greenSolarSystemWindow.style.left = rect.left + 'px';
+            greenSolarSystemWindow.style.top = rect.top + 'px';
+            greenSolarSystemWindow.style.transform = 'none';
+            document.body.style.userSelect = 'none';
+            bringWindowToFront(greenSolarSystemWindow);
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                const newLeft = e.clientX - offsetX;
+                const newTop = e.clientY - offsetY;
+                greenSolarSystemWindow.style.left = newLeft + 'px';
+                greenSolarSystemWindow.style.top = newTop + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            document.body.style.userSelect = '';
+        });
+    }
+
+    greenSolarSystemWindow.style.display = 'block';
+    greenSolarSystemWindow.style.position = 'fixed';
+    greenSolarSystemWindow.style.top = '50%';
+    greenSolarSystemWindow.style.left = '50%';
+    greenSolarSystemWindow.style.transform = 'translate(-50%, -50%)';
+    greenSolarSystemWindow.style.width = '400px';
+    greenSolarSystemWindow.style.height = '400px';
+    greenSolarSystemWindow.style.background = '#0e3a47';
+    greenSolarSystemWindow.style.border = '2px solid #1fa2c7';
+    greenSolarSystemWindow.style.borderRadius = '4px';
+    greenSolarSystemWindow.style.boxShadow = '2px 4px 16px rgba(0,0,0,0.3)';
+    greenSolarSystemWindow.style.zIndex = '300';
+    greenSolarSystemWindow.style.color = '#fff';
+    greenSolarSystemWindow.style.overflow = 'hidden';
+
+    setTimeout(() => {
+        displayFleetsOnOrbit();
+    }, 100);
+}
+
+// Функції закриття для нових сонячних систем
+function closeRedSolarSystemWindow() {
+    const redSolarSystemWindow = document.getElementById('red-solar-system-window');
+    if (redSolarSystemWindow) {
+        redSolarSystemWindow.style.display = 'none';
+    }
+}
+
+function closeGreenSolarSystemWindow() {
+    const greenSolarSystemWindow = document.getElementById('green-solar-system-window');
+    if (greenSolarSystemWindow) {
+        greenSolarSystemWindow.style.display = 'none';
+    }
+}
+
 // Викликаємо побудову карти при відкритті вікна
 window.renderSpaceMap = renderSpaceMap;
 
@@ -1036,7 +1286,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.deltaY < 0) {
                 mapScale = Math.min(mapScale + 0.1, 2); // Збільшуємо масштаб
             } else {
-                mapScale = Math.max(mapScale - 0.1, 0.5); // Зменшуємо масштаб
+                mapScale = Math.max(mapScale - 0.1, 0.5); // Зменшуємо м��сштаб
             }
             mapContainer.style.transform = `scale(${mapScale}) translate(${offsetX}px, ${offsetY}px)`;
         });
@@ -1072,3 +1322,7 @@ window.displayFleetsOnOrbit = displayFleetsOnOrbit;
 window.showFleetTooltip = showFleetTooltip;
 window.hideFleetTooltip = hideFleetTooltip;
 window.openFleetDetailsFromMap = openFleetDetailsFromMap;
+window.openRedSolarSystemWindow = openRedSolarSystemWindow;
+window.openGreenSolarSystemWindow = openGreenSolarSystemWindow;
+window.closeRedSolarSystemWindow = closeRedSolarSystemWindow;
+window.closeGreenSolarSystemWindow = closeGreenSolarSystemWindow;
