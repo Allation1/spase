@@ -215,7 +215,7 @@ async function saveFleet() {
     // Завантажуємо існуючі флоти
     let fleetsData = { fleets: [] };
     try {
-        const response = await fetch('/planets/fleets.json');
+        const response = await fetch('/planets/fleets.json?t=' + Date.now());
         if (response.ok) {
             fleetsData = await response.json();
         }
@@ -320,7 +320,7 @@ async function updateFleetsDisplay() {
     
     let fleetsData = { fleets: [] };
     try {
-        const response = await fetch('/planets/fleets.json');
+        const response = await fetch('/planets/fleets.json?t=' + Date.now());
         if (response.ok) {
             fleetsData = await response.json();
         }

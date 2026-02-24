@@ -213,10 +213,10 @@ function openSolarSystemWindow() {
 async function displayFleetsOnOrbit() {
     console.log('displayFleetsOnOrbit: виклик функції');
     
-    // Завантажуємо флоти
+    // Завантажуємо флоти з уникненням кешування
     let fleetsData = { fleets: [] };
     try {
-        const response = await fetch('/planets/fleets.json');
+        const response = await fetch('/planets/fleets.json?t=' + Date.now());
         if (response.ok) {
             fleetsData = await response.json();
             console.log('displayFleetsOnOrbit: отримано флоти:', fleetsData);
@@ -475,10 +475,10 @@ async function initiateFlight(destination) {
         return;
     }
     
-    // Завантажуємо флоти
+    // Завантажуємо флоти з уникненням кешування
     let fleetsData = { fleets: [] };
     try {
-        const response = await fetch('/planets/fleets.json');
+        const response = await fetch('/planets/fleets.json?t=' + Date.now());
         if (response.ok) {
             fleetsData = await response.json();
         }
@@ -1291,7 +1291,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mapContainer.style.transform = `scale(${mapScale}) translate(${offsetX}px, ${offsetY}px)`;
         });
 
-        // Обробники для перетягування
+        // Обробники для перетягу��ання
         mapContainer.addEventListener('mousedown', function(e) {
             isDragging = true;
             dragStartX = e.clientX - offsetX;
