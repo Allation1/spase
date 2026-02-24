@@ -69,9 +69,11 @@ async function buildShip() {
     const requiredWeapons = project.weaponsCount * count;
     const weaponLevel = project.weaponLevel;
     
+    let weaponsData = null;
+    
     try {
         const weaponsResponse = await fetch('/planets/tera/weapons.json?t=' + Date.now());
-        let weaponsData = { weapons: [] };
+        weaponsData = { weapons: [] };
         
         if (weaponsResponse.ok) {
             weaponsData = await weaponsResponse.json();
@@ -89,23 +91,7 @@ async function buildShip() {
             return;
         }
         
-        // Віднімаємо зброю зі складу
-        if (requiredWeapon) {
-            requiredWeapon.count -= requiredWeapons;
-            // Якщо зброя закінчилась, видаляємо
-            if (requiredWeapon.count <= 0) {
-                weaponsData.weapons = weaponsData.weapons.filter(w => w !== requiredWeapon);
-            }
-        }
-        
-        // Зберігаємо оновлений склад зброї
-        await fetch('/api/save-weapons', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(weaponsData)
-        });
-        
-        console.log(`Використано ${requiredWeapons} гармат ${weaponLevel} рівня для будівництва`);
+        console.log(`✅ Перевірка пройдена: потрібно ${requiredWeapons} гармат ${weaponLevel} рівня, на складі є ${availableCount}`);
         
     } catch (e) {
         console.error('Помилка при перевірці зброї:', e);
@@ -127,7 +113,7 @@ async function buildShip() {
     let startTime = Date.now();
     let remainingTime = totalTime;
 
-    const buildInterval = setInterval(() => {
+    const buildInterval = setInterval(async () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min((elapsed / totalTime) * 100, 100);
         buildBar.style.width = progress + '%';
@@ -144,6 +130,34 @@ async function buildShip() {
             buildBtn.style.cursor = 'pointer';
             progressBar.style.display = 'none';
             buildTimeSpan.textContent = '';
+
+            // ВІДНІМАЄМО ЗБРОЮ ЗІ СКЛАДУ ПІСЛЯ ЗАВЕРШЕННЯ БУДІВНИЦТВА
+            if (weaponsData) {
+                const requiredWeapon = weaponsData.weapons.find(w => 
+                    w.type === 'laser' && w.level === weaponLevel
+                );
+                
+                if (requiredWeapon) {
+                    requiredWeapon.count -= requiredWeapons;
+                    // Якщо зброя закінчилась, видаляємо
+                    if (requiredWeapon.count <= 0) {
+                        weaponsData.weapons = weaponsData.weapons.filter(w => w !== requiredWeapon);
+                    }
+                }
+                
+                // Зберігаємо оновлений склад зброї
+                try {
+                    await fetch('/api/save-weapons', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(weaponsData)
+                    });
+                    console.log(`✅ Використано ${requiredWeapons} гармат ${weaponLevel} рівня для будівництва`);
+                    console.log('📦 Оновлений склад зброї:', weaponsData);
+                } catch (e) {
+                    console.error('Помилка при збереженні зброї:', e);
+                }
+            }
 
             // Додаємо корабель у ships.json
             saveShip(project, count);
