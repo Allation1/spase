@@ -516,6 +516,95 @@ function startResourceUpdates() {
 // Запускаємо оновлення ресурсів
 startResourceUpdates();
 
+// Генерація піратських флотів
+const MAX_PIRATE_FLEETS = 5;
+const PIRATE_SPAWN_COORDINATES = [
+    // Сонячна система (2:2) - Тера
+    '2:2:2', '2:2:3', '2:2:4', '2:2:5',
+    // Блакитна система (0:4)
+    '0:4:1', '0:4:2', '0:4:3', '0:4:4', '0:4:5',
+    // Червона система (4:0) - Вулкан
+    '4:0:1', '4:0:2', '4:0:3', '4:0:4', '4:0:5',
+    // Зелена система (0:0) - Едем
+    '0:0:1', '0:0:2', '0:0:3', '0:0:4', '0:0:5'
+];
+
+const PIRATE_SHIP_TEMPLATES = [
+    { name: 'Винищувач', shipLevel: 1, weaponsCount: 2, weaponLevel: 1 },
+    { name: 'Патрульний', shipLevel: 2, weaponsCount: 2, weaponLevel: 2 },
+    { name: 'Нападник', shipLevel: 3, weaponsCount: 3, weaponLevel: 2 },
+    { name: 'Рейдер', shipLevel: 4, weaponsCount: 4, weaponLevel: 3 },
+    { name: 'Піратський крейсер', shipLevel: 5, weaponsCount: 5, weaponLevel: 4 }
+];
+
+function generatePirateFleet() {
+    const fs = require('fs');
+    const path = require('path');
+    const fleetsPath = path.join(__dirname, 'planets', 'fleets.json');
+    
+    // Завантажуємо поточні флоти
+    let fleetsData = { fleets: [] };
+    try {
+        if (fs.existsSync(fleetsPath)) {
+            fleetsData = JSON.parse(fs.readFileSync(fleetsPath, 'utf8'));
+        }
+    } catch (e) {
+        console.error('Помилка читання флотів:', e);
+        return;
+    }
+    
+    // Рахуємо піратські флоти
+    const pirateFleets = fleetsData.fleets.filter(f => f.type === 'pirate');
+    const pirateCount = pirateFleets.length;
+    
+    console.log(`Генерація піратів: поточний піратський флот = ${pirateCount}, макс = ${MAX_PIRATE_FLEETS}`);
+    
+    // Якщо вже 5 флотів - нічого не робимо
+    if (pirateCount >= MAX_PIRATE_FLEETS) {
+        return;
+    }
+    
+    // Додаємо новий піратський флот
+    const template = PIRATE_SHIP_TEMPLATES[Math.floor(Math.random() * PIRATE_SHIP_TEMPLATES.length)];
+    const coordinates = PIRATE_SPAWN_COORDINATES[Math.floor(Math.random() * PIRATE_SPAWN_COORDINATES.length)];
+    const shipCount = Math.floor(Math.random() * 3) + 1; // 1-3 кораблі
+    
+    const newPirateFleet = {
+        name: `Піратський загін ${Date.now().toString().slice(-4)}`,
+        type: 'pirate',
+        ships: [{
+            shipIndex: 0,
+            projectName: template.name,
+            shipLevel: template.shipLevel,
+            weaponsCount: template.weaponsCount,
+            weaponLevel: template.weaponLevel,
+            count: shipCount
+        }],
+        status: 'Патрулює',
+        coordinates: coordinates,
+        createdAt: new Date().toLocaleDateString('uk-UA')
+    };
+    
+    fleetsData.fleets.push(newPirateFleet);
+    
+    // Зберігаємо оновлені флоти
+    try {
+        fs.writeFileSync(fleetsPath, JSON.stringify(fleetsData, null, 2));
+        console.log(`✅ Додано піратський флот "${newPirateFleet.name}" на орбіту ${coordinates}`);
+    } catch (e) {
+        console.error('Помилка збереження піратського флоту:', e);
+    }
+}
+
+// Запускаємо генерацію піратських флотів кожну хвилину
+setInterval(() => {
+    generatePirateFleet();
+}, 60000); // 60000 мс = 1 хвилина
+
+// Початкова генерація при запуску сервера
+console.log('Запуск генерації піратських флотів...');
+generatePirateFleet();
+
 // Start the server
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on http://localhost:${PORT}`);
