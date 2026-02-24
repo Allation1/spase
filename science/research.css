@@ -78,14 +78,14 @@
 }
 
 .science-controls input[type="number"] {
-    width: 50px; /* Оригінальна ширина */
+    width: 35px; /* Уніфікована ширина */
     background: #0e3a47;
     color: white;
     border: 1px solid #1fa2c7;
     border-radius: 4px;
-    padding: 4px; /* Оригінальні відступи */
-    font-size: 0.8em; /* Оригінальний розмір шрифту */
-    margin: 0 1px;
+    padding: 2px; /* Уніфікований відступ */
+    font-size: 0.7em; /* Уніфікований розмір шрифту */
+    margin: 0 2px 0 5px; /* Відступи: зліва 5px, справа 2px */
     /* Прибираємо стрілочки для числового поля */
     -moz-appearance: textfield; /* Firefox */
     align-self: flex-end; /* Вирівнюємо по нижньому краю */
@@ -104,12 +104,12 @@
     color: white;
     border: 1px solid #1fa2c7;
     border-radius: 4px;
-    padding: 4px 8px; /* Оригінальні відступи */
-    font-size: 0.8em; /* Оригінальний розмір шрифту */
+    padding: 4px 8px; /* Уніфіковані відступи */
+    font-size: 0.8em; /* Уніфікований розмір шрифту */
     cursor: pointer;
     width: auto;
-    min-width: 60px; /* Оригінальна мінімальна ширина */
-    margin: 0 1px; /* Зменшуємо відступи зліва і справа */
+    min-width: 60px; /* Уніфікована мінімальна ширина */
+    margin: 0 1px; /* Мінімальні відступи */
     align-self: flex-end; /* Вирівнюємо по нижньому краю */
 }
 
