@@ -266,39 +266,32 @@ function renderTeraWindow() {
                                     <label>
                                         <span>Рівень (1-<span id="laser-max-level">10</span>):</span>
                                         <input type="number" id="laser-build-level" min="1" value="1" style="
-                                            width: 70px;
-                                            margin-left: 5px;
-                                            padding: 5px;
-                                            background: #134d5c;
+                                            width: 35px;
+                                            background: #0e3a47;
                                             color: white;
                                             border: 1px solid #1fa2c7;
                                             border-radius: 4px;
-                                            text-align: center;
-                                        ">
-                                    </label>
-                                    <label>
-                                        <span>Кількість:</span>
-                                        <input type="number" id="laser-build-count" min="1" value="1" style="
-                                            width: 60px;
+                                            padding: 2px;
+                                            font-size: 0.7em;
                                             margin-left: 5px;
-                                            padding: 5px;
-                                            background: #134d5c;
-                                            color: white;
-                                            border: 1px solid #1fa2c7;
-                                            border-radius: 4px;
+                                            margin-right: 2px;
+                                            -moz-appearance: textfield;
                                             text-align: center;
                                         ">
                                     </label>
                                     <button id="build-laser-btn" style="
-                                        padding: 5px 15px;
-                                        background: #1fa2c7;
+                                        background: #17607a;
                                         color: white;
-                                        border: none;
+                                        border: 1px solid #1fa2c7;
                                         border-radius: 4px;
+                                        padding: 4px 8px;
+                                        font-size: 0.8em;
                                         cursor: pointer;
-                                        font-weight: bold;
-                                    ">🔨 Будувати</button>
-                                    <span id="laser-build-time" style="color: #aaa; font-size: 12px;"></span>
+                                        width: auto;
+                                        min-width: 60px;
+                                        margin: 0 1px;
+                                    ">Вивчити</button>
+                                    <span id="laser-build-time" style="color: #aaa; font-size: 12px; margin-left: 5px;"></span>
                                 </div>
                                 <div id="laser-build-progress" style="
                                     margin-top: 10px;
@@ -364,26 +357,32 @@ function renderTeraWindow() {
                                     <label>
                                         <span>Кількість:</span>
                                         <input type="number" id="ship-build-count" min="1" value="1" style="
-                                            width: 60px;
-                                            margin-left: 5px;
-                                            padding: 5px;
-                                            background: #134d5c;
+                                            width: 35px;
+                                            background: #0e3a47;
                                             color: white;
                                             border: 1px solid #1fa2c7;
                                             border-radius: 4px;
+                                            padding: 2px;
+                                            font-size: 0.7em;
+                                            margin-left: 5px;
+                                            margin-right: 2px;
+                                            -moz-appearance: textfield;
                                             text-align: center;
                                         ">
                                     </label>
                                     <button id="build-ship-btn" style="
-                                        padding: 5px 15px;
-                                        background: #1fa2c7;
+                                        background: #17607a;
                                         color: white;
-                                        border: none;
+                                        border: 1px solid #1fa2c7;
                                         border-radius: 4px;
+                                        padding: 4px 8px;
+                                        font-size: 0.8em;
                                         cursor: pointer;
-                                        font-weight: bold;
-                                    ">🔨 Будувати</button>
-                                    <span id="ship-build-time" style="color: #aaa; font-size: 12px;"></span>
+                                        width: auto;
+                                        min-width: 60px;
+                                        margin: 0 1px;
+                                    ">Вивчити</button>
+                                    <span id="ship-build-time" style="color: #aaa; font-size: 12px; margin-left: 5px;"></span>
                                 </div>
                                 <div id="ship-build-progress" style="
                                     margin-top: 10px;
