@@ -26,8 +26,8 @@
     ],
     "grid": [
       {
-        "x": 1,
-        "y": 10,
+        "x": 3,
+        "y": 11,
         "shipIndex": 0,
         "side": "player",
         "count": 1,
@@ -52,8 +52,8 @@
         "weaponLevel": 1
       }
     ],
-    "round": 79,
-    "roundTimeLeft": 5,
+    "round": 81,
+    "roundTimeLeft": 15,
     "logs": [
       {
         "round": 1,
@@ -914,13 +914,53 @@
         "round": 79,
         "message": "=== Раунд 79 ===",
         "type": "normal"
+      },
+      {
+        "round": 79,
+        "message": "Обрано: 2 на позиції (1:10)",
+        "type": "normal"
+      },
+      {
+        "round": 79,
+        "message": "2 (1:10) → перемістився на (2:10)",
+        "type": "move"
+      },
+      {
+        "round": 79,
+        "message": "2 не може атакувати Винищувач - занадто далеко (13 > 10)",
+        "type": "normal"
+      },
+      {
+        "round": 80,
+        "message": "=== Раунд 80 ===",
+        "type": "normal"
+      },
+      {
+        "round": 80,
+        "message": "2 прямує до (8:16)",
+        "type": "move"
+      },
+      {
+        "round": 80,
+        "message": "2 (2:10) → перемістився на (3:11)",
+        "type": "move"
+      },
+      {
+        "round": 80,
+        "message": "2 не може атакувати Винищувач - занадто далеко (13 > 10)",
+        "type": "normal"
+      },
+      {
+        "round": 81,
+        "message": "=== Раунд 81 ===",
+        "type": "normal"
       }
     ],
     "actions": [],
     "autoMoveTargets": {
       "0": {
-        "toX": 10,
-        "toY": 10
+        "toX": 8,
+        "toY": 16
       }
     },
     "targetedEnemies": {

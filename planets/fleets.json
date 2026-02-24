@@ -13,7 +13,7 @@
         }
       ],
       "status": "На орбіті",
-      "coordinates": "1:1:5",
+      "coordinates": "2:2:2",
       "createdAt": "23.02.2026"
     },
     {
@@ -29,7 +29,7 @@
         }
       ],
       "status": "На орбіті",
-      "coordinates": "1:1:2",
+      "coordinates": "2:2:3",
       "createdAt": "23.02.2026"
     },
     {
@@ -80,6 +80,57 @@
       ],
       "status": "На базі",
       "createdAt": "23.02.2026"
+    },
+    {
+      "name": "Піратський загін 4482",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Рейдер",
+          "shipLevel": 4,
+          "weaponsCount": 4,
+          "weaponLevel": 3,
+          "count": 1
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "2:2:4",
+      "createdAt": "24.02.2026"
+    },
+    {
+      "name": "Піратський загін 2477",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Нападник",
+          "shipLevel": 3,
+          "weaponsCount": 3,
+          "weaponLevel": 2,
+          "count": 1
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "4:0:1",
+      "createdAt": "24.02.2026"
+    },
+    {
+      "name": "Піратський загін 2487",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Винищувач",
+          "shipLevel": 1,
+          "weaponsCount": 2,
+          "weaponLevel": 1,
+          "count": 3
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "4:0:1",
+      "createdAt": "24.02.2026"
     }
   ]
 }
