@@ -540,7 +540,7 @@ function renderScienceBlocks() {
                                 margin-right: 5px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')">Вивчити</button>
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
@@ -570,7 +570,7 @@ function renderScienceBlocks() {
                                 margin-right: 5px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')">Вивчити</button>
                         </div>
                     </div>
                 </div>
@@ -604,7 +604,7 @@ function renderScienceBlocks() {
                                 margin-right: 5px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')">Вивчити</button>
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
@@ -634,7 +634,7 @@ function renderScienceBlocks() {
                                 margin-right: 5px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')" style="height: 18px; text-align: center; line-height: 18px; padding: 0 8px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')">Вивчити</button>
                         </div>
                     </div>
                 </div>
@@ -1165,7 +1165,7 @@ function completeStudy(scienceId, level) {
 
             // Оно��люємо відображення наук, збер��гаючи активну вкладку
             if (window.renderScienceBlocks) {
-                // Зберігаємо активну вкладку перед оновленням
+                // Зберігаємо активну вкладку перед ��новленням
                 const savedActiveTab = activeScienceTab;
                 window.renderScienceBlocks();
 
