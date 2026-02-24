@@ -79,6 +79,7 @@
 
 .science-controls input[type="number"] {
     width: 35px; /* Уніфікована ширина */
+    height: 26px; /* Фіксована висота як у кнопки */
     background: #0e3a47;
     color: white;
     border: 1px solid #1fa2c7;
@@ -112,6 +113,8 @@
     margin: 0 1px; /* Мінімальні відступи */
     align-self: flex-end; /* Вирівнюємо по нижньому краю */
     box-sizing: border-box; /* Враховуємо border у загальному розмірі */
+    height: 26px; /* Фіксована висота */
+    line-height: 16px; /* Центрування тексту по вертикалі */
 }
 
 .study-btn:hover {
