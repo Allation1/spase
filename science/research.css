@@ -78,7 +78,7 @@
 }
 
 .science-controls input[type="number"] {
-    width: 30px; /* Вужче поле вводу */
+    width: 25px; /* Ще вужче поле вводу */
     height: 26px; /* Фіксована висота як у кнопки */
     background: #0e3a47;
     color: white;
@@ -105,11 +105,11 @@
     color: white;
     border: 1px solid #1fa2c7;
     border-radius: 4px;
-    padding: 4px 8px; /* Уніфіковані відступи */
-    font-size: 0.8em; /* Уніфікований розмір шрифту */
+    padding: 4px 6px; /* Менші відступи */
+    font-size: 0.75em; /* Менший шрифт */
     cursor: pointer;
     width: auto;
-    min-width: 50px; /* Вужча кнопка */
+    min-width: 40px; /* Ще вужча кнопка */
     margin: 0 1px; /* Мінімальні відступи */
     align-self: flex-end; /* Вирівнюємо по нижньому краю */
     box-sizing: border-box; /* Враховуємо border у загальному розмірі */
