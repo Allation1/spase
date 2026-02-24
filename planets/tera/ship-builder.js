@@ -153,6 +153,31 @@ async function buildShip() {
                         body: JSON.stringify(weaponsData)
                     });
                     console.log(`✅ Використано ${requiredWeapons} гармат ${weaponLevel} рівня для будівництва`);
+                    
+                    // ОНОВЛЮЄМО production.json (для відображення)
+                    const prodResponse = await fetch('/planets/tera/production.json?t=' + Date.now());
+                    let prodData = {};
+                    if (prodResponse.ok) {
+                        prodData = await prodResponse.json();
+                    }
+                    
+                    // Віднімаємо з production.json
+                    if (prodData.weapons?.laser) {
+                        const prodWeapon = prodData.weapons.laser.find(w => w.level === weaponLevel);
+                        if (prodWeapon) {
+                            prodWeapon.count = Math.max(0, prodWeapon.count - requiredWeapons);
+                            await fetch('/api/save-production', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(prodData)
+                            });
+                        }
+                    }
+                    
+                    // Оновлюємо відображення зброї на складі
+                    if (typeof updateProductionDisplay === 'function') {
+                        updateProductionDisplay();
+                    }
                 } catch (e) {
                     console.error('Помилка при збереженні зброї:', e);
                 }
