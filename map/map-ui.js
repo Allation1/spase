@@ -509,10 +509,25 @@ async function initiateFlight(destination) {
         if (!confirm(`⚠️ На орбіті ${destination} виявлено піратський флот "${pirate.name}"! Почати бій?`)) {
             return;
         }
+
+        // СПОЧАТКУ зберігаємо переміщення флоту на нову орбіту
+        fleet.coordinates = destination;
+        fleet.status = 'На орбіті';
         
+        try {
+            await fetch('/api/save-fleets', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(fleetsData)
+            });
+            console.log(`Флот "${fleet.name}" переміщено на ${destination} перед боєм`);
+        } catch (error) {
+            console.error('Помилка при збереженні флоту перед боєм:', error);
+        }
+
         // Знаходимо індекс піратського флоту
         const pirateIndex = fleetsData.fleets.findIndex(f => f === pirate);
-        
+
         // Відкриваємо бій
         window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + pirateIndex, '_blank');
         return;
@@ -524,10 +539,25 @@ async function initiateFlight(destination) {
         if (!confirm(`⚠️ На орбіті ${destination} виявлено флот "${otherFleet.name}"! Почати бій?`)) {
             return;
         }
+
+        // СПОЧАТКУ зберігаємо переміщення флоту на нову орбіту
+        fleet.coordinates = destination;
+        fleet.status = 'На орбіті';
         
+        try {
+            await fetch('/api/save-fleets', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(fleetsData)
+            });
+            console.log(`Флот "${fleet.name}" переміщено на ${destination} перед боєм`);
+        } catch (error) {
+            console.error('Помилка при збереженні флоту перед боєм:', error);
+        }
+
         // Знаходимо індекс іншого флоту
         const otherIndex = fleetsData.fleets.findIndex(f => f === otherFleet);
-        
+
         // Відкриваємо бій
         window.open('/battle/battle.html?attacker=' + fleetIndex + '&defender=' + otherIndex, '_blank');
         return;
