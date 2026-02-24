@@ -177,9 +177,11 @@ async function saveShip(project, count) {
             shipsData = await response.json();
         }
 
+        console.log('📋 Поточні кораблі:', shipsData);
+
         // Перевіряємо, чи вже є такий корабель
-        let existingShip = shipsData.ships.find(s => 
-            s.projectName === project.name && 
+        let existingShip = shipsData.ships.find(s =>
+            s.projectName === project.name &&
             s.shipLevel === project.shipLevel &&
             s.weaponsCount === project.weaponsCount &&
             s.weaponLevel === project.weaponLevel
@@ -188,19 +190,22 @@ async function saveShip(project, count) {
         if (existingShip) {
             // Збільшуємо кількість
             existingShip.count += count;
+            console.log(`🔄 Оновлено існуючий корабель: ${existingShip.projectName} (+${count} шт.)`);
         } else {
             // Додаємо новий запис
-            shipsData.ships.push({
+            const newShip = {
                 projectName: project.name,
                 shipLevel: project.shipLevel,
                 weaponsCount: project.weaponsCount,
                 weaponLevel: project.weaponLevel,
                 count: count,
                 builtAt: new Date().toLocaleDateString('uk-UA')
-            });
+            };
+            shipsData.ships.push(newShip);
+            console.log(`➕ Додано новий корабель:`, newShip);
         }
 
-        console.log('Зберігаємо дані кораблів:', shipsData);
+        console.log('💾 Зберігаємо дані кораблів:', shipsData);
 
         // Зберігаємо оновлені дані
         const saveResponse = await fetch('/api/save-ships', {
@@ -209,28 +214,32 @@ async function saveShip(project, count) {
             body: JSON.stringify(shipsData)
         });
 
+        console.log('📡 Статус відповіді:', saveResponse.status, saveResponse.statusText);
+
         if (!saveResponse.ok) {
             const errorData = await saveResponse.json();
+            console.error('❌ Помилка збереження:', errorData);
             throw new Error(errorData.message || 'Помилка збереження');
         }
 
         const result = await saveResponse.json();
-        console.log('Результат збереження:', result);
-
-        console.log(`✅ Збудовано кораблів "${project.name}": ${count} шт.`);
+        console.log('✅ Результат збереження:', result);
+        console.log(`🚀 Збудовано кораблів "${project.name}": ${count} шт.`);
 
         // Оновлюємо відображення у доці (навіть якщо вкладка закрита)
         const shipsList = document.getElementById('tera-ships-list');
         if (shipsList) {
             updateDockDisplay();
+        } else {
+            console.log('⚠️ shipsList не знайдено (вкладка Док закрита)');
         }
-        
+
         // Очистити вибір проекту
         const projectSelect = document.getElementById('ship-project-select');
         if (projectSelect) {
             projectSelect.value = '';
         }
-        
+
         alert(`✅ Збудовано ${count} кораблів "${project.name}"!`);
     } catch (error) {
         console.error('Помилка при збереженні кораблів:', error);
