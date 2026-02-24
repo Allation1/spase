@@ -65,24 +65,23 @@ async function buildShip() {
         return;
     }
 
-    // ПЕРЕВІРКА НАЯВНОСТІ ЗБРОЇ НА СКЛАДІ
+    // ПЕРЕВІРКА НАЯВНОСТІ ЗБРОЇ НА СКЛАДІ (production.json)
     const requiredWeapons = project.weaponsCount * count;
     const weaponLevel = project.weaponLevel;
     
-    let weaponsData = null;
+    let productionData = null;
     
     try {
-        const weaponsResponse = await fetch('/planets/tera/weapons.json?t=' + Date.now());
-        weaponsData = { weapons: [] };
+        const prodResponse = await fetch('/planets/tera/production.json?t=' + Date.now());
+        productionData = { weapons: { laser: [] } };
         
-        if (weaponsResponse.ok) {
-            weaponsData = await weaponsResponse.json();
+        if (prodResponse.ok) {
+            productionData = await prodResponse.json();
         }
         
-        // Знаходимо зброю потрібного типу та рівня
-        const requiredWeapon = weaponsData.weapons.find(w => 
-            w.type === 'laser' && w.level === weaponLevel
-        );
+        // Знаходимо зброю потрібного рівня
+        const laserWeapons = productionData.weapons?.laser || [];
+        const requiredWeapon = laserWeapons.find(w => w.level === weaponLevel);
         
         const availableCount = requiredWeapon ? requiredWeapon.count : 0;
         
@@ -132,54 +131,28 @@ async function buildShip() {
             buildTimeSpan.textContent = '';
 
             // ВІДНІМАЄМО ЗБРОЮ ЗІ СКЛАДУ ПІСЛЯ ЗАВЕРШЕННЯ БУДІВНИЦТВА
-            if (weaponsData) {
-                const requiredWeapon = weaponsData.weapons.find(w => 
-                    w.type === 'laser' && w.level === weaponLevel
-                );
+            if (productionData && productionData.weapons?.laser) {
+                const requiredWeapon = productionData.weapons.laser.find(w => w.level === weaponLevel);
                 
                 if (requiredWeapon) {
-                    requiredWeapon.count -= requiredWeapons;
-                    // Якщо зброя закінчилась, видаляємо
-                    if (requiredWeapon.count <= 0) {
-                        weaponsData.weapons = weaponsData.weapons.filter(w => w !== requiredWeapon);
-                    }
-                }
-                
-                // Зберігаємо оновлений склад зброї
-                try {
-                    await fetch('/api/save-weapons', {
+                    const oldCount = requiredWeapon.count;
+                    requiredWeapon.count = Math.max(0, oldCount - requiredWeapons);
+                    console.log(`  Віднімання: ${oldCount} - ${requiredWeapons} = ${requiredWeapon.count}`);
+                    
+                    // Зберігаємо оновлений production.json
+                    await fetch('/api/save-production', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(weaponsData)
+                        body: JSON.stringify(productionData)
                     });
                     console.log(`✅ Використано ${requiredWeapons} гармат ${weaponLevel} рівня для будівництва`);
-                    
-                    // ОНОВЛЮЄМО production.json (для відображення)
-                    const prodResponse = await fetch('/planets/tera/production.json?t=' + Date.now());
-                    let prodData = {};
-                    if (prodResponse.ok) {
-                        prodData = await prodResponse.json();
-                    }
-                    
-                    // Віднімаємо з production.json
-                    if (prodData.weapons?.laser) {
-                        const prodWeapon = prodData.weapons.laser.find(w => w.level === weaponLevel);
-                        if (prodWeapon) {
-                            prodWeapon.count = Math.max(0, prodWeapon.count - requiredWeapons);
-                            await fetch('/api/save-production', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(prodData)
-                            });
-                        }
-                    }
                     
                     // Оновлюємо відображення зброї на складі
                     if (typeof updateProductionDisplay === 'function') {
                         updateProductionDisplay();
                     }
-                } catch (e) {
-                    console.error('Помилка при збереженні зброї:', e);
+                } else {
+                    console.error('❌ ПОМИЛКА: Зброю потрібного рівня не знайдено!');
                 }
             }
 
