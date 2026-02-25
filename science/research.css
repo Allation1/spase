@@ -78,8 +78,8 @@
 }
 
 .science-controls input[type="number"] {
-    width: 15px; /* Дуже вузьке поле вводу */
-    height: 26px; /* Фіксована висота як у кнопки */
+    width: 38px; /* Вузьке поле вводу - як кнопка "Вивчити" */
+    height: 18px; /* Фіксована висота як у кнопки */
     background: #0e3a47;
     color: white;
     border: 1px solid #1fa2c7;
@@ -101,20 +101,18 @@
 }
 
 .study-btn {
-    background: #17607a;
-    color: white;
-    border: 1px solid #1fa2c7;
-    border-radius: 4px;
-    padding: 4px 6px; /* Менші відступи */
-    font-size: 0.75em; /* Менший шрифт */
-    cursor: pointer;
-    width: auto;
-    min-width: 30px; /* Дуже вузька кнопка */
-    margin: 0 1px; /* Мінімальні відступи */
-    align-self: flex-end; /* Вирівнюємо по нижньому краю */
-    box-sizing: border-box; /* Враховуємо border у загальному розмірі */
-    height: 26px; /* Фіксована висота */
-    line-height: 16px; /* Центрування тексту по вертикалі */
+    background: #17607a !important;
+    color: white !important;
+    border: 1px solid #1fa2c7 !important;
+    border-radius: 4px !important;
+    padding: 2px 4px !important;
+    font-size: 0.7em !important;
+    cursor: pointer !important;
+    margin: 0 1px !important;
+    align-self: flex-end !important;
+    box-sizing: border-box !important;
+    height: 18px !important;
+    white-space: nowrap !important;
 }
 
 .study-btn:hover {
