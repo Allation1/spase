@@ -239,21 +239,22 @@ function renderScienceBlocks() {
                         " id="building-level-center-indicator">${centerLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-center" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 /* Прибираємо стрілочки для числового поля */
                                 -moz-appearance: textfield; /* Firefox */
                             ">
                             <button class="study-btn"
                                     onclick="startStudyForBuilding('center', 'Науковий центр')"
                                     ${canStudyCenter ? '' : 'disabled'}
-                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; ${canStudyCenter ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
+                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0; ${canStudyCenter ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
                                 Вивчити
                             </button>
                             ${!canStudyCenter ? `
@@ -294,21 +295,22 @@ function renderScienceBlocks() {
                         " id="building-level-source-indicator">${sourceLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-source" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 /* Прибираємо стрілочки для числового поля */
                                 -moz-appearance: textfield; /* Firefox */
                             ">
                             <button class="study-btn"
                                     onclick="startStudyForBuilding('source', 'Джерело')"
                                     ${canStudySource ? '' : 'disabled'}
-                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; ${canStudySource ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
+                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0; ${canStudySource ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
                                 Вивчити
                             </button>
                             ${!canStudySource ? `
@@ -349,21 +351,22 @@ function renderScienceBlocks() {
                         " id="building-level-house-indicator">${houseLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-house" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 /* Прибираємо стрілочки для числового поля */
                                 -moz-appearance: textfield; /* Firefox */
                             ">
                             <button class="study-btn"
                                     onclick="startStudyForBuilding('house', 'Будинок')"
                                     ${canStudyHouse ? '' : 'disabled'}
-                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; ${canStudyHouse ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
+                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0; ${canStudyHouse ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
                                 Вивчити
                             </button>
                             ${!canStudyHouse ? `
@@ -404,21 +407,22 @@ function renderScienceBlocks() {
                         " id="building-level-warehouse-indicator">${warehouseLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-warehouse" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 /* Прибираємо стрілочки для числового поля */
                                 -moz-appearance: textfield; /* Firefox */
                             ">
                             <button class="study-btn"
                                     onclick="startStudyForBuilding('warehouse', 'Склад')"
                                     ${canStudyWarehouse ? '' : 'disabled'}
-                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; ${canStudyWarehouse ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
+                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0; ${canStudyWarehouse ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
                                 Вивчити
                             </button>
                             ${!canStudyWarehouse ? `
@@ -459,20 +463,21 @@ function renderScienceBlocks() {
                         " id="building-level-stone-quarry-indicator">${stoneQuarryLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-stone-quarry" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 /* Прибираємо стрілочки для числового поля */
                                 -moz-appearance: textfield; /* Firefox */
                             ">
                             <button class="study-btn"
                                     onclick="startStudyForBuilding('stone_quarry', 'Каменярня')"
-                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap;">
+                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">
                                 Вивчити
                             </button>
                         </div>
@@ -494,11 +499,15 @@ function renderScienceBlocks() {
                         " id="building-level-wood-cutter-indicator">${woodCutterLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-wood-cutter" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
+                                padding: 2px;
+                                font-size: 0.7em;
+                                margin: 0;
                                 padding: 2px;
                                 font-size: 0.7em;
                                 margin-right: 2px;
@@ -507,7 +516,7 @@ function renderScienceBlocks() {
                             ">
                             <button class="study-btn"
                                     onclick="startStudyForBuilding('wood_cutter', 'Лісоруб')"
-                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap;">
+                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">
                                 Вивчити
                             </button>
                         </div>
@@ -532,17 +541,18 @@ function renderScienceBlocks() {
                         " id="weapon-laser-level">${weaponLaserLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-laser-count" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">Вивчити</button>
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
@@ -561,17 +571,18 @@ function renderScienceBlocks() {
                         " id="weapon-missile-level">${weaponMissileLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-missile-count" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">Вивчити</button>
                         </div>
                     </div>
                 </div>
@@ -594,17 +605,18 @@ function renderScienceBlocks() {
                         " id="ship-fighter-level">${shipFighterLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-fighter-count" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">Вивчити</button>
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
@@ -623,17 +635,18 @@ function renderScienceBlocks() {
                         " id="ship-cruiser-level">${shipCruiserLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-cruiser-count" value="1" min="1" style="
-                                width: 35px;
+                                width: 50px;
+                                height: 18px;
                                 background: #0e3a47;
                                 color: white;
                                 border: 1px solid #1fa2c7;
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">Вивчити</button>
                         </div>
                     </div>
                 </div>
