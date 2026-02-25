@@ -1,61 +1,126 @@
 /* 🟢 Файл: science/research.css
-   🟢 Призначення: Стилізація окремих блоків наук (наприклад, "Фізика", "Хімія") у вікні модуля "Наука".
-   🟢 Всі кути заокруглені на 4px, щоб відповідати стилю основного вікна науки (#science-window). */
+   🟢 Призначення: Стилізація вікна модуля "Наука" та блоків наук.
+   🟢 Всі кути заокруглені на 4px. */
 
-/* 🟢 Стиль заголовка всередині блоку науки (назва науки) */
-.science-block-title {
-    width: 100%;                    /* 🟢 Займає всю ширину батьківського блоку */
-    box-sizing: border-box;         /* 🟢 Враховує padding/border у загальній ширині */
-    font-size: clamp(0.7em, 1vw, 1em);  /* 🟢 Адаптивний розмір шрифту */
-    font-weight: bold;              /* 🟢 Жирний шрифт для кращої читабельності */
-    background: #17607a;            /* 🟢 Темно-блакитний фон заголовка */
-    padding: 10px 0;                /* 🟢 Внутрішні відступи зверху і знизу */
-    border-radius: 4px 4px 0 0;     /* 🟢 Заокруглення лише верхніх кутів */
-    text-align: center;             /* 🟢 Вирівнювання тексту по центру */
-    margin: 0 0 12px 0;             /* 🟢 Відступ знизу для відокремлення від контенту */
-    border-bottom: 2px solid #1fa2c7; /* 🟢 Синя лінія під заголовком */
-    white-space: normal;            /* 🟢 Дозволяє перенос слів */
-    overflow-wrap: break-word;      /* 🟢 Перенос довгих слів */
-    word-break: break-word;         /* 🟢 Перенос слів при необхідності */
+/* ==================== ВІКНО НАУКИ ==================== */
+#science-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    background: #0e3a47;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    box-shadow: 2px 4px 16px rgba(0,0,0,0.3);
+    z-index: 200;
+    color: #fff;
+    padding: 0;
+    display: none;
+    overflow: auto;
+    margin: 0;
 }
 
-/* 🟢 Стиль для блоку окремої науки */
-.science-section {
-    width: 110px;                   /* 🟢 Ширина блоку — 110px */
-    height: 160px;                  /* 🟢 Висота блоку — 160px (обов'язково!) */
-    background: #134d5c;            /* 🟢 Темно-синій фон блоку */
-    border: 2px solid #1fa2c7;      /* 🟢 Синя рамка навколо блоку */
-    border-radius: 4px;             /* 🟢 Заокруглення всіх кутів на 4px */
-    box-shadow: 1px 2px 8px rgba(0,0,0,0.2); /* 🟢 Тінь для ефекту глибини */
-    margin: 0 4px 12px 4px;         /* 🟢 Зменшені зовнішні відступи для відокремлення від інших блоків */
-    padding: 0 !important;          /* 🟢 Прибрали відступ знизу - кнопки впритул */
-    color: #fff;                    /* 🟢 Білий колір тексту */
-    display: flex;                  /* 🟢 Використання Flexbox для розташування вмісту */
-    flex-direction: column;         /* 🟢 Вертикальне розташування елементів */
-    align-items: stretch;           /* 🟢 Розтягування елементів по ширині */
-    justify-content: flex-start;    /* 🟢 Розміщення елементів на початку контейнера */
+/* Заголовок вікна науки */
+.science-window-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    background: #17607a;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    margin: 0;
+    border-bottom: 2px solid #1fa2c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
 }
 
-/* 🟢 Стиль для елементів керування науками */
+/* Контейнер для блоків науки */
+#science-blocks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Контейнер для блоків будівель */
+#buildings-blocks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Кнопка закриття */
+.science-close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 201;
+}
+
+/* ==================== БЛОК НАУКИ ==================== */
 .science-section {
+    width: 110px;
+    height: 160px;
+    background: #134d5c;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+    margin: 0 4px 12px 4px;
+    padding: 0;
+    color: #fff;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     justify-content: space-between;
-    width: 121px; /* Збільшили ширину на 10% (110 * 1.1 = 121) */
-    height: 176px; /* Збільшили висоту на 10% (160 * 1.1 = 176) */
-    position: relative; /* Додаємо відносне позиціонування для індикаторів рівнів */
+    position: relative;
+    box-sizing: border-box;
 }
 
+/* Заголовок блоку науки */
+.science-block-title {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: clamp(0.7em, 1vw, 1em);
+    font-weight: bold;
+    background: #17607a;
+    padding: 10px 0;
+    border-radius: 4px 4px 0 0;
+    text-align: center;
+    margin: 0 0 12px 0;
+    border-bottom: 2px solid #1fa2c7;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* Контейнер кнопок та поля вводу */
 .science-controls {
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* Змінили на space-between для розташування елементів по краях */
-    align-items: flex-end; /* Вирівнюємо елементи по нижньому краю */
-    margin-top: auto; /* Автоматично зміщуємо контейнер вниз */
-    padding: 0 5px 2px 5px; /* Мінімальний відступ - кнопки впритул до низу */
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+    padding: 0 1px 1px 1px;
     background: rgba(27, 77, 92, 0.5);
     border-radius: 4px;
-    gap: 1px; /* Відстань між елементами */
+    gap: 1px;
 }
 
 .science-controls label {
@@ -76,45 +141,66 @@
     font-size: 0.8em;
 }
 
+/* Поле вводу (кількість рівнів) */
 .science-controls input[type="number"] {
-    width: 38px; /* Вузьке поле вводу - як кнопка "Вивчити" */
-    height: 18px; /* Фіксована висота як у кнопки */
+    width: 50px;
+    height: 18px;
     background: #0e3a47;
     color: white;
     border: 1px solid #1fa2c7;
     border-radius: 4px;
-    padding: 2px; /* Уніфікований відступ */
-    font-size: 0.7em; /* Уніфікований розмір шрифту */
-    margin: 0 2px 0 5px; /* Відступи: зліва 5px, справа 2px */
-    /* Прибираємо стрілочки для числового поля */
-    -moz-appearance: textfield; /* Firefox */
-    align-self: flex-end; /* Вирівнюємо по нижньому краю */
-    text-align: center; /* Центруємо текст усередині поля */
-    box-sizing: border-box; /* Враховуємо рамки та відступи в розмірі */
+    padding: 2px;
+    font-size: 0.7em;
+    margin: 0;
+    -moz-appearance: textfield;
+    align-self: flex-end;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .science-controls input[type="number"]::-webkit-outer-spin-button,
 .science-controls input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none; /* Chrome, Safari, Edge, Opera */
+    -webkit-appearance: none;
     margin: 0;
 }
 
+/* Кнопка "Вивчити" */
 .study-btn {
     background: #17607a !important;
     color: white !important;
     border: 1px solid #1fa2c7 !important;
     border-radius: 4px !important;
-    padding: 2px 4px !important;
+    padding: 2px 6px !important;
     font-size: 0.7em !important;
     cursor: pointer !important;
-    margin: 0 1px !important;
+    margin: 0 !important;
     align-self: flex-end !important;
     box-sizing: border-box !important;
     height: 18px !important;
     white-space: nowrap !important;
+    width: 54px !important;
 }
 
 .study-btn:hover {
     background: #1fa2c7;
     color: #222;
+}
+
+/* ==================== БУДІВЛІ ==================== */
+.building-section {
+    width: 110px;
+    height: 160px;
+    background: #134d5c;
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+    margin: 0 4px 12px 4px;
+    padding: 0;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    position: relative;
+    box-sizing: border-box;
 }

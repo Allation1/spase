@@ -142,7 +142,7 @@ function renderScienceBlocks() {
                         " id="level-indicator-${science.id}">${currentLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="level-${science.id}" value="1" min="1" style="
-                                width: 38px;
+                                width: 50px;
                                 height: 18px;
                                 background: #0e3a47;
                                 color: white;
@@ -150,14 +150,14 @@ function renderScienceBlocks() {
                                 border-radius: 4px;
                                 padding: 2px;
                                 font-size: 0.7em;
-                                margin-right: 2px;
+                                margin: 0;
                                 /* Прибираємо стрілочки для числового поля */
                                 -moz-appearance: textfield; /* Firefox */
                             ">
                             <button class="study-btn"
                                     onclick="startStudy('${science.id}', '${JSON.stringify(science).replace(/"/g, '&quot;')}')"
                                     ${canStudy ? '' : 'disabled'}
-                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; ${canStudy ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
+                                    style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0; ${canStudy ? '' : 'opacity: 0.5; cursor: not-allowed;'}">
                                 Вивчити
                             </button>
                             ${!canStudy ? `
@@ -542,7 +542,7 @@ function renderScienceBlocks() {
                                 margin-right: 2px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px;">Вивчити</button>
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
@@ -571,7 +571,7 @@ function renderScienceBlocks() {
                                 margin-right: 2px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px;">Вивчити</button>
                         </div>
                     </div>
                 </div>
@@ -604,7 +604,7 @@ function renderScienceBlocks() {
                                 margin-right: 2px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px;">Вивчити</button>
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
@@ -633,7 +633,7 @@ function renderScienceBlocks() {
                                 margin-right: 2px;
                                 -moz-appearance: textfield;
                             ">
-                            <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap;">Вивчити</button>
+                            <button class="study-btn" onclick="startStudyForShip('cruiser', 'Крейсер')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px;">Вивчити</button>
                         </div>
                     </div>
                 </div>

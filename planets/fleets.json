@@ -97,6 +97,40 @@
       "status": "Патрулює",
       "coordinates": "0:4:4",
       "createdAt": "24.02.2026"
+    },
+    {
+      "name": "Піратський загін 1943",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Піратський крейсер",
+          "shipLevel": 5,
+          "weaponsCount": 5,
+          "weaponLevel": 4,
+          "count": 1
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "4:0:2",
+      "createdAt": "25.02.2026"
+    },
+    {
+      "name": "Піратський загін 1956",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Піратський крейсер",
+          "shipLevel": 5,
+          "weaponsCount": 5,
+          "weaponLevel": 4,
+          "count": 3
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "0:0:1",
+      "createdAt": "25.02.2026"
     }
   ]
 }
