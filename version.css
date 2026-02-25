@@ -19,6 +19,7 @@
     font-size: 0.8em;
     cursor: pointer;
     transition: all 0.3s;
+    display: inline-block;
 }
 
 #version-label:hover {
@@ -38,7 +39,7 @@
     padding: 15px;
     min-width: 350px;
     max-width: 500px;
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: auto;
     box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.5);
     color: #fff;

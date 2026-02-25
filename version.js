@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const versionLabel = document.getElementById('version-label');
     const versionTooltip = document.getElementById('version-tooltip');
+    const versionWidget = document.getElementById('version-widget');
     
     // Завантажуємо дані з version.json
     fetch('version.json')
@@ -23,24 +24,31 @@ document.addEventListener('DOMContentLoaded', function() {
             versionTooltip.innerHTML = '<p style="color: #aaa;">Інформація про версію недоступна</p>';
         });
     
-    // Показ/приховування tooltip при наведенні
-    versionLabel.addEventListener('mouseenter', function() {
-        versionTooltip.classList.add('visible');
-    });
-    
-    versionLabel.addEventListener('mouseleave', function() {
-        versionTooltip.classList.remove('visible');
-    });
-    
-    // Клік для мобільних пристроїв
+    // Відкриття/закриття по кліку
     versionLabel.addEventListener('click', function(e) {
         e.stopPropagation();
         versionTooltip.classList.toggle('visible');
     });
     
+    // Закриття при кліку на хрестик
+    versionTooltip.addEventListener('click', function(e) {
+        if (e.target.classList.contains('version-tooltip-close')) {
+            versionTooltip.classList.remove('visible');
+        }
+    });
+    
     // Закриття при кліку поза віджетом
-    document.addEventListener('click', function() {
-        versionTooltip.classList.remove('visible');
+    document.addEventListener('click', function(e) {
+        if (!versionWidget.contains(e.target)) {
+            versionTooltip.classList.remove('visible');
+        }
+    });
+    
+    // Закриття по клавіші Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            versionTooltip.classList.remove('visible');
+        }
     });
 });
 
