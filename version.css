@@ -1,0 +1,159 @@
+/* 🟢 Файл: version.css
+   🟢 Призначення: Стилі для віджету версії гри */
+
+/* Контейнер версії */
+#version-widget {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+/* Напис версії */
+#version-label {
+    background: rgba(14, 58, 71, 0.8);
+    border: 1px solid #1fa2c7;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: #1fa2c7;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#version-label:hover {
+    background: #1fa2c7;
+    color: #0e3a47;
+}
+
+/* Tooltip зі змінами */
+#version-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 35px;
+    left: 0;
+    background: rgba(14, 58, 71, 0.95);
+    border: 2px solid #1fa2c7;
+    border-radius: 4px;
+    padding: 15px;
+    min-width: 350px;
+    max-width: 500px;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 0.85em;
+    line-height: 1.5;
+}
+
+#version-tooltip.visible {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Заголовок версії */
+.version-tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1fa2c7;
+}
+
+.version-tooltip-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #1fa2c7;
+}
+
+.version-tooltip-date {
+    color: #aaa;
+    font-size: 0.9em;
+}
+
+/* Список змін */
+.version-changes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.version-change-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(23, 96, 122, 0.3);
+    border-radius: 4px;
+    border-left: 3px solid #1fa2c7;
+}
+
+.version-change-title {
+    font-size: 1em;
+    font-weight: bold;
+    color: #1fa2c7;
+    margin-bottom: 8px;
+}
+
+.version-change-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.version-change-details li {
+    padding: 3px 0;
+    color: #ccc;
+    font-size: 0.95em;
+}
+
+/* Кнопка закриття */
+.version-tooltip-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.version-tooltip-close:hover {
+    background: #1fa2c7;
+    color: #0e3a47;
+}
+
+/* Scrollbar для tooltip */
+#version-tooltip::-webkit-scrollbar {
+    width: 8px;
+}
+
+#version-tooltip::-webkit-scrollbar-track {
+    background: rgba(14, 58, 71, 0.5);
+    border-radius: 4px;
+}
+
+#version-tooltip::-webkit-scrollbar-thumb {
+    background: #1fa2c7;
+    border-radius: 4px;
+}
+
+#version-tooltip::-webkit-scrollbar-thumb:hover {
+    background: #17607a;
+}
