@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <linearGradient id="fighterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Винищувач -->
+  <path d="M15 35 L35 25 L45 35 L35 45 Z" fill="none" stroke="#3498db" stroke-width="2" opacity="0.7">
+    <animateTransform attributeName="transform" type="translate" values="0 0; 3 0; 0 0" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Крила -->
+  <path d="M30 30 L50 25 L55 35 L50 45 L30 40" fill="none" stroke="#3498db" stroke-width="1.5" opacity="0.6">
+    <animateTransform attributeName="transform" type="translate" values="0 0; 2 -1; 0 0" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Хвіст -->
+  <path d="M15 35 L10 30 L10 40 Z" fill="#3498db" opacity="0.5">
+    <animateTransform attributeName="transform" type="translate" values="0 0; 1 0; 0 0" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Двигун -->
+  <circle cx="12" cy="35" r="3" fill="none" stroke="#3498db" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="12" cy="35" r="2" fill="#3498db" opacity="0.4">
+    <animate attributeName="r" values="2;3;2" dur="0.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Полум'я двигуна -->
+  <path d="M8 35 L3 33 L3 37 Z" fill="#3498db" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="0.3s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Слід -->
+  <ellipse cx="5" cy="35" rx="4" ry="2" fill="#3498db" opacity="0.3">
+    <animate attributeName="rx" values="4;2;4" dur="0.5s" repeatCount="indefinite"/>
+  </ellipse>
+  
+  <!-- Приціл -->
+  <circle cx="55" cy="20" r="5" fill="none" stroke="#3498db" stroke-width="1" opacity="0.4">
+    <animate attributeName="r" values="5;7;5" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <line x1="55" y1="15" x2="55" y2="25" stroke="#3498db" stroke-width="0.5" opacity="0.3"/>
+  <line x1="50" y1="20" x2="60" y2="20" stroke="#3498db" stroke-width="0.5" opacity="0.3"/>
+</svg>

@@ -45,7 +45,11 @@ function renderScienceBlocks() {
         'wood_cutting_science': 'wood-cutting-science.svg',
         'building_house': 'building-house.svg',
         'building_warehouse': 'building-warehouse.svg',
-        'building_engineer_center': 'building-engineer-center.svg'
+        'building_engineer_center': 'building-engineer-center.svg',
+        'weapon_laser': 'weapon-laser.svg',
+        'weapon_missile': 'weapon-missile.svg',
+        'ship_fighter': 'ship-fighter.svg',
+        'ship_cruiser': 'ship-cruiser.svg'
     };
     
     // Функція для отримання стилю заголовка
@@ -629,8 +633,11 @@ function renderScienceBlocks() {
             </div>
             <div id="weapons-tab-content" style="display: none;">
                 <div id="weapons-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
+                    ${(() => {
+                        const laserStyles = getHeaderStyle('weapon_laser');
+                        return `
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">Лазерна гармата</div>
+                        <div class="science-block-title" style="${laserStyles.headerStyle}">Лазерна гармата</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -644,6 +651,11 @@ function renderScienceBlocks() {
                             text-align: center;
                             z-index: 10;
                         " id="weapon-laser-level">${weaponLaserLevel}</div>
+                        ${laserStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${laserStyles.animatedImage}" alt="Лазерна гармата" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-laser-count" value="1" min="1" style="
                                 width: 50px;
@@ -659,9 +671,13 @@ function renderScienceBlocks() {
                             ">
                             <button class="study-btn" onclick="startStudyForWeapon('laser', 'Лазерна гармата')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">Вивчити</button>
                         </div>
-                    </div>
+                    </div>`;
+                    })()}
+                    ${(() => {
+                        const missileStyles = getHeaderStyle('weapon_missile');
+                        return `
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">Ракетна установка</div>
+                        <div class="science-block-title" style="${missileStyles.headerStyle}">Ракетна установка</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -675,6 +691,11 @@ function renderScienceBlocks() {
                             text-align: center;
                             z-index: 10;
                         " id="weapon-missile-level">${weaponMissileLevel}</div>
+                        ${missileStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${missileStyles.animatedImage}" alt="Ракетна установка" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-missile-count" value="1" min="1" style="
                                 width: 50px;
@@ -690,13 +711,17 @@ function renderScienceBlocks() {
                             ">
                             <button class="study-btn" onclick="startStudyForWeapon('missile', 'Ракетна установка')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">Вивчити</button>
                         </div>
-                    </div>
+                    </div>`;
+                    })()}
                 </div>
             </div>
             <div id="ships-tab-content" style="display: none;">
                 <div id="ships-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
+                    ${(() => {
+                        const fighterStyles = getHeaderStyle('ship_fighter');
+                        return `
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">Винищувач</div>
+                        <div class="science-block-title" style="${fighterStyles.headerStyle}">Винищувач</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -725,9 +750,13 @@ function renderScienceBlocks() {
                             ">
                             <button class="study-btn" onclick="startStudyForShip('fighter', 'Винищувач')" style="padding: 2px 4px; font-size: 0.7em; height: 18px; white-space: nowrap; width: 54px; margin: 0;">Вивчити</button>
                         </div>
-                    </div>
+                    </div>`;
+                    })()}
+                    ${(() => {
+                        const cruiserStyles = getHeaderStyle('ship_cruiser');
+                        return `
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">Крейсер</div>
+                        <div class="science-block-title" style="${cruiserStyles.headerStyle}">Крейсер</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -741,6 +770,11 @@ function renderScienceBlocks() {
                             text-align: center;
                             z-index: 10;
                         " id="ship-cruiser-level">${shipCruiserLevel}</div>
+                        ${cruiserStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${cruiserStyles.animatedImage}" alt="Крейсер" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-cruiser-count" value="1" min="1" style="
                                 width: 50px;
