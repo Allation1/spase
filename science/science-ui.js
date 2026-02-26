@@ -125,21 +125,26 @@ function renderScienceBlocks() {
         }
 
         sciencesHtml += `
-                    <div class="science-section" style="cursor: pointer; position: relative;">
+                    <div class="science-section" style="cursor: pointer; position: relative;" data-science="${science.id}">
                         <div class="science-block-title">${science.icon} ${science.name}</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
-                            padding: 2px 8px; /* Збільшили горизонтальні відступи для кращого вигляду */
+                            padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block; /* Встановлюємо як inline-block для автоматичної ширини */
-                            margin-top: -10px; /* Підняли вище, щоб був ближче до заголовка */
                             text-align: center;
-                            width: fit-content; /* Встановлюємо ширину відповідно до вмісту */
-                            align-self: flex-start; /* Вирівнюємо елемент по лівому краю */
+                            z-index: 10;
                         " id="level-indicator-${science.id}">${currentLevel}</div>
+                        ${science.id === 'physics' ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/physics.svg" alt="Фізика" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls">
                             <input type="number" id="level-${science.id}" value="1" min="1" style="
                                 width: 50px;
@@ -225,17 +230,17 @@ function renderScienceBlocks() {
                     <div class="science-section" style="cursor: pointer; position: relative;">
                         <div class="science-block-title">🔬 Науковий центр</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
-                            padding: 2px 8px; /* Збільшили горизонтальні відступи для кращого вигляду */
+                            padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block; /* Встановлюємо як inline-block для автоматичної ширини */
-                            margin-top: -10px; /* Підняли вище, щоб був ближче до заголовка */
                             text-align: center;
-                            width: fit-content; /* Встановлюємо ширину відповідно до вмісту */
-                            align-self: flex-start; /* Вирівнюємо елемент по лівому краю */
+                            z-index: 10;
                         " id="building-level-center-indicator">${centerLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-center" value="1" min="1" style="
@@ -284,14 +289,14 @@ function renderScienceBlocks() {
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
-                            padding: 2px 8px; /* Збільшили горизонтальні відступи для кращого вигляду */
+                            padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block; /* Встановлюємо як inline-block для автоматичної ширини */
-                            margin-top: -10px; /* Підняли вище, щоб був ближче до заголовка */
                             text-align: center;
-                            width: fit-content; /* Встановлюємо ширину відповідно до вмісту */
-                            align-self: flex-start; /* Вирівнюємо елемент по лівому краю */
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="building-level-source-indicator">${sourceLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-source" value="1" min="1" style="
@@ -340,14 +345,14 @@ function renderScienceBlocks() {
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
-                            padding: 2px 8px; /* Збільшили горизонтальні відступи для кращого вигляду */
+                            padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block; /* Встановлюємо як inline-block для автоматичної ширини */
-                            margin-top: -10px; /* Підняли вище, щоб був ближче до заголовка */
                             text-align: center;
-                            width: fit-content; /* Встановлюємо ширину відповідно до вмісту */
-                            align-self: flex-start; /* Вирівнюємо елемент по лівому краю */
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="building-level-house-indicator">${houseLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-house" value="1" min="1" style="
@@ -396,14 +401,14 @@ function renderScienceBlocks() {
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
-                            padding: 2px 8px; /* Збільшили горизонтальні відступи для кращого вигляду */
+                            padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block; /* Встановлюємо як inline-block для автоматичної ширини */
-                            margin-top: -10px; /* Підняли вище, щоб був ближче до заголовка */
                             text-align: center;
-                            width: fit-content; /* Встановлюємо ширину відповідно до вмісту */
-                            align-self: flex-start; /* Вирівнюємо елемент по лівому краю */
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="building-level-warehouse-indicator">${warehouseLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-warehouse" value="1" min="1" style="
@@ -452,14 +457,14 @@ function renderScienceBlocks() {
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
-                            padding: 2px 8px; /* Збільшили горизонтальні відступи для кращого вигляду */
+                            padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block; /* Встановлюємо як inline-block для автоматичної ширини */
-                            margin-top: -10px; /* Підняли вище, щоб був ближче до заголовка */
                             text-align: center;
-                            width: fit-content; /* Встановлюємо ширину відповідно до вмісту */
-                            align-self: flex-start; /* Вирівнюємо елемент по лівому краю */
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="building-level-stone-quarry-indicator">${stoneQuarryLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-stone-quarry" value="1" min="1" style="
@@ -488,14 +493,14 @@ function renderScienceBlocks() {
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
-                            padding: 2px 8px; /* Збільшили горизонтальні відступи для кращого вигляду */
+                            padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block; /* Встановлюємо як inline-block для автоматичної ширини */
-                            margin-top: -10px; /* Підняли вище, щоб був ближче до заголовка */
                             text-align: center;
-                            width: fit-content; /* Встановлюємо ширину відповідно до вмісту */
-                            align-self: flex-start; /* Вирівнюємо елемент по лівому краю */
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="building-level-wood-cutter-indicator">${woodCutterLevel}</div>
                         <div class="science-controls">
                             <input type="number" id="building-level-wood-cutter" value="1" min="1" style="
@@ -534,10 +539,11 @@ function renderScienceBlocks() {
                             padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block;
                             text-align: center;
-                            width: fit-content;
-                            margin-top: -10px;
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="weapon-laser-level">${weaponLaserLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-laser-count" value="1" min="1" style="
@@ -564,10 +570,11 @@ function renderScienceBlocks() {
                             padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block;
                             text-align: center;
-                            width: fit-content;
-                            margin-top: -10px;
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="weapon-missile-level">${weaponMissileLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="weapon-missile-count" value="1" min="1" style="
@@ -598,10 +605,11 @@ function renderScienceBlocks() {
                             padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block;
                             text-align: center;
-                            width: fit-content;
-                            margin-top: -10px;
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="ship-fighter-level">${shipFighterLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-fighter-count" value="1" min="1" style="
@@ -628,10 +636,11 @@ function renderScienceBlocks() {
                             padding: 2px 8px;
                             color: white;
                             font-size: 0.6em;
-                            display: inline-block;
                             text-align: center;
-                            width: fit-content;
-                            margin-top: -10px;
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
+                            z-index: 10;
                         " id="ship-cruiser-level">${shipCruiserLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
                             <input type="number" id="ship-cruiser-count" value="1" min="1" style="
