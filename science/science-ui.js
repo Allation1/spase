@@ -297,7 +297,7 @@ function renderScienceBlocks() {
             <div id="buildings-tab-content" style="display: none;">
                 <div id="buildings-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="${centerStyles.headerStyle}">⚙️ Інженерний центр</div>
+                        <div class="science-block-title" style="${centerStyles.headerStyle}">Інженерний центр</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -358,7 +358,7 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="${sourceStyles.headerStyle}">💧 Джерело</div>
+                        <div class="science-block-title" style="${sourceStyles.headerStyle}">Джерело</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -419,7 +419,7 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="${houseStyles.headerStyle}">🏠 Будинок</div>
+                        <div class="science-block-title" style="${houseStyles.headerStyle}">Будинок</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -480,7 +480,7 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="${warehouseStyles.headerStyle}">📦 Склад</div>
+                        <div class="science-block-title" style="${warehouseStyles.headerStyle}">Склад</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -541,7 +541,7 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="${stoneQuarryStyles.headerStyle}">🪨 Каменярня</div>
+                        <div class="science-block-title" style="${stoneQuarryStyles.headerStyle}">Каменярня</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -582,7 +582,7 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="${woodCutterStyles.headerStyle}">🪵 Лісоруб</div>
+                        <div class="science-block-title" style="${woodCutterStyles.headerStyle}">Лісоруб</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -630,7 +630,7 @@ function renderScienceBlocks() {
             <div id="weapons-tab-content" style="display: none;">
                 <div id="weapons-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">🔫 Лазерна гармата</div>
+                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">Лазерна гармата</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -661,7 +661,7 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">🚀 Ракетна установка</div>
+                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">Ракетна установка</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -696,7 +696,7 @@ function renderScienceBlocks() {
             <div id="ships-tab-content" style="display: none;">
                 <div id="ships-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">✈️ Винищувач</div>
+                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">Винищувач</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -727,7 +727,7 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">🚀 Крейсер</div>
+                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">Крейсер</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
