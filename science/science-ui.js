@@ -126,7 +126,9 @@ function renderScienceBlocks() {
 
         sciencesHtml += `
                     <div class="science-section" style="cursor: pointer; position: relative;" data-science="${science.id}">
-                        <div class="science-block-title">${science.icon} ${science.name}</div>
+                        <div class="science-block-title" style="${science.id === 'physics' ? 'background: url(\'images/physics-header.svg\') no-repeat center center; background-size: cover; color: #4ec5ff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5);' : ''}">
+                            ${science.id === 'physics' ? science.name : `${science.icon} ${science.name}`}
+                        </div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;

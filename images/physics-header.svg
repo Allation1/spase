@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" preserveAspectRatio="none">
+  <!-- Градієнтний фон - темніший від основного -->
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d2a33;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a3a4a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d2a33;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Основний фон -->
+  <rect width="200" height="40" fill="url(#headerGrad)"/>
+  
+  <!-- Орбіти на фоні -->
+  <ellipse cx="100" cy="20" rx="35" ry="15" fill="none" stroke="#2d5a6e" stroke-width="1" opacity="0.5"/>
+  <ellipse cx="100" cy="20" rx="35" ry="15" fill="none" stroke="#2d5a6e" stroke-width="1" opacity="0.5" transform="rotate(60 100 20)"/>
+  <ellipse cx="100" cy="20" rx="35" ry="15" fill="none" stroke="#2d5a6e" stroke-width="1" opacity="0.5" transform="rotate(120 100 20)"/>
+  
+  <!-- Центральне ядро -->
+  <circle cx="100" cy="20" r="5" fill="#2d5a6e" opacity="0.6"/>
+  
+  <!-- Електрони -->
+  <circle cx="135" cy="20" r="2.5" fill="#2d5a6e" opacity="0.5"/>
+  <circle cx="65" cy="20" r="2.5" fill="#2d5a6e" opacity="0.5"/>
+  <circle cx="100" cy="5" r="2.5" fill="#2d5a6e" opacity="0.5"/>
+  <circle cx="100" cy="35" r="2.5" fill="#2d5a6e" opacity="0.5"/>
+</svg>
