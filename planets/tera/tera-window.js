@@ -1225,7 +1225,7 @@ function renderBuildings(buildingsData) {
                     </div>
                 </div>
             </div>
-            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
+            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px; margin-bottom: 5px !important;">
                 <input type="number" id="build-count-${building.id}" value="1" min="1" style="
                     width: calc(100% - 70px) !important;
                     background: #0e3a47;
@@ -1240,7 +1240,7 @@ function renderBuildings(buildingsData) {
                 ">
                 <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 68px !important; margin: 0 1px 0 0; flex-shrink: 0; min-width: 68px;">Будувати</button>
             </div>
-            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px; padding-top: 5px !important;">
+            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
                 <input type="number" id="upgrade-level-${building.id}" value="1" min="1" style="
                     width: calc(100% - 70px) !important;
                     background: #0e3a47;
