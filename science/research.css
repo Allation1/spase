@@ -181,6 +181,12 @@
     width: 54px !important;
 }
 
+/* Кнопки у вікні Тера - ширші для тексту */
+#tera-buildings-container .study-btn {
+    width: 68px !important;
+    min-width: 68px !important;
+}
+
 .study-btn:hover {
     background: #1fa2c7;
     color: #222;
