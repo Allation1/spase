@@ -147,7 +147,7 @@ function renderScienceBlocks() {
         };
         
         const headerImage = scienceHeaderImages[science.id];
-        const headerStyle = headerImage ? `background: url('images/${headerImage}') no-repeat center center; background-size: cover; color: #4ec5ff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5);` : '';
+        const headerStyle = headerImage ? `background: url('images/${headerImage}') no-repeat center center; background-size: cover; color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;` : '';
 
         sciencesHtml += `
                     <div class="science-section" style="cursor: pointer; position: relative;" data-science="${science.id}">
