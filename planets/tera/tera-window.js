@@ -1225,7 +1225,8 @@ function renderBuildings(buildingsData) {
                     </div>
                 </div>
             </div>
-            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px; padding-top: 8px;">
+            <div style="height: 8px;"></div>
+            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
                 <input type="number" id="build-count-${building.id}" value="1" min="1" style="
                     width: calc(100% - 70px) !important;
                     background: #0e3a47;
@@ -1240,7 +1241,8 @@ function renderBuildings(buildingsData) {
                 ">
                 <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 68px !important; margin: 0 1px 0 0; flex-shrink: 0; min-width: 68px;">Будувати</button>
             </div>
-            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px; padding-top: 8px;">
+            <div style="height: 8px;"></div>
+            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
                 <input type="number" id="upgrade-level-${building.id}" value="1" min="1" style="
                     width: calc(100% - 70px) !important;
                     background: #0e3a47;
@@ -1291,7 +1293,7 @@ function renderBuildings(buildingsData) {
         buildingsContainer.appendChild(buildingElement);
     });
 
-    // Додаємо обробники для підказок покращення
+    // Додаємо обробники для підказок покра��ення
     setTimeout(() => {
         buildings.forEach(building => {
             const button = document.querySelector(`#upgrade-level-${building.id}`).nextElementSibling;
