@@ -1,36 +1,132 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
   <defs>
-    <linearGradient id="bioGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- Градієнти для ДНК -->
+    <linearGradient id="dnaGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#27ae60;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2ecc71;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#27ae60;stop-opacity:1" />
     </linearGradient>
+    <linearGradient id="dnaGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2ecc71;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#58d68d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2ecc71;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Градієнт для клітини -->
+    <radialGradient id="cellGrad" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#58d68d;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#2ecc71;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#27ae60;stop-opacity:0.3" />
+    </radialGradient>
+    
+    <!-- Світіння -->
+    <filter id="dnaGlow">
+      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Тінь -->
+    <filter id="cellShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
   </defs>
   
-  <!-- ДНК спіраль -->
-  <path d="M20 25 Q30 15, 40 25 T60 25" fill="none" stroke="#27ae60" stroke-width="2" opacity="0.6">
-    <animate attributeName="d" values="M20 25 Q30 15, 40 25 T60 25; M20 35 Q30 45, 40 35 T60 35; M20 25 Q30 15, 40 25 T60 25" dur="4s" repeatCount="indefinite"/>
-  </path>
-  <path d="M20 45 Q30 55, 40 45 T60 45" fill="none" stroke="#27ae60" stroke-width="2" opacity="0.6">
-    <animate attributeName="d" values="M20 45 Q30 55, 40 45 T60 45; M20 35 Q30 25, 40 35 T60 35; M20 45 Q30 55, 40 45 T60 45" dur="4s" repeatCount="indefinite"/>
-  </path>
-  
-  <!-- З'єднання -->
-  <line x1="25" y1="28" x2="25" y2="42" stroke="#2ecc71" stroke-width="1.5" opacity="0.5"/>
-  <line x1="35" y1="30" x2="35" y2="40" stroke="#2ecc71" stroke-width="1.5" opacity="0.5"/>
-  <line x1="45" y1="28" x2="45" y2="42" stroke="#2ecc71" stroke-width="1.5" opacity="0.5"/>
-  <line x1="55" y1="30" x2="55" y2="40" stroke="#2ecc71" stroke-width="1.5" opacity="0.5"/>
+  <!-- ДНК спіраль подвійна -->
+  <g transform="translate(5, 20)">
+    <!-- Перша ланцюг -->
+    <path d="M0 0 Q15 8, 30 0 T60 0" fill="none" stroke="url(#dnaGrad1)" stroke-width="3" stroke-linecap="round" filter="url(#dnaGlow)" opacity="0.8">
+      <animate attributeName="d" values="M0 0 Q15 8, 30 0 T60 0; M0 5 Q15 13, 30 5 T60 5; M0 0 Q15 8, 30 0 T60 0" dur="4s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Друга ланцюг -->
+    <path d="M0 30 Q15 22, 30 30 T60 30" fill="none" stroke="url(#dnaGrad2)" stroke-width="3" stroke-linecap="round" filter="url(#dnaGlow)" opacity="0.8">
+      <animate attributeName="d" values="M0 30 Q15 22, 30 30 T60 30; M0 25 Q15 17, 30 25 T60 25; M0 30 Q15 22, 30 30 T60 30" dur="4s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- З'єднання (бази) -->
+    <line x1="8" y1="4" x2="8" y2="26" stroke="#27ae60" stroke-width="2" stroke-linecap="round" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.8;0.6" dur="2s" repeatCount="indefinite"/>
+    </line>
+    <line x1="22" y1="8" x2="22" y2="22" stroke="#2ecc71" stroke-width="2" stroke-linecap="round" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.8;0.6" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+    </line>
+    <line x1="38" y1="8" x2="38" y2="22" stroke="#58d68d" stroke-width="2" stroke-linecap="round" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.8;0.6" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+    </line>
+    <line x1="52" y1="4" x2="52" y2="26" stroke="#27ae60" stroke-width="2" stroke-linecap="round" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.8;0.6" dur="2s" repeatCount="indefinite" begin="0.9s"/>
+    </line>
+    
+    <!-- Нуклеотиди (кулі) -->
+    <circle cx="8" cy="4" r="3" fill="url(#dnaGrad1)" filter="url(#dnaGlow)">
+      <animate attributeName="r" values="3;3.5;3" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="22" cy="8" r="3" fill="url(#dnaGrad2)" filter="url(#dnaGlow)">
+      <animate attributeName="r" values="3;3.5;3" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+    </circle>
+    <circle cx="38" cy="8" r="3" fill="url(#dnaGrad1)" filter="url(#dnaGlow)">
+      <animate attributeName="r" values="3;3.5;3" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+    </circle>
+    <circle cx="52" cy="4" r="3" fill="url(#dnaGrad2)" filter="url(#dnaGlow)">
+      <animate attributeName="r" values="3;3.5;3" dur="2s" repeatCount="indefinite" begin="0.9s"/>
+    </circle>
+    <circle cx="8" cy="26" r="3" fill="url(#dnaGrad2)" filter="url(#dnaGlow)">
+      <animate attributeName="r" values="3;3.5;3" dur="2s" repeatCount="indefinite" begin="1.2s"/>
+    </circle>
+    <circle cx="22" cy="22" r="3" fill="url(#dnaGrad1)" filter="url(#dnaGlow)">
+      <animate attributeName="r" values="3;3.5;3" dur="2s" repeatCount="indefinite" begin="1.5s"/>
+    </circle>
+    <circle cx="38" cy="22" r="3" fill="url(#dnaGrad2)" filter="url(#dnaGlow)">
+      <animate attributeName="r" values="3;3.5;3" dur="2s" repeatCount="indefinite" begin="1.8s"/>
+    </circle>
+    <circle cx="52" cy="26" r="3" fill="url(#dnaGrad1)" filter="url(#dnaGlow)">
+      <animate attributeName="r" values="3;3.5;3" dur="2s" repeatCount="indefinite" begin="2.1s"/>
+    </circle>
+  </g>
   
   <!-- Клітина -->
-  <circle cx="35" cy="35" r="12" fill="none" stroke="#27ae60" stroke-width="2" opacity="0.7"/>
-  <circle cx="35" cy="35" r="4" fill="#27ae60" opacity="0.5">
-    <animate attributeName="r" values="4;5;4" dur="2s" repeatCount="indefinite"/>
-  </circle>
+  <g transform="translate(50, 50)" filter="url(#cellShadow)">
+    <!-- Мембрана -->
+    <ellipse cx="0" cy="0" rx="18" ry="16" fill="url(#cellGrad)" stroke="#27ae60" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Ядро -->
+    <circle cx="0" cy="0" r="7" fill="url(#cellGrad)" stroke="#2ecc71" stroke-width="1.5" opacity="0.7">
+      <animate attributeName="r" values="7;7.5;7" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Ядерце -->
+    <circle cx="0" cy="0" r="3" fill="#27ae60" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Мітохондрії -->
+    <ellipse cx="-10" cy="-8" rx="4" ry="2" fill="none" stroke="#27ae60" stroke-width="1" opacity="0.5">
+      <animateTransform attributeName="transform" type="rotate" from="0 -10 -8" to="360 -10 -8" dur="10s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="10" cy="8" rx="3" ry="2" fill="none" stroke="#2ecc71" stroke-width="1" opacity="0.5">
+      <animateTransform attributeName="transform" type="rotate" from="0 10 8" to="-360 10 8" dur="8s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    <!-- Рибосоми -->
+    <circle cx="-8" cy="5" r="1" fill="#27ae60" opacity="0.6">
+      <animate attributeName="cy" values="5;3;5" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="8" cy="-5" r="1" fill="#2ecc71" opacity="0.6">
+      <animate attributeName="cy" values="-5;-7;-5" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="5" cy="10" r="1" fill="#58d68d" opacity="0.6">
+      <animate attributeName="cx" values="5;7;5" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
   
-  <!-- Маленькі клітини -->
-  <circle cx="15" cy="20" r="3" fill="#2ecc71" opacity="0.5">
-    <animate attributeName="cy" values="20;18;20" dur="3s" repeatCount="indefinite"/>
+  <!-- Додаткові молекули на фоні -->
+  <circle cx="15" cy="60" r="2" fill="#27ae60" opacity="0.4">
+    <animate attributeName="cy" values="60;55;60" dur="5s" repeatCount="indefinite"/>
   </circle>
-  <circle cx="55" cy="50" r="3" fill="#2ecc71" opacity="0.5">
-    <animate attributeName="cy" values="50;52;50" dur="3s" repeatCount="indefinite"/>
+  <circle cx="60" cy="15" r="2" fill="#2ecc71" opacity="0.4">
+    <animate attributeName="cx" values="60;65;60" dur="4s" repeatCount="indefinite"/>
   </circle>
 </svg>

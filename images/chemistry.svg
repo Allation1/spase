@@ -1,44 +1,128 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
   <defs>
-    <linearGradient id="chemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:1" />
+    <!-- Градієнти для рідини -->
+    <linearGradient id="liquidGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b59b6;stop-opacity:0.8" />
       <stop offset="100%" style="stop-color:#8e44ad;stop-opacity:1" />
     </linearGradient>
+    <linearGradient id="liquidGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#c0392b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="liquidGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3498db;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#2980b9;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Градієнт для скла -->
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.2" />
+    </linearGradient>
+    
+    <!-- Світіння -->
+    <filter id="bubbleGlow">
+      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
   
-  <!-- Колба 1 -->
-  <g>
-    <path d="M15 45 L15 55 Q15 65, 25 65 L35 65 Q45 65, 45 55 L45 45" fill="none" stroke="#9b59b6" stroke-width="2">
-      <animate attributeName="opacity" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/>
-    </path>
-    <circle cx="25" cy="58" r="4" fill="#9b59b6" opacity="0.5">
-      <animate attributeName="cy" values="58;52;58" dur="2s" repeatCount="indefinite"/>
+  <!-- Колба 1 - конічна -->
+  <g transform="translate(8, 28)">
+    <!-- Тіло колби -->
+    <path d="M12 5 L22 5 L28 35 Q28 40, 23 40 L7 40 Q2 40, 2 35 Z" fill="url(#liquidGrad1)" opacity="0.6"/>
+    <path d="M12 5 L22 5 L28 35 Q28 40, 23 40 L7 40 Q2 40, 2 35 Z" fill="none" stroke="#9b59b6" stroke-width="1.5" stroke-opacity="0.8"/>
+    <!-- Шийка -->
+    <rect x="14" y="0" width="6" height="5" fill="none" stroke="#9b59b6" stroke-width="1.5" stroke-opacity="0.8"/>
+    <!-- Рідина всередині -->
+    <ellipse cx="15" cy="38" rx="8" ry="2" fill="#9b59b6" opacity="0.4"/>
+    <!-- Бульбашки -->
+    <circle cx="12" cy="32" r="1.5" fill="#9b59b6" opacity="0.6" filter="url(#bubbleGlow)">
+      <animate attributeName="cy" values="32;28;24;20" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="2s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="35" cy="58" r="3" fill="#9b59b6" opacity="0.4">
-      <animate attributeName="cy" values="58;50;58" dur="2.5s" repeatCount="indefinite"/>
+    <circle cx="18" cy="35" r="1" fill="#9b59b6" opacity="0.6" filter="url(#bubbleGlow)">
+      <animate attributeName="cy" values="35;31;27;23" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+      <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
     </circle>
-    <circle cx="30" cy="50" r="3.5" fill="#9b59b6" opacity="0.4">
-      <animate attributeName="cy" values="50;44;50" dur="2.2s" repeatCount="indefinite"/>
+    <circle cx="20" cy="30" r="1.2" fill="#9b59b6" opacity="0.6" filter="url(#bubbleGlow)">
+      <animate attributeName="cy" values="30;26;22;18" dur="1.8s" repeatCount="indefinite" begin="1s"/>
+      <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="1.8s" repeatCount="indefinite" begin="1s"/>
     </circle>
   </g>
   
-  <!-- Колба 2 -->
-  <g>
-    <path d="M50 40 L50 50 Q50 60, 60 60 L68 60 Q68 60, 68 50 L68 40" fill="none" stroke="#8e44ad" stroke-width="2">
-      <animate attributeName="opacity" values="0.5;0.9;0.5" dur="4s" repeatCount="indefinite"/>
-    </path>
-    <circle cx="55" cy="52" r="3" fill="#8e44ad" opacity="0.4">
-      <animate attributeName="cy" values="52;46;52" dur="2.3s" repeatCount="indefinite"/>
+  <!-- Колба 2 - кругла -->
+  <g transform="translate(38, 30)">
+    <!-- Тіло колби -->
+    <circle cx="12" cy="18" r="12" fill="url(#liquidGrad2)" opacity="0.5"/>
+    <circle cx="12" cy="18" r="12" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-opacity="0.8"/>
+    <!-- Шийка -->
+    <rect x="9" y="8" width="6" height="8" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-opacity="0.8"/>
+    <!-- Рідина -->
+    <ellipse cx="12" cy="18" rx="10" ry="10" fill="#e74c3c" opacity="0.3"/>
+    <!-- Бульбашки -->
+    <circle cx="8" cy="22" r="1.5" fill="#e74c3c" opacity="0.6" filter="url(#bubbleGlow)">
+      <animate attributeName="cy" values="22;18;14;10" dur="2.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="2.2s" repeatCount="indefinite"/>
     </circle>
-    <circle cx="64" cy="52" r="2.5" fill="#8e44ad" opacity="0.3">
-      <animate attributeName="cy" values="52;48;52" dur="2.7s" repeatCount="indefinite"/>
+    <circle cx="14" cy="24" r="1" fill="#e74c3c" opacity="0.6" filter="url(#bubbleGlow)">
+      <animate attributeName="cy" values="24;20;16;12" dur="1.8s" repeatCount="indefinite" begin="0.7s"/>
+      <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="1.8s" repeatCount="indefinite" begin="0.7s"/>
+    </circle>
+    <circle cx="16" cy="20" r="1.2" fill="#e74c3c" opacity="0.6" filter="url(#bubbleGlow)">
+      <animate attributeName="cy" values="20;16;12;8" dur="2s" repeatCount="indefinite" begin="1.2s"/>
+      <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="2s" repeatCount="indefinite" begin="1.2s"/>
+    </circle>
+  </g>
+  
+  <!-- Колба 3 - циліндрична -->
+  <g transform="translate(22, 42)">
+    <!-- Тіло колби -->
+    <rect x="0" y="0" width="16" height="22" rx="2" fill="url(#liquidGrad3)" opacity="0.4"/>
+    <rect x="0" y="0" width="16" height="22" rx="2" fill="none" stroke="#3498db" stroke-width="1.5" stroke-opacity="0.8"/>
+    <!-- Рідина -->
+    <rect x="2" y="4" width="12" height="16" rx="1" fill="#3498db" opacity="0.3"/>
+    <!-- Бульбашки -->
+    <circle cx="6" cy="18" r="1.2" fill="#3498db" opacity="0.6" filter="url(#bubbleGlow)">
+      <animate attributeName="cy" values="18;14;10;6" dur="2.3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="2.3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="10" cy="20" r="1" fill="#3498db" opacity="0.6" filter="url(#bubbleGlow)">
+      <animate attributeName="cy" values="20;16;12;8" dur="1.9s" repeatCount="indefinite" begin="0.8s"/>
+      <animate attributeName="opacity" values="0.6;0.4;0.2;0" dur="1.9s" repeatCount="indefinite" begin="0.8s"/>
     </circle>
   </g>
   
   <!-- Молекула -->
-  <circle cx="35" cy="25" r="6" fill="none" stroke="#a569bd" stroke-width="2" opacity="0.8"/>
-  <circle cx="20" cy="35" r="4" fill="#a569bd" opacity="0.6"/>
-  <circle cx="50" cy="30" r="4" fill="#a569bd" opacity="0.6"/>
-  <line x1="24" y1="33" x2="31" y2="27" stroke="#a569bd" stroke-width="1.5" opacity="0.5"/>
-  <line x1="39" y1="27" x2="46" y2="31" stroke="#a569bd" stroke-width="1.5" opacity="0.5"/>
+  <g transform="translate(48, 8)">
+    <!-- Атоми -->
+    <circle cx="0" cy="8" r="5" fill="none" stroke="#9b59b6" stroke-width="2" stroke-opacity="0.8" filter="url(#bubbleGlow)"/>
+    <circle cx="12" cy="2" r="4" fill="none" stroke="#e74c3c" stroke-width="2" stroke-opacity="0.7" filter="url(#bubbleGlow)"/>
+    <circle cx="12" cy="14" r="4" fill="none" stroke="#3498db" stroke-width="2" stroke-opacity="0.7" filter="url(#bubbleGlow)"/>
+    <!-- Зв'язки -->
+    <line x1="4" y1="6" x2="8" y2="3" stroke="#9b59b6" stroke-width="2" stroke-opacity="0.6"/>
+    <line x1="4" y1="10" x2="8" y2="12" stroke="#9b59b6" stroke-width="2" stroke-opacity="0.6"/>
+    <!-- Електронні хмари -->
+    <ellipse cx="0" cy="8" rx="8" ry="8" fill="none" stroke="#9b59b6" stroke-width="0.5" stroke-dasharray="2,2" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" from="0 0 8" to="360 0 8" dur="8s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+  
+  <!-- Додаткові бульбашки на фоні -->
+  <circle cx="5" cy="15" r="1" fill="#9b59b6" opacity="0.4" filter="url(#bubbleGlow)">
+    <animate attributeName="cy" values="15;10;5" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.2;0" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="65" cy="25" r="0.8" fill="#e74c3c" opacity="0.4" filter="url(#bubbleGlow)">
+    <animate attributeName="cy" values="25;20;15" dur="2.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.2;0" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="60" cy="60" r="1.2" fill="#3498db" opacity="0.4" filter="url(#bubbleGlow)">
+    <animate attributeName="cy" values="60;55;50" dur="2.8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.2;0" dur="2.8s" repeatCount="indefinite"/>
+  </circle>
 </svg>
