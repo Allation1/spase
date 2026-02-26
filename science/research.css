@@ -187,6 +187,15 @@
     min-width: 68px !important;
 }
 
+/* Відступи між рядками кнопок у вікні Тера */
+#tera-buildings-container .science-controls {
+    margin-bottom: 5px !important;
+}
+
+#tera-buildings-container .science-controls:last-child {
+    margin-bottom: 0 !important;
+}
+
 .study-btn:hover {
     background: #1fa2c7;
     color: #222;
