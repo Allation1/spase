@@ -1228,7 +1228,7 @@ function renderBuildings(buildingsData) {
             <div class="science-controls" style="display: flex; align-items: center; width: 100%;">
                 <input type="number" id="build-count-${building.id}" value="1" min="1" style="
                     flex: 1;
-                    width: calc(100% - 60px);
+                    width: calc(100% - 56px);
                     background: #0e3a47;
                     color: white;
                     border: 1px solid #1fa2c7;
@@ -1243,7 +1243,7 @@ function renderBuildings(buildingsData) {
             <div class="science-controls" style="display: flex; align-items: center; width: 100%;">
                 <input type="number" id="upgrade-level-${building.id}" value="1" min="1" style="
                     flex: 1;
-                    width: calc(100% - 60px);
+                    width: calc(100% - 56px);
                     background: #0e3a47;
                     color: white;
                     border: 1px solid #1fa2c7;
