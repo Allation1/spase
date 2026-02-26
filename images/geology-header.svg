@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="geoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2e1a0a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4a3a2a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2e1a0a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="200" height="40" fill="url(#geoGrad)"/>
+  
+  <!-- Гірські шари -->
+  <path d="M0 30 L30 25 L60 28 L90 22 L120 26 L150 20 L180 24 L200 20 L200 40 L0 40 Z" fill="#5a4a3a" opacity="0.5"/>
+  <path d="M0 35 L20 32 L50 34 L80 30 L110 33 L140 28 L170 31 L200 28 L200 40 L0 40 Z" fill="#6a5a4a" opacity="0.5"/>
+  
+  <!-- Кристали мінералів -->
+  <polygon points="40,28 43,22 46,28 43,32" fill="#8a7a6a" opacity="0.6"/>
+  <polygon points="80,25 84,18 88,25 84,30" fill="#9a8a7a" opacity="0.6"/>
+  <polygon points="120,28 123,22 126,28 123,32" fill="#8a7a6a" opacity="0.6"/>
+  <polygon points="160,24 164,18 168,24 164,29" fill="#9a8a7a" opacity="0.6"/>
+  
+  <!-- Каміння -->
+  <circle cx="30" cy="32" r="3" fill="#7a6a5a" opacity="0.5"/>
+  <circle cx="70" cy="34" r="2.5" fill="#7a6a5a" opacity="0.5"/>
+  <circle cx="110" cy="35" r="3" fill="#7a6a5a" opacity="0.5"/>
+  <circle cx="150" cy="33" r="2.5" fill="#7a6a5a" opacity="0.5"/>
+</svg>

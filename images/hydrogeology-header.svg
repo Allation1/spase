@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="hydroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a3a5a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a1a2e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="200" height="40" fill="url(#hydroGrad)"/>
+  
+  <!-- Хвилі води -->
+  <path d="M0 25 Q15 20, 30 25 T60 25 T90 25 T120 25 T150 25 T180 25 L200 25 L200 40 L0 40 Z" fill="#2a5a8a" opacity="0.5"/>
+  <path d="M0 30 Q15 25, 30 30 T60 30 T90 30 T120 30 T150 30 T180 30 L200 30 L200 40 L0 40 Z" fill="#3a6a9a" opacity="0.5"/>
+  
+  <!-- Краплі води -->
+  <path d="M50 18 Q50 12, 55 18 Q55 22, 50 22 Q45 22, 45 18 Q45 12, 50 18" fill="#4a8ac4" opacity="0.6"/>
+  <path d="M80 15 Q80 9, 85 15 Q85 19, 80 19 Q75 19, 75 15 Q75 9, 80 15" fill="#4a8ac4" opacity="0.5"/>
+  <path d="M110 20 Q110 14, 115 20 Q115 24, 110 24 Q105 24, 105 20 Q105 14, 110 20" fill="#4a8ac4" opacity="0.6"/>
+  <path d="M140 16 Q140 10, 145 16 Q145 20, 140 20 Q135 20, 135 16 Q135 10, 140 16" fill="#4a8ac4" opacity="0.5"/>
+  
+  <!-- Підземні шари -->
+  <path d="M0 35 L50 32 L100 35 L150 32 L200 35 L200 40 L0 40 Z" fill="#2a4a6a" opacity="0.6"/>
+</svg>

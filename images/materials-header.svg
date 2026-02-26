@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="matGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2e2a1a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4a4a3a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2e2a1a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="200" height="40" fill="url(#matGrad)"/>
+  
+  <!-- Кристалічна решітка -->
+  <circle cx="30" cy="15" r="3" fill="#c4a86a" opacity="0.7"/>
+  <circle cx="60" cy="15" r="3" fill="#c4a86a" opacity="0.7"/>
+  <circle cx="90" cy="15" r="3" fill="#c4a86a" opacity="0.7"/>
+  <circle cx="30" cy="30" r="3" fill="#c4a86a" opacity="0.7"/>
+  <circle cx="60" cy="30" r="3" fill="#c4a86a" opacity="0.7"/>
+  <circle cx="90" cy="30" r="3" fill="#c4a86a" opacity="0.7"/>
+  
+  <line x1="33" y1="15" x2="57" y2="15" stroke="#a8885a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="33" y1="30" x2="57" y2="30" stroke="#a8885a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="63" y1="15" x2="87" y2="15" stroke="#a8885a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="63" y1="30" x2="87" y2="30" stroke="#a8885a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="30" y1="18" x2="30" y2="27" stroke="#a8885a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="60" y1="18" x2="60" y2="27" stroke="#a8885a" stroke-width="1.5" opacity="0.5"/>
+  <line x1="90" y1="18" x2="90" y2="27" stroke="#a8885a" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Полімерні ланцюги -->
+  <path d="M120 15 L130 15 L135 25 L145 25 L150 15 L160 15" fill="none" stroke="#b89878" stroke-width="2" opacity="0.6"/>
+  <path d="M120 30 L130 30 L135 20 L145 20 L150 30 L160 30" fill="none" stroke="#b89878" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Наночастинки -->
+  <circle cx="180" cy="15" r="4" fill="none" stroke="#d8b888" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="180" cy="28" r="3" fill="none" stroke="#d8b888" stroke-width="1.5" opacity="0.6"/>
+</svg>

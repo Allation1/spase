@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="geomGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a2e3e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2a4a5a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a2e3e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="200" height="40" fill="url(#geomGrad)"/>
+  
+  <!-- Геометричні фігури -->
+  <polygon points="30,10 50,30 10,30" fill="none" stroke="#4a9ac4" stroke-width="1.5" opacity="0.6"/>
+  <rect x="60" y="10" width="20" height="20" fill="none" stroke="#4a9ac4" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="100" cy="20" r="10" fill="none" stroke="#4a9ac4" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="130,10 150,15 150,25 130,30" fill="none" stroke="#4a9ac4" stroke-width="1.5" opacity="0.6"/>
+  
+  <!-- Лінії сітки -->
+  <line x1="0" y1="10" x2="200" y2="10" stroke="#3a7a9a" stroke-width="0.5" opacity="0.3"/>
+  <line x1="0" y1="20" x2="200" y2="20" stroke="#3a7a9a" stroke-width="0.5" opacity="0.3"/>
+  <line x1="0" y1="30" x2="200" y2="30" stroke="#3a7a9a" stroke-width="0.5" opacity="0.3"/>
+  <line x1="40" y1="0" x2="40" y2="40" stroke="#3a7a9a" stroke-width="0.5" opacity="0.3"/>
+  <line x1="80" y1="0" x2="80" y2="40" stroke="#3a7a9a" stroke-width="0.5" opacity="0.3"/>
+  <line x1="120" y1="0" x2="120" y2="40" stroke="#3a7a9a" stroke-width="0.5" opacity="0.3"/>
+  <line x1="160" y1="0" x2="160" y2="40" stroke="#3a7a9a" stroke-width="0.5" opacity="0.3"/>
+  
+  <!-- Кутомір -->
+  <path d="M170 30 L185 30 L185 15" fill="none" stroke="#5aAACa" stroke-width="1.5" opacity="0.7"/>
+  <arc cx="185" cy="30" rx="10" ry="10" start-angle="-90" end-angle="0" fill="none" stroke="#5aAACa" stroke-width="1" opacity="0.5"/>
+</svg>

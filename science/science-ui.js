@@ -124,10 +124,26 @@ function renderScienceBlocks() {
             return; // Пропускаємо цю ітерацію для будівель в основній вкладці
         }
 
+        // Мапа SVG-фонів для кожної науки
+        const scienceHeaderImages = {
+            'physics': 'physics-header.svg',
+            'chemistry': 'chemistry-header.svg',
+            'biology': 'biology-header.svg',
+            'geology': 'geology-header.svg',
+            'hydrogeology': 'hydrogeology-header.svg',
+            'geometry': 'geometry-header.svg',
+            'astronomy': 'astronomy-header.svg',
+            'materials': 'materials-header.svg',
+            'construction': 'construction-header.svg'
+        };
+        
+        const headerImage = scienceHeaderImages[science.id];
+        const headerStyle = headerImage ? `background: url('images/${headerImage}') no-repeat center center; background-size: cover; color: #4ec5ff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5);` : '';
+
         sciencesHtml += `
                     <div class="science-section" style="cursor: pointer; position: relative;" data-science="${science.id}">
-                        <div class="science-block-title" style="${science.id === 'physics' ? 'background: url(\'images/physics-header.svg\') no-repeat center center; background-size: cover; color: #4ec5ff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5);' : ''}">
-                            ${science.id === 'physics' ? science.name : `${science.icon} ${science.name}`}
+                        <div class="science-block-title" style="${headerStyle}">
+                            ${science.name}
                         </div>
                         <div class="science-level-indicator" style="
                             position: absolute;
