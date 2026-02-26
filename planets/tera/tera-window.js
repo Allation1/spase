@@ -1225,7 +1225,7 @@ function renderBuildings(buildingsData) {
                     </div>
                 </div>
             </div>
-            <div class="science-controls" style="display: flex; align-items: center; width: 100%;">
+            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
                 <input type="number" id="build-count-${building.id}" value="1" min="1" style="
                     width: calc(100% - 56px);
                     background: #0e3a47;
@@ -1235,11 +1235,12 @@ function renderBuildings(buildingsData) {
                     padding: 2px;
                     font-size: 0.7em;
                     margin-right: 1px;
+                    box-sizing: border-box;
                     -moz-appearance: textfield;
                 ">
                 <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 54px; margin: 0 1px 0 0; flex-shrink: 0;">Будувати</button>
             </div>
-            <div class="science-controls" style="display: flex; align-items: center; width: 100%;">
+            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
                 <input type="number" id="upgrade-level-${building.id}" value="1" min="1" style="
                     width: calc(100% - 56px);
                     background: #0e3a47;
@@ -1249,6 +1250,7 @@ function renderBuildings(buildingsData) {
                     padding: 2px;
                     font-size: 0.7em;
                     margin-right: 1px;
+                    box-sizing: border-box;
                     -moz-appearance: textfield;
                 " ${!canUpgradeBuilding(building.id, level) ? 'disabled' : ''}>
                 <button class="study-btn"
