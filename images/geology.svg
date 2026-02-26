@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <linearGradient id="geoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A0522D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Гірські шари -->
+  <path d="M5 45 Q20 40, 35 45 Q50 50, 65 45 L65 65 L5 65 Z" fill="#8B4513" opacity="0.4"/>
+  <path d="M5 55 Q20 50, 35 55 Q50 60, 65 55 L65 65 L5 65 Z" fill="#A0522D" opacity="0.4"/>
+  
+  <!-- Кристали -->
+  <polygon points="20,45 23,35 26,45 24,52 21,52">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite"/>
+  </polygon>
+  <polygon points="35,40 39,28 43,40 41,50 37,50">
+    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="3.5s" repeatCount="indefinite"/>
+  </polygon>
+  <polygon points="50,45 53,35 56,45 54,52 51,52">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="4s" repeatCount="indefinite"/>
+  </polygon>
+  
+  <!-- Каміння -->
+  <circle cx="15" cy="55" r="3" fill="#8B4513" opacity="0.5"/>
+  <circle cx="45" cy="58" r="2.5" fill="#A0522D" opacity="0.5"/>
+  <circle cx="60" cy="55" r="3" fill="#8B4513" opacity="0.5"/>
+  
+  <!-- Блиск мінералів -->
+  <circle cx="23" cy="40" r="1" fill="#D2691E" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="39" cy="35" r="1" fill="#D2691E" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="53" cy="40" r="1" fill="#D2691E" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+  </circle>
+</svg>

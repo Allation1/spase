@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <linearGradient id="quarryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5d6d7e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34495e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Кар'єр -->
+  <path d="M5 45 Q20 40, 35 45 Q50 50, 65 45 L65 65 L5 65 Z" fill="#5d6d7e" opacity="0.3"/>
+  
+  <!-- Камені -->
+  <circle cx="20" cy="50" r="5" fill="none" stroke="#5d6d7e" stroke-width="2" opacity="0.5">
+    <animate attributeName="r" values="5;5.5;5" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="40" cy="52" r="4" fill="none" stroke="#34495e" stroke-width="2" opacity="0.5">
+    <animate attributeName="r" values="4;4.5;4" dur="3.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="55" cy="48" r="6" fill="none" stroke="#5d6d7e" stroke-width="2" opacity="0.5">
+    <animate attributeName="r" values="6;6.5;6" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Інструмент -->
+  <path d="M15 30 L25 30 L25 35 L15 35 Z" fill="#34495e" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Сходи -->
+  <line x1="10" y1="40" x2="25" y2="45" stroke="#5d6d7e" stroke-width="1.5" opacity="0.4"/>
+  <line x1="30" y1="45" x2="45" y2="50" stroke="#5d6d7e" stroke-width="1.5" opacity="0.4"/>
+  <line x1="50" y1="50" x2="65" y2="55" stroke="#5d6d7e" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- Пилинки -->
+  <circle cx="30" cy="35" r="1" fill="#5d6d7e" opacity="0.4">
+    <animate attributeName="cy" values="35;30;35" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="45" cy="38" r="0.8" fill="#34495e" opacity="0.3">
+    <animate attributeName="cy" values="38;33;38" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+</svg>

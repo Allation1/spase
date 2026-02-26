@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <linearGradient id="engineerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2e86de;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#54a0ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Шестерня 1 -->
+  <circle cx="25" cy="35" r="10" fill="none" stroke="#2e86de" stroke-width="2" opacity="0.7">
+    <animateTransform attributeName="transform" type="rotate" from="0 25 35" to="360 25 35" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="25" cy="35" r="6" fill="none" stroke="#2e86de" stroke-width="1.5" opacity="0.6">
+    <animateTransform attributeName="transform" type="rotate" from="0 25 35" to="-360 25 35" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="25" cy="35" r="3" fill="#2e86de" opacity="0.5"/>
+  
+  <!-- Зубці шестерні -->
+  <line x1="25" y1="25" x2="25" y2="22" stroke="#2e86de" stroke-width="2" opacity="0.7">
+    <animateTransform attributeName="transform" type="rotate" from="0 25 35" to="360 25 35" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <line x1="25" y1="45" x2="25" y2="48" stroke="#2e86de" stroke-width="2" opacity="0.7">
+    <animateTransform attributeName="transform" type="rotate" from="0 25 35" to="360 25 35" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <line x1="15" y1="35" x2="12" y2="35" stroke="#2e86de" stroke-width="2" opacity="0.7">
+    <animateTransform attributeName="transform" type="rotate" from="0 25 35" to="360 25 35" dur="8s" repeatCount="indefinite"/>
+  </line>
+  <line x1="35" y1="35" x2="38" y2="35" stroke="#2e86de" stroke-width="2" opacity="0.7">
+    <animateTransform attributeName="transform" type="rotate" from="0 25 35" to="360 25 35" dur="8s" repeatCount="indefinite"/>
+  </line>
+  
+  <!-- Шестерня 2 -->
+  <circle cx="50" cy="35" r="7" fill="none" stroke="#54a0ff" stroke-width="2" opacity="0.6">
+    <animateTransform attributeName="transform" type="rotate" from="0 50 35" to="-360 50 35" dur="8s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="50" cy="35" r="4" fill="none" stroke="#54a0ff" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Технічні лінії -->
+  <path d="M45 20 L55 20 L60 25 L65 25" fill="none" stroke="#54a0ff" stroke-width="1" opacity="0.4"/>
+  <path d="M45 50 L55 50 L60 55 L65 55" fill="none" stroke="#54a0ff" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Сітка креслення -->
+  <line x1="40" y1="15" x2="65" y2="15" stroke="#2e86de" stroke-width="0.5" opacity="0.2"/>
+  <line x1="40" y1="25" x2="65" y2="25" stroke="#2e86de" stroke-width="0.5" opacity="0.2"/>
+  <line x1="40" y1="45" x2="65" y2="45" stroke="#2e86de" stroke-width="0.5" opacity="0.2"/>
+  <line x1="40" y1="55" x2="65" y2="55" stroke="#2e86de" stroke-width="0.5" opacity="0.2"/>
+</svg>

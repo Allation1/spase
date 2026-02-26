@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <linearGradient id="dendroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#228B22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2E8B57;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Дерево 1 -->
+  <rect x="18" y="45" width="4" height="20" fill="#228B22" opacity="0.6"/>
+  <circle cx="20" cy="40" r="10" fill="#228B22" opacity="0.5">
+    <animate attributeName="r" values="10;11;10" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Дерево 2 -->
+  <rect x="38" y="40" width="4" height="25" fill="#2E8B57" opacity="0.6"/>
+  <circle cx="40" cy="35" r="12" fill="#2E8B57" opacity="0.5">
+    <animate attributeName="r" values="12;13;12" dur="3.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Дерево 3 -->
+  <rect x="55" y="48" width="3" height="17" fill="#228B22" opacity="0.5"/>
+  <circle cx="56.5" cy="43" r="8" fill="#228B22" opacity="0.4">
+    <animate attributeName="r" values="8;9;8" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Листя що падає -->
+  <ellipse cx="15" cy="25" rx="3" ry="2" fill="#2E8B57" opacity="0.4">
+    <animate attributeName="cy" values="25;70" dur="5s" repeatCount="indefinite"/>
+    <animate attributeName="cx" values="15;25;15" dur="5s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="45" cy="20" rx="2.5" ry="1.5" fill="#228B22" opacity="0.4">
+    <animate attributeName="cy" values="20;70" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="cx" values="45;55;45" dur="6s" repeatCount="indefinite"/>
+  </ellipse>
+  
+  <!-- Трава -->
+  <path d="M5 60 Q20 55, 35 60 T65 60" fill="none" stroke="#2E8B57" stroke-width="1.5" opacity="0.4"/>
+</svg>

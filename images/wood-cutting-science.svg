@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <linearGradient id="woodGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A0522D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Колоди -->
+  <ellipse cx="25" cy="45" rx="12" ry="10" fill="none" stroke="#8B4513" stroke-width="2" opacity="0.6"/>
+  <ellipse cx="25" cy="45" rx="8" ry="6" fill="none" stroke="#8B4513" stroke-width="1.5" opacity="0.5"/>
+  <ellipse cx="25" cy="45" rx="4" ry="3" fill="none" stroke="#8B4513" stroke-width="1.5" opacity="0.4"/>
+  
+  <ellipse cx="50" cy="48" rx="10" ry="8" fill="none" stroke="#A0522D" stroke-width="2" opacity="0.6">
+    <animate attributeName="rx" values="10;10.5;10" dur="3s" repeatCount="indefinite"/>
+  </ellipse>
+  <ellipse cx="50" cy="48" rx="7" ry="5" fill="none" stroke="#A0522D" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Пила -->
+  <rect x="15" y="25" width="30" height="5" fill="#8B4513" opacity="0.5">
+    <animate attributeName="x" values="15;18;15" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  <path d="M15 30 L18 33 L45 33 L48 30" fill="none" stroke="#A0522D" stroke-width="2" opacity="0.6"/>
+  
+  <!-- Зубці пили -->
+  <path d="M15 30 L17 32 L19 30 L21 32 L23 30 L25 32 L27 30" fill="none" stroke="#8B4513" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Тирса -->
+  <circle cx="35" cy="55" r="1.5" fill="#8B4513" opacity="0.4">
+    <animate attributeName="cy" values="55;62;55" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="45" cy="58" r="1" fill="#A0522D" opacity="0.3">
+    <animate attributeName="cy" values="58;65;58" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+</svg>

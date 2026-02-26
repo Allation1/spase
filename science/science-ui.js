@@ -146,7 +146,30 @@ function renderScienceBlocks() {
             'building_engineer_center': 'building-engineer-center-header.svg'
         };
         
+        // Мапа анімованих SVG для всіх наук
+        const scienceAnimatedImages = {
+            'physics': 'physics.svg',
+            'chemistry': 'chemistry.svg',
+            'biology': 'biology.svg',
+            'geology': 'geology.svg',
+            'hydrogeology': 'hydrogeology.svg',
+            'geometry': 'geometry.svg',
+            'astronomy': 'astronomy.svg',
+            'materials': 'materials.svg',
+            'construction': 'construction.svg',
+            'dendrology': 'dendrology.svg',
+            'forestry': 'forestry.svg',
+            'petrology': 'petrology.svg',
+            'stonework': 'stonework.svg',
+            'stone_quarry_science': 'stone-quarry-science.svg',
+            'wood_cutting_science': 'wood-cutting-science.svg',
+            'building_house': 'building-house.svg',
+            'building_warehouse': 'building-warehouse.svg',
+            'building_engineer_center': 'building-engineer-center.svg'
+        };
+
         const headerImage = scienceHeaderImages[science.id];
+        const animatedImage = scienceAnimatedImages[science.id];
         const headerStyle = headerImage ? `background: url('images/${headerImage}') no-repeat center center; background-size: cover; color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;` : '';
 
         sciencesHtml += `
@@ -167,9 +190,9 @@ function renderScienceBlocks() {
                             text-align: center;
                             z-index: 10;
                         " id="level-indicator-${science.id}">${currentLevel}</div>
-                        ${science.id === 'physics' ? `
+                        ${animatedImage ? `
                         <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
-                            <img src="images/physics.svg" alt="Фізика" style="width: 70px; height: 70px; object-fit: contain;" />
+                            <img src="images/${animatedImage}" alt="${science.name}" style="width: 70px; height: 70px; object-fit: contain;" />
                         </div>
                         ` : ''}
                         <div class="science-controls">

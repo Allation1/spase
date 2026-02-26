@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <defs>
+    <linearGradient id="forestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e5631;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d6a4f;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Сокира -->
+  <rect x="25" y="35" width="4" height="25" fill="#2d6a4f" opacity="0.7"/>
+  <path d="M20 30 L35 30 L35 40 L20 40 Z" fill="#1e5631" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;0.9;0.6" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Дерева -->
+  <rect x="45" y="45" width="3" height="20" fill="#1e5631" opacity="0.5"/>
+  <polygon points="46.5,25 52,40 41,40">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite"/>
+  </polygon>
+  
+  <rect x="58" y="48" width="2.5" height="17" fill="#2d6a4f" opacity="0.4"/>
+  <polygon points="59.25,32 64,43 54.5,43">
+    <animate attributeName="opacity" values="0.4;0.7;0.4" dur="3.5s" repeatCount="indefinite"/>
+  </polygon>
+  
+  <!-- Тирса -->
+  <circle cx="15" cy="55" r="2" fill="#1e5631" opacity="0.4">
+    <animate attributeName="cy" values="55;65;55" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="20" cy="60" r="1.5" fill="#2d6a4f" opacity="0.3">
+    <animate attributeName="cy" values="60;68;60" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Лінія зрізу -->
+  <line x1="5" y1="50" x2="15" y2="50" stroke="#1e5631" stroke-width="1" opacity="0.4">
+    <animate attributeName="x2" values="15;20;15" dur="3s" repeatCount="indefinite"/>
+  </line>
+</svg>
