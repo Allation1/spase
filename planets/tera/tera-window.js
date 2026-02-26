@@ -1227,7 +1227,7 @@ function renderBuildings(buildingsData) {
             </div>
             <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
                 <input type="number" id="build-count-${building.id}" value="1" min="1" style="
-                    width: calc(100% - 70px);
+                    width: calc(100% - 70px) !important;
                     background: #0e3a47;
                     color: white;
                     border: 1px solid #1fa2c7;
@@ -1238,11 +1238,11 @@ function renderBuildings(buildingsData) {
                     box-sizing: border-box;
                     -moz-appearance: textfield;
                 ">
-                <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 68px; margin: 0 1px 0 0; flex-shrink: 0;">Будувати</button>
+                <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 68px !important; margin: 0 1px 0 0; flex-shrink: 0; min-width: 68px;">Будувати</button>
             </div>
             <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
                 <input type="number" id="upgrade-level-${building.id}" value="1" min="1" style="
-                    width: calc(100% - 70px);
+                    width: calc(100% - 70px) !important;
                     background: #0e3a47;
                     color: white;
                     border: 1px solid #1fa2c7;
@@ -1257,7 +1257,7 @@ function renderBuildings(buildingsData) {
                         onclick="startUpgrade('${building.id}', '${building.name}')"
                         ${!canUpgradeBuilding(building.id, level) ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}
                         title="${!canUpgradeBuilding(building.id, level) ? 'Немає необхідних передумов' : 'Покращити'}"
-                        style="width: 68px; margin: 0 1px 0 0; flex-shrink: 0;">
+                        style="width: 68px !important; margin: 0 1px 0 0; flex-shrink: 0; min-width: 68px;">
                     Покращити
                 </button>
                 ${!canUpgradeBuilding(building.id, level) ? `
