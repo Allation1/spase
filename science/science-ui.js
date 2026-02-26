@@ -4,6 +4,60 @@ import { sciences } from './science-data.js';
 import { checkScienceRequirements } from './science-dependencies.js';
 
 function renderScienceBlocks() {
+    // Мапа SVG-фонів для заголовків наук
+    const scienceHeaderImages = {
+        'physics': 'physics-header.svg',
+        'chemistry': 'chemistry-header.svg',
+        'biology': 'biology-header.svg',
+        'geology': 'geology-header.svg',
+        'hydrogeology': 'hydrogeology-header.svg',
+        'geometry': 'geometry-header.svg',
+        'astronomy': 'astronomy-header.svg',
+        'materials': 'materials-header.svg',
+        'construction': 'construction-header.svg',
+        'dendrology': 'dendrology-header.svg',
+        'forestry': 'forestry-header.svg',
+        'petrology': 'petrology-header.svg',
+        'stonework': 'stonework-header.svg',
+        'stone_quarry_science': 'stone-quarry-science-header.svg',
+        'wood_cutting_science': 'wood-cutting-science-header.svg',
+        'building_house': 'building-house-header.svg',
+        'building_warehouse': 'building-warehouse-header.svg',
+        'building_engineer_center': 'building-engineer-center-header.svg'
+    };
+    
+    // Мапа анімованих SVG для всіх наук
+    const scienceAnimatedImages = {
+        'physics': 'physics.svg',
+        'chemistry': 'chemistry.svg',
+        'biology': 'biology.svg',
+        'geology': 'geology.svg',
+        'hydrogeology': 'hydrogeology.svg',
+        'geometry': 'geometry.svg',
+        'astronomy': 'astronomy.svg',
+        'materials': 'materials.svg',
+        'construction': 'construction.svg',
+        'dendrology': 'dendrology.svg',
+        'forestry': 'forestry.svg',
+        'petrology': 'petrology.svg',
+        'stonework': 'stonework.svg',
+        'stone_quarry_science': 'stone-quarry-science.svg',
+        'wood_cutting_science': 'wood-cutting-science.svg',
+        'building_house': 'building-house.svg',
+        'building_warehouse': 'building-warehouse.svg',
+        'building_engineer_center': 'building-engineer-center.svg'
+    };
+    
+    // Функція для отримання стилю заголовка
+    function getHeaderStyle(scienceId) {
+        const headerImage = scienceHeaderImages[scienceId];
+        const animatedImage = scienceAnimatedImages[scienceId];
+        return {
+            headerStyle: headerImage ? `background: url('images/${headerImage}') no-repeat center center; background-size: cover; color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;` : '',
+            animatedImage: animatedImage
+        };
+    }
+
     // Отримуємо або створюємо вікно наук
     let scienceWindow = document.getElementById('science-main-window');
 
@@ -119,68 +173,15 @@ function renderScienceBlocks() {
         const canStudy = requirements.fulfilled;
 
         // Пропускаємо будівлі, оскільки вони будуть в окремій вкладці
-        if (science.id.startsWith('building_') && 
+        if (science.id.startsWith('building_') &&
             (science.id === 'building_house' || science.id === 'building_warehouse')) {
             return; // Пропускаємо цю ітерацію для будівель в основній вкладці
         }
 
-        // Мапа SVG-фонів для кожної науки
-        const scienceHeaderImages = {
-            'physics': 'physics-header.svg',
-            'chemistry': 'chemistry-header.svg',
-            'biology': 'biology-header.svg',
-            'geology': 'geology-header.svg',
-            'hydrogeology': 'hydrogeology-header.svg',
-            'geometry': 'geometry-header.svg',
-            'astronomy': 'astronomy-header.svg',
-            'materials': 'materials-header.svg',
-            'construction': 'construction-header.svg',
-            'dendrology': 'dendrology-header.svg',
-            'forestry': 'forestry-header.svg',
-            'petrology': 'petrology-header.svg',
-            'stonework': 'stonework-header.svg',
-            'stone_quarry_science': 'stone-quarry-science-header.svg',
-            'wood_cutting_science': 'wood-cutting-science-header.svg',
-            'building_house': 'building-house-header.svg',
-            'building_warehouse': 'building-warehouse-header.svg',
-            'building_engineer_center': 'building-engineer-center-header.svg'
-        };
-        
-        // Мапа анімованих SVG для всіх наук
-        const scienceAnimatedImages = {
-            'physics': 'physics.svg',
-            'chemistry': 'chemistry.svg',
-            'biology': 'biology.svg',
-            'geology': 'geology.svg',
-            'hydrogeology': 'hydrogeology.svg',
-            'geometry': 'geometry.svg',
-            'astronomy': 'astronomy.svg',
-            'materials': 'materials.svg',
-            'construction': 'construction.svg',
-            'dendrology': 'dendrology.svg',
-            'forestry': 'forestry.svg',
-            'petrology': 'petrology.svg',
-            'stonework': 'stonework.svg',
-            'stone_quarry_science': 'stone-quarry-science.svg',
-            'wood_cutting_science': 'wood-cutting-science.svg',
-            'building_house': 'building-house.svg',
-            'building_warehouse': 'building-warehouse.svg',
-            'building_engineer_center': 'building-engineer-center.svg'
-        };
-        
-        // Функція для отримання стилю заголовка
-        function getHeaderStyle(scienceId) {
-            const headerImage = scienceHeaderImages[scienceId];
-            const animatedImage = scienceAnimatedImages[scienceId];
-            return {
-                headerStyle: headerImage ? `background: url('images/${headerImage}') no-repeat center center; background-size: cover; color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;` : '',
-                animatedImage: animatedImage
-            };
-        }
-
-        const headerImage = scienceHeaderImages[science.id];
-        const animatedImage = scienceAnimatedImages[science.id];
-        const headerStyle = headerImage ? `background: url('images/${headerImage}') no-repeat center center; background-size: cover; color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;` : '';
+        // Отримуємо стилі для заголовка
+        const headerStyleData = getHeaderStyle(science.id);
+        const headerStyle = headerStyleData.headerStyle;
+        const animatedImage = headerStyleData.animatedImage;
 
         sciencesHtml += `
                     <div class="science-section" style="cursor: pointer; position: relative;" data-science="${science.id}">
