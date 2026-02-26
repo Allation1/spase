@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="petroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2e1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4a3a4a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2e1a2e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="200" height="40" fill="url(#petroGrad)"/>
+  
+  <!-- Гірські породи шари -->
+  <path d="M0 25 Q30 20, 60 25 Q90 30, 120 25 Q150 20, 180 25 L200 28 L200 40 L0 40 Z" fill="#5a4a5a" opacity="0.5"/>
+  <path d="M0 30 Q30 25, 60 30 Q90 35, 120 30 Q150 25, 180 30 L200 33 L200 40 L0 40 Z" fill="#6a5a6a" opacity="0.5"/>
+  
+  <!-- Кристали -->
+  <polygon points="40,28 43,20 46,28 44,32 41,32" fill="#9a7a9a" opacity="0.7"/>
+  <polygon points="80,25 84,15 88,25 86,30 82,30" fill="#aa8aaa" opacity="0.7"/>
+  <polygon points="120,28 123,18 126,28 124,33 121,33" fill="#9a7a9a" opacity="0.7"/>
+  <polygon points="160,26 163,16 166,26 164,31 161,31" fill="#aa8aaa" opacity="0.7"/>
+  
+  <!-- Мінеральні жили -->
+  <path d="M20 35 L50 30 L80 35 L110 30 L140 35 L170 30 L200 35" fill="none" stroke="#ba9aba" stroke-width="1" opacity="0.4"/>
+  
+  <!-- Блиск мінералів -->
+  <circle cx="60" cy="32" r="1" fill="#ffffff" opacity="0.6"/>
+  <circle cx="100" cy="34" r="1" fill="#ffffff" opacity="0.6"/>
+  <circle cx="140" cy="31" r="1" fill="#ffffff" opacity="0.6"/>
+</svg>

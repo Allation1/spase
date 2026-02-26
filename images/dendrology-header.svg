@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="dendroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a2e1a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a5a3a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a2e1a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="200" height="40" fill="url(#dendroGrad)"/>
+  
+  <!-- Дерева -->
+  <path d="M30 35 L30 20 Q30 15, 35 15 Q40 15, 40 20 L40 35" fill="#2a5a3a" opacity="0.7"/>
+  <circle cx="35" cy="12" r="8" fill="#3a7a4a" opacity="0.8"/>
+  <circle cx="30" cy="15" r="6" fill="#4a8a5a" opacity="0.7"/>
+  <circle cx="40" cy="15" r="6" fill="#4a8a5a" opacity="0.7"/>
+  
+  <path d="M70 35 L70 18 Q70 12, 75 12 Q80 12, 80 18 L80 35" fill="#2a5a3a" opacity="0.7"/>
+  <circle cx="75" cy="8" r="10" fill="#3a7a4a" opacity="0.8"/>
+  <circle cx="70" cy="12" r="7" fill="#4a8a5a" opacity="0.7"/>
+  <circle cx="80" cy="12" r="7" fill="#4a8a5a" opacity="0.7"/>
+  
+  <path d="M120 35 L120 22 Q120 18, 125 18 Q130 18, 130 22 L130 35" fill="#2a5a3a" opacity="0.7"/>
+  <circle cx="125" cy="14" r="7" fill="#3a7a4a" opacity="0.8"/>
+  <circle cx="120" cy="18" r="5" fill="#4a8a5a" opacity="0.7"/>
+  <circle cx="130" cy="18" r="5" fill="#4a8a5a" opacity="0.7"/>
+  
+  <!-- Листя на фоні -->
+  <ellipse cx="160" cy="25" rx="8" ry="5" fill="none" stroke="#5a9a6a" stroke-width="1" opacity="0.5"/>
+  <ellipse cx="175" cy="20" rx="6" ry="4" fill="none" stroke="#5a9a6a" stroke-width="1" opacity="0.5"/>
+  <ellipse cx="165" cy="32" rx="7" ry="4" fill="none" stroke="#5a9a6a" stroke-width="1" opacity="0.5"/>
+</svg>

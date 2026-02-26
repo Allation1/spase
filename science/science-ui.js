@@ -134,7 +134,16 @@ function renderScienceBlocks() {
             'geometry': 'geometry-header.svg',
             'astronomy': 'astronomy-header.svg',
             'materials': 'materials-header.svg',
-            'construction': 'construction-header.svg'
+            'construction': 'construction-header.svg',
+            'dendrology': 'dendrology-header.svg',
+            'forestry': 'forestry-header.svg',
+            'petrology': 'petrology-header.svg',
+            'stonework': 'stonework-header.svg',
+            'stone_quarry_science': 'stone-quarry-science-header.svg',
+            'wood_cutting_science': 'wood-cutting-science-header.svg',
+            'building_house': 'building-house-header.svg',
+            'building_warehouse': 'building-warehouse-header.svg',
+            'building_engineer_center': 'building-engineer-center-header.svg'
         };
         
         const headerImage = scienceHeaderImages[science.id];
