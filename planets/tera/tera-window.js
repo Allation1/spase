@@ -1238,7 +1238,7 @@ function renderBuildings(buildingsData) {
                     margin-right: 1px;
                     -moz-appearance: textfield;
                 ">
-                <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 54px; margin: 0;">Будувати</button>
+                <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 54px; margin: 0 1px 0 0;">Будувати</button>
             </div>
             <div class="science-controls" style="display: flex; align-items: center; width: 100%;">
                 <input type="number" id="upgrade-level-${building.id}" value="1" min="1" style="
@@ -1257,7 +1257,7 @@ function renderBuildings(buildingsData) {
                         onclick="startUpgrade('${building.id}', '${building.name}')"
                         ${!canUpgradeBuilding(building.id, level) ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}
                         title="${!canUpgradeBuilding(building.id, level) ? 'Немає необхідних передумов' : 'Покращити'}"
-                        style="width: 54px; margin: 0;">
+                        style="width: 54px; margin: 0 1px 0 0;">
                     Покращити
                 </button>
                 ${!canUpgradeBuilding(building.id, level) ? `
