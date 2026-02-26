@@ -167,6 +167,16 @@ function renderScienceBlocks() {
             'building_warehouse': 'building-warehouse.svg',
             'building_engineer_center': 'building-engineer-center.svg'
         };
+        
+        // Функція для отримання стилю заголовка
+        function getHeaderStyle(scienceId) {
+            const headerImage = scienceHeaderImages[scienceId];
+            const animatedImage = scienceAnimatedImages[scienceId];
+            return {
+                headerStyle: headerImage ? `background: url('images/${headerImage}') no-repeat center center; background-size: cover; color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;` : '',
+                animatedImage: animatedImage
+            };
+        }
 
         const headerImage = scienceHeaderImages[science.id];
         const animatedImage = scienceAnimatedImages[science.id];
@@ -272,13 +282,21 @@ function renderScienceBlocks() {
     const requiredWarehouseConstruction = Math.ceil(nextWarehouseLevel / 2);
     const canStudyWarehouse = allLevels.construction >= requiredWarehouseConstruction;
 
+    // Отримуємо стилі для будівель
+    const centerStyles = getHeaderStyle('building_engineer_center');
+    const sourceStyles = getHeaderStyle('hydrogeology');
+    const houseStyles = getHeaderStyle('building_house');
+    const warehouseStyles = getHeaderStyle('building_warehouse');
+    const stoneQuarryStyles = getHeaderStyle('stone_quarry_science');
+    const woodCutterStyles = getHeaderStyle('wood_cutting_science');
+
     const buildingsHtml = `
                 </div>
             </div>
             <div id="buildings-tab-content" style="display: none;">
                 <div id="buildings-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">🔬 Науковий центр</div>
+                        <div class="science-block-title" style="${centerStyles.headerStyle}">⚙️ Інженерний центр</div>
                         <div class="science-level-indicator" style="
                             position: absolute;
                             top: 40px;
@@ -292,6 +310,11 @@ function renderScienceBlocks() {
                             text-align: center;
                             z-index: 10;
                         " id="building-level-center-indicator">${centerLevel}</div>
+                        ${centerStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${centerStyles.animatedImage}" alt="Інженерний центр" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls">
                             <input type="number" id="building-level-center" value="1" min="1" style="
                                 width: 50px;
@@ -334,8 +357,11 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">💧 Джерело</div>
+                        <div class="science-block-title" style="${sourceStyles.headerStyle}">💧 Джерело</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -343,11 +369,13 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="building-level-source-indicator">${sourceLevel}</div>
+                        ${sourceStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${sourceStyles.animatedImage}" alt="Джерело" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls">
                             <input type="number" id="building-level-source" value="1" min="1" style="
                                 width: 50px;
@@ -390,8 +418,11 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">🏠 Будинок</div>
+                        <div class="science-block-title" style="${houseStyles.headerStyle}">🏠 Будинок</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -399,11 +430,13 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="building-level-house-indicator">${houseLevel}</div>
+                        ${houseStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${houseStyles.animatedImage}" alt="Будинок" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls">
                             <input type="number" id="building-level-house" value="1" min="1" style="
                                 width: 50px;
@@ -446,8 +479,11 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">📦 Склад</div>
+                        <div class="science-block-title" style="${warehouseStyles.headerStyle}">📦 Склад</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -455,11 +491,13 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="building-level-warehouse-indicator">${warehouseLevel}</div>
+                        ${warehouseStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${warehouseStyles.animatedImage}" alt="Склад" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls">
                             <input type="number" id="building-level-warehouse" value="1" min="1" style="
                                 width: 50px;
@@ -502,8 +540,11 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">🪨 Каменярня</div>
+                        <div class="science-block-title" style="${stoneQuarryStyles.headerStyle}">🪨 Каменярня</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -511,11 +552,13 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="building-level-stone-quarry-indicator">${stoneQuarryLevel}</div>
+                        ${stoneQuarryStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${stoneQuarryStyles.animatedImage}" alt="Каменярня" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls">
                             <input type="number" id="building-level-stone-quarry" value="1" min="1" style="
                                 width: 50px;
@@ -538,8 +581,11 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">🪵 Лісоруб</div>
+                        <div class="science-block-title" style="${woodCutterStyles.headerStyle}">🪵 Лісоруб</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -547,11 +593,13 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="building-level-wood-cutter-indicator">${woodCutterLevel}</div>
+                        ${woodCutterStyles.animatedImage ? `
+                        <div style="padding: 2px 0; display: flex; justify-content: center; align-items: center; flex: 1;">
+                            <img src="images/${woodCutterStyles.animatedImage}" alt="Лісоруб" style="width: 70px; height: 70px; object-fit: contain;" />
+                        </div>
+                        ` : ''}
                         <div class="science-controls">
                             <input type="number" id="building-level-wood-cutter" value="1" min="1" style="
                                 width: 50px;
@@ -581,8 +629,11 @@ function renderScienceBlocks() {
             <div id="weapons-tab-content" style="display: none;">
                 <div id="weapons-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">🔫 Лазерна гармата</div>
+                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">🔫 Лазерна гармата</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -590,9 +641,6 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="weapon-laser-level">${weaponLaserLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
@@ -612,8 +660,11 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">🚀 Ракетна установка</div>
+                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">🚀 Ракетна установка</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -621,9 +672,6 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="weapon-missile-level">${weaponMissileLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
@@ -647,8 +695,11 @@ function renderScienceBlocks() {
             <div id="ships-tab-content" style="display: none;">
                 <div id="ships-blocks" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">✈️ Винищувач</div>
+                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">✈️ Винищувач</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -656,9 +707,6 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="ship-fighter-level">${shipFighterLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
@@ -678,8 +726,11 @@ function renderScienceBlocks() {
                         </div>
                     </div>
                     <div class="science-section" style="cursor: pointer; position: relative;">
-                        <div class="science-block-title">🚀 Крейсер</div>
+                        <div class="science-block-title" style="background: linear-gradient(135deg, #2d4a5a 0%, #1a3a4a 100%); color: #ffffff; text-shadow: 0 0 5px rgba(78, 197, 255, 0.5); display: flex; align-items: center; justify-content: center; min-height: 39px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 5px; font-size: 0.7em; font-weight: bold;">🚀 Крейсер</div>
                         <div class="science-level-indicator" style="
+                            position: absolute;
+                            top: 40px;
+                            left: 1px;
                             background: #17607a;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px;
@@ -687,9 +738,6 @@ function renderScienceBlocks() {
                             color: white;
                             font-size: 0.6em;
                             text-align: center;
-                            position: absolute;
-                            top: 40px;
-                            left: 1px;
                             z-index: 10;
                         " id="ship-cruiser-level">${shipCruiserLevel}</div>
                         <div class="science-controls" style="display: flex; align-items: center;">
