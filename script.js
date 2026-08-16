@@ -307,6 +307,7 @@ function showFleetSettings() {
 
     // Показуємо вікно
     fleetSettingsWindow.style.display = 'block';
+    fleetSettingsWindow.style.transform = 'translate(-50%, -50%)'; // Повертаємо для центрування
     bringWindowToFront(fleetSettingsWindow);
     fleetSettingsWindow.style.position = 'fixed';
     fleetSettingsWindow.style.top = '50%';
