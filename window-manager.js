@@ -41,11 +41,16 @@ function getWindowState(windowId) {
     return windowStates[windowId] || { isOpen: false, position: null };
 }
 
-// Функція для відновлення стану вікон при завантаженні сторінки
+function isPageReload() {
+    const navigationEntry = performance.getEntriesByType?.('navigation')?.[0];
+    if (navigationEntry) {
+        return navigationEntry.type === 'reload';
+    }
+
+    return performance.navigation?.type === performance.navigation?.TYPE_RELOAD;
+}
+
 function restoreWindowStates() {
-    console.log('🔄 Відновлення стану вікон...');
-    
-    // Мапа дій для відкриття кожного вікна
     const openActions = {
         'settings-window': () => document.getElementById('settings-btn')?.click(),
         'planet-window': () => document.querySelectorAll('#buttons button')[1]?.click(),
@@ -53,40 +58,46 @@ function restoreWindowStates() {
         'fleet-window': () => document.querySelectorAll('#buttons button')[4]?.click(),
         'science-main-window': () => document.getElementById('science-btn')?.click(),
         'projects-window': () => document.querySelectorAll('#buttons button')[7]?.click(),
-        // Для динамічних вікон, які не мають кнопок, ми просто покажемо їх, якщо вони були відкриті
         'terra-window': () => window.renderTeraWindow && window.renderTeraWindow(),
     };
 
     for (const windowId in windowStates) {
         const state = windowStates[windowId];
-        if (state.isOpen) {
-            console.log(`  -> Відкриття вікна: ${windowId}`);
-            if (openActions[windowId]) {
-                // Використовуємо setTimeout, щоб уникнути проблем з порядком завантаження скриптів
-                setTimeout(() => {
-                    openActions[windowId]();
-                    
-                    // Відновлюємо позицію після короткої затримки
-                    setTimeout(() => {
-                        const windowEl = document.getElementById(windowId);
-                        if (windowEl && state.position) {
-                            windowEl.style.transform = 'none'; // Скидаємо transform для точного позиціонування
-                            windowEl.style.left = state.position.left;
-                            windowEl.style.top = state.position.top;
-                            console.log(`  -> Відновлено позицію для ${windowId}:`, state.position);
-                        }
-                    }, 200);
-                }, 100);
-            }
-        }
+        if (!state.isOpen || !openActions[windowId]) continue;
+
+        setTimeout(() => {
+            openActions[windowId]();
+
+            setTimeout(() => {
+                const windowEl = document.getElementById(windowId);
+                if (windowEl && state.position) {
+                    windowEl.style.transform = 'none';
+                    windowEl.style.left = state.position.left;
+                    windowEl.style.top = state.position.top;
+                }
+            }, 200);
+        }, 100);
     }
+}
+
+function resetOpenWindowStates() {
+    for (const windowId in windowStates) {
+        windowStates[windowId].isOpen = false;
+    }
+
+    saveWindowStates();
 }
 
 // Завантажуємо стан при старті
 loadWindowStates();
 
-// Відновлюємо вікна після завантаження DOM
-document.addEventListener('DOMContentLoaded', restoreWindowStates);
+document.addEventListener('DOMContentLoaded', () => {
+    if (isPageReload()) {
+        restoreWindowStates();
+    } else {
+        resetOpenWindowStates();
+    }
+});
 
 // Експортуємо функції для глобального використання
 window.windowManager = {
@@ -97,13 +108,25 @@ window.windowManager = {
 // Додаємо обробник beforeunload для збереження стану перед закриттям сторінки
 window.addEventListener('beforeunload', () => {
     // Оновлюємо стан всіх видимих вікон перед закриттям
-    const allWindows = document.querySelectorAll('.science-details-window, .game-settings-window, #planet-window, #map-window, #fleet-window, #projects-window');
-    allWindows.forEach(win => {
-        if (win.style.display !== 'none' && win.id) {
-            updateWindowState(win.id, true, {
-                left: win.style.left,
-                top: win.style.top
-            });
+    // Зберігаємо тільки основні вікна, а не всі динамічні
+    const windowsToSave = [
+        'settings-window', 'planet-window', 'map-window', 'fleet-window', 
+        'science-main-window', 'projects-window', 'terra-window'
+    ];
+
+    windowsToSave.forEach(windowId => {
+        const win = document.getElementById(windowId);
+        if (!win) {
+            updateWindowState(windowId, false);
+            return;
+        }
+
+        const isVisible = getComputedStyle(win).display !== 'none';
+        if (isVisible) {
+            const rect = win.getBoundingClientRect();
+            updateWindowState(windowId, true, { left: `${rect.left}px`, top: `${rect.top}px` });
+        } else {
+            updateWindowState(windowId, false);
         }
     });
     console.log('💾 Збережено стан вікон перед оновленням.');

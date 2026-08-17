@@ -10,6 +10,25 @@ body { /* Встановлюємо фон для всієї сторінки */
     min-height: 100vh; /* Мінімальна висота сторінки — 100% від висоти вікна */
 }
 
+/* Стилі для кнопки скидання гри */
+#reset-game-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: #dc2626; /* Червоний колір для небезпечної дії */
+    color: white;
+    border: 1px solid #f87171;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    z-index: 10000; /* Найвищий пріоритет */
+    font-weight: bold;
+}
+
+#reset-game-btn:hover {
+    background-color: #b91c1c;
+}
+
 /* Стилі для вікна флоту */
 #fleet-window {
     position: fixed;

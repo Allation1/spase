@@ -111,6 +111,35 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.userSelect = '';
         });
     }
+
+    // Обробник для кнопки скидання гри
+    const resetBtn = document.getElementById('reset-game-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', async () => {
+            if (confirm('Ви впевнені, що хочете скинути ВЕСЬ прогрес гри? Цю дію неможливо скасувати.')) {
+                try {
+                    // 1. Відправляємо запит на сервер для скидання файлів
+                    const response = await fetch('/api/reset-game', { method: 'POST' });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        // 2. Очищуємо localStorage на клієнті
+                        localStorage.clear();
+                        console.log('localStorage очищено.');
+
+                        // 3. Перезавантажуємо сторінку
+                        alert('Прогрес гри скинуто. Сторінку буде перезавантажено.');
+                        window.location.reload();
+                    } else {
+                        alert('Помилка під час скидання прогресу на сервері: ' + result.message);
+                    }
+                } catch (error) {
+                    alert('Сталася помилка: ' + error.message);
+                    console.error('Помилка під час скидання гри:', error);
+                }
+            }
+        });
+    }
 });
 
 // Змінна для зберігання поточного обраного флоту
@@ -262,7 +291,6 @@ function closeFleetWindow() {
 function closeFleetDetailsWindow() {
     const fleetDetailsWindow = document.getElementById('fleet-details-window');
     if (fleetDetailsWindow) {
-        window.windowManager?.update('fleet-details-window', false);
         fleetDetailsWindow.style.display = 'none';
     }
 }
@@ -271,7 +299,6 @@ function closeFleetDetailsWindow() {
 function closeFleetSettingsWindow() {
     const fleetSettingsWindow = document.getElementById('fleet-settings-window');
     if (fleetSettingsWindow) {
-        window.windowManager?.update('fleet-settings-window', false);
         fleetSettingsWindow.style.display = 'none';
     }
 }
