@@ -27,15 +27,16 @@ function updateStudyDisplay(data) {
         timerWindow.id = 'study-timer-window';
         timerWindow.style.position = 'fixed';
         timerWindow.style.top = '10px';
-        timerWindow.style.right = '10px';
+        timerWindow.style.left = '50%';
+        timerWindow.style.transform = 'translateX(-50%)';
         timerWindow.style.background = '#0e3a47';
         timerWindow.style.border = '2px solid #1fa2c7';
         timerWindow.style.borderRadius = '4px';
-        timerWindow.style.padding = '10px';
+        timerWindow.style.padding = '5px 10px';
         timerWindow.style.zIndex = '300';
         timerWindow.style.color = 'white';
         timerWindow.style.fontFamily = 'monospace';
-        timerWindow.style.minWidth = '200px';
+        timerWindow.style.minWidth = '250px';
         timerWindow.style.boxShadow = '2px 4px 16px rgba(0,0,0,0.3)';
         
         document.body.appendChild(timerWindow);
@@ -51,20 +52,20 @@ function updateStudyDisplay(data) {
         // Якщо щось вивчається
         const scienceName = data.currentScience.name || data.currentScience.id || 'Невідома наука';
 
+        const formatTime = (timeInSeconds) => {
+            const hours = Math.floor(timeInSeconds / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((timeInSeconds % 3600) / 60).toString().padStart(2, '0');
+            const seconds = (timeInSeconds % 60).toString().padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        };
+
         // Оновлюємо вміст вікна
         timerWindow.innerHTML = `
-            <div>Вивчається: ${scienceName} (рівень ${data.currentLevel})</div>
-            <div id="timer-display">00:00:${data.remainingTime.toString().padStart(2, '0')}</div>
-            <button id="cancel-study-btn" style="
-                background: #17607a;
-                color: white;
-                border: 1px solid #1fa2c7;
-                border-radius: 4px;
-                padding: 4px 8px;
-                margin-top: 5px;
-                cursor: pointer;
-                width: 100%;
-            ">Скасувати вивчення</button>
+            <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                <img src="images/flask_32x32.png" alt="Наука" style="width: 32px; height: 32px;">
+                <div id="study-name-display" style="background: #0e3a47; border: 1px solid #1fa2c7; padding: 5px 10px; border-radius: 4px; min-width: 150px; text-align: center;">${scienceName} (рівень ${data.currentLevel})</div>
+                <div id="timer-display" style="background: #0e3a47; border: 1px solid #1fa2c7; padding: 5px 10px; border-radius: 4px; min-width: 80px; text-align: center;">${formatTime(data.remainingTime)}</div>
+            </div>
         `;
 
         // Запускаємо таймер для оновлення відображення
@@ -91,60 +92,19 @@ function updateStudyDisplay(data) {
                 // Оновлюємо тільки таймер
                 const timerDisplay = timerWindow.querySelector('#timer-display');
                 if (timerDisplay) {
-                    const hours = Math.floor(remainingTime / 3600);
-                    const minutes = Math.floor((remainingTime % 3600) / 60);
-                    const seconds = remainingTime % 60;
-                    
-                    timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    timerDisplay.textContent = formatTime(remainingTime);
                 }
             }
         }, 1000);
-
-        // Додаємо обробник для кнопки скасування
-        const cancelBtn = timerWindow.querySelector('#cancel-study-btn');
-        if (cancelBtn) {
-            cancelBtn.onclick = (e) => {
-                e.stopPropagation(); // Запобігаємо впливу на інші обробники подій
-                fetch('/api/cancel-study', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        scienceId: data.currentScience.id,
-                        userId: 'current_user_id' // Тут має бути реальний ID користувача
-                    })
-                })
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        console.log(`Вивчення науки ${data.currentScience.id} скасовано`);
-                        // Зупиняємо таймер
-                        if (studyTimerInterval) {
-                            clearInterval(studyTimerInterval);
-                            studyTimerInterval = null;
-                        }
-                        
-                        // Оновлюємо вікно
-                        timerWindow.innerHTML = `
-                            <div>Вивчається: </div>
-                            <div id="timer-display">00:00:00</div>
-                        `;
-                    } else {
-                        console.error('Помилка при скасуванні вивчення:', result.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Помилка при відправці запиту на сервер:', error);
-                });
-            };
-        }
     } else {
         // Якщо нічого не вивчається
         // Вікно вже існує, просто оновлюємо його вміст
         timerWindow.innerHTML = `
-            <div>Вивчається: </div>
-            <div id="timer-display">00:00:00</div>
+            <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+                <img src="images/flask_32x32.png" alt="Наука" style="width: 32px; height: 32px; opacity: 0.5;">
+                <div style="background: #0e3a47; border: 1px solid #1fa2c7; padding: 5px 10px; border-radius: 4px; min-width: 150px; text-align: center; color: #666;">Немає вивчення</div>
+                <div style="background: #0e3a47; border: 1px solid #1fa2c7; padding: 5px 10px; border-radius: 4px; min-width: 80px; text-align: center; color: #666;">00:00:00</div>
+            </div>
         `;
     }
 }

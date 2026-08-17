@@ -96,7 +96,7 @@ function renderScienceBlocks() {
 
     // Оновлюємо заголовок
     const header = scienceWindow.querySelector('.science-details-header');
-    header.innerHTML = `<div class="science-details-title" style="text-align: center; justify-content: center;">🔬 Наука</div>`;
+    header.innerHTML = `<div class="science-details-title" style="text-align: center; justify-content: center; display: flex; align-items: center; gap: 8px;"><img src="images/flask_32x32.png" alt="Наука" style="width: 28px; height: 28px;">Наука</div>`;
 
     // Оновлюємо вміст
     const content = scienceWindow.querySelector('.science-details-content');
@@ -1195,35 +1195,30 @@ function showStudyTimer(scienceObj, level, estimatedTime) {
         timerWindow.id = 'study-timer';
         timerWindow.style.position = 'fixed';
         timerWindow.style.top = '10px';
-        timerWindow.style.right = '10px';
+        timerWindow.style.left = '50%';
+        timerWindow.style.transform = 'translateX(-50%)';
         timerWindow.style.background = '#0e3a47';
         timerWindow.style.border = '2px solid #1fa2c7';
         timerWindow.style.borderRadius = '4px';
-        timerWindow.style.padding = '10px';
+        timerWindow.style.padding = '5px 10px';
         timerWindow.style.zIndex = '99999';
         timerWindow.style.color = 'white';
         timerWindow.style.fontFamily = 'monospace';
-        timerWindow.style.minWidth = '200px';
+        timerWindow.style.minWidth = '250px';
         timerWindow.style.boxShadow = '2px 4px 16px rgba(0,0,0,0.3)';
-        timerWindow.innerHTML = '<div class="timer-title">⏱️ Процес вивчення</div><div id="timer-content"></div>';
+        timerWindow.innerHTML = '<div id="timer-content"></div>';
         document.body.appendChild(timerWindow);
     }
 
     // Оновлюємо вміст таймера
     const timerContent = document.getElementById('timer-content');
+    const scienceName = scienceObj.name || 'Наука';
     timerContent.innerHTML = `
-        <div>Вивчається: ${scienceObj.name} (рівень ${level})</div>
-        <div id="countdown-${scienceObj.id}">Час: ${estimatedTime}с</div>
-        <button onclick="cancelStudy()" style="
-            background: #17607a;
-            color: white;
-            border: 1px solid #1fa2c7;
-            border-radius: 4px;
-            padding: 4px 8px;
-            margin-top: 5px;
-            cursor: pointer;
-            width: 100%;
-        ">Скасувати вивчення</button>
+        <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
+            <img src="images/flask_32x32.png" alt="Наука" style="width: 32px; height: 32px;">
+            <div style="background: #0e3a47; border: 1px solid #1fa2c7; padding: 5px 10px; border-radius: 4px; min-width: 150px; text-align: center;">${scienceName} (рівень ${level})</div>
+            <div id="countdown-${scienceObj.id}" style="background: #0e3a47; border: 1px solid #1fa2c7; padding: 5px 10px; border-radius: 4px; min-width: 80px; text-align: center;">${estimatedTime}с</div>
+        </div>
     `;
 
     // Запускаємо таймер
@@ -1233,7 +1228,12 @@ function showStudyTimer(scienceObj, level, estimatedTime) {
     const timerInterval = setInterval(() => {
         secondsLeft--;
         if (secondsLeft >= 0) {
-            countdownElement.textContent = `Час: ${secondsLeft}с`;
+            const hours = Math.floor(secondsLeft / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((secondsLeft % 3600) / 60).toString().padStart(2, '0');
+            const seconds = (secondsLeft % 60).toString().padStart(2, '0');
+            if (countdownElement) {
+                countdownElement.textContent = `${hours}:${minutes}:${seconds}`;
+            }
         } else {
             clearInterval(timerInterval);
             // Прибираємо таймер, коли час вичерпано
