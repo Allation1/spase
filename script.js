@@ -120,7 +120,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 try {
                     // 1. Відправляємо запит на сервер для скидання файлів
                     const response = await fetch('/api/reset-game', { method: 'POST' });
+                    const contentType = response.headers.get('content-type') || '';
+                    if (!contentType.includes('application/json')) {
+                        throw new Error('Сервер не повернув JSON. Перезапустіть сервер гри і спробуйте ще раз.');
+                    }
+
                     const result = await response.json();
+                    if (!response.ok) {
+                        throw new Error(result.message || `HTTP ${response.status}`);
+                    }
 
                     if (result.success) {
                         // 2. Очищуємо localStorage на клієнті

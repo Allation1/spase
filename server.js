@@ -9,10 +9,139 @@ app.use(express.static(path.join(__dirname)));
 
 // Змінна для відстеження активного вивчення (одночасно можна вивчати тільки одну науку)
 let activeStudy = null;
+let resourceUpdatesPausedUntil = 0;
+
+const defaultScienceLevels = {
+    physics: 0,
+    chemistry: 0,
+    biology: 0,
+    geology: 0,
+    geometry: 0,
+    astronomy: 0,
+    materials: 0,
+    hydrogeology: 0,
+    construction: 0,
+    dendrology: 0,
+    forestry: 0,
+    petrology: 0,
+    stonework: 0,
+    building_center: 0,
+    building_source: 0,
+    stone_quarry_science: 0,
+    wood_cutting_science: 0,
+    building_wood_cutter: 0,
+    building_house: 0,
+    building_warehouse: 0,
+    building_stone_quarry: 0,
+    ship_fighter: 0,
+    ship_cruiser: 0,
+    weapon_laser: 0,
+    weapon_missile: 0,
+    building_engineer_center: 0
+};
+
+const defaultGameFiles = [
+    {
+        relativePath: ['science', 'science-levels.json'],
+        data: defaultScienceLevels
+    },
+    {
+        relativePath: ['planets', 'tera', 'data.json'],
+        data: {
+            name: 'Тера',
+            type: 'Головна планета',
+            description: 'Головна планета гравітаційної системи',
+            resources: {
+                'Населення': 0,
+                'Вода': 0,
+                'Деревина': 0,
+                'Каміння': 0
+            }
+        }
+    },
+    {
+        relativePath: ['planets', 'tera', 'buildings.json'],
+        data: {
+            building_center: { count: 0, level: 1, construction_time: 0, upgrade_time: 0 },
+            building_source: { count: 0, level: 1, construction_time: 0, upgrade_time: 0 },
+            building_stone_quarry: { count: 0, level: 1, construction_time: 0, upgrade_time: 0 },
+            building_wood_cutter: { count: 0, level: 1, construction_time: 0, upgrade_time: 0 },
+            building_house: { count: 0, level: 1, construction_time: 0, upgrade_time: 0 },
+            building_warehouse: { count: 0, level: 1, construction_time: 0, upgrade_time: 0 },
+            building_armory: { count: 0, level: 1, construction_time: 0, upgrade_time: 0 },
+            building_engineer_center: { count: 0, level: 1, construction_time: 0, upgrade_time: 0 }
+        }
+    },
+    {
+        relativePath: ['planets', 'tera', 'production.json'],
+        data: {
+            weapons: {
+                laser: [
+                    { level: 1, count: 0 },
+                    { level: 2, count: 0 },
+                    { level: 3, count: 0 },
+                    { level: 4, count: 0 },
+                    { level: 5, count: 0 },
+                    { level: 6, count: 0 },
+                    { level: 7, count: 0 },
+                    { level: 8, count: 0 },
+                    { level: 9, count: 0 },
+                    { level: 10, count: 0 }
+                ]
+            },
+            ammo: {
+                energy: 0,
+                warhead: 0,
+                plasma: 0
+            }
+        }
+    },
+    {
+        relativePath: ['planets', 'tera', 'ships.json'],
+        data: { ships: [] }
+    },
+    {
+        relativePath: ['planets', 'fleets.json'],
+        data: { fleets: [] }
+    },
+    {
+        relativePath: ['battle', 'battle.json'],
+        data: { activeBattle: null }
+    }
+];
 
 // Route for the main page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.post('/api/reset-game', (req, res) => {
+    const fs = require('fs');
+    const resetFiles = [];
+
+    try {
+        activeStudy = null;
+        resourceUpdatesPausedUntil = Date.now() + 60000;
+
+        defaultGameFiles.forEach(({ relativePath, data }) => {
+            const filePath = path.join(__dirname, ...relativePath);
+            fs.mkdirSync(path.dirname(filePath), { recursive: true });
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+            resetFiles.push(relativePath.join('/'));
+        });
+
+        res.json({
+            success: true,
+            message: 'Прогрес гри скинуто',
+            resetFiles
+        });
+    } catch (error) {
+        console.error('Помилка при скиданні гри:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Помилка при скиданні прогресу гри'
+        });
+    }
 });
 
 // Ендпоінт для початку вивчення науки
@@ -488,6 +617,10 @@ app.post('/api/update-resources', express.json(), (req, res) => {
 function startResourceUpdates() {
     // Інтервал для оновлення ресурсів кожну секунду
     setInterval(async () => {
+        if (Date.now() < resourceUpdatesPausedUntil) {
+            return;
+        }
+
         const fs = require('fs');
         const path = require('path');
         const filePath = path.join(__dirname, 'planets', 'tera', 'data.json');

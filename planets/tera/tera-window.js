@@ -55,7 +55,7 @@ function startResourceDisplayUpdates() {
 startResourceDisplayUpdates();
 
 // Спробуємо отримати актуальні дані з файлу
-fetch('/planets/tera/data.json')
+fetch('/planets/tera/data.json?t=' + Date.now())
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -710,7 +710,7 @@ async function loadAndRenderBuildings() {
 async function updateResourcesDisplay() {
     try {
         // Отримуємо останні дані з файлу
-        const response = await fetch('/planets/tera/data.json');
+        const response = await fetch('/planets/tera/data.json?t=' + Date.now());
         if (response.ok) {
             const data = await response.json();
             
