@@ -6,9 +6,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: fit-content;
-    min-width: unset;
-    max-width: 80vw;
+    width: 700px; /* Збільшуємо ширину вікна */
+    min-width: 700px; /* Встановлюємо мінімальну ширину */
+    max-width: 90vw;
     height: fit-content;
     background: #0e3a47;
     border: 2px solid #1fa2c7;
@@ -126,8 +126,8 @@
 }
 
 .tera-planet-image {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 150px;
     border-radius: 4px;
     object-fit: cover;
     border: 2px solid #1fa2c7;
@@ -137,6 +137,7 @@
 .tera-resources-list {
     flex-grow: 1;
     background: rgba(14, 58, 71, 0.5);
-    padding: 15px;
+    padding: 20px;
     border-radius: 4px;
+    font-size: 1.1em; /* Збільшуємо шрифт ресурсів */
 }

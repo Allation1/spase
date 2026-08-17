@@ -81,7 +81,25 @@ function renderTeraWindow() {
         terraWindow.innerHTML = `
             <div class="science-details-header">
                 <div class="science-details-title">🪐 ${terraData.name}</div>
-                <button class="science-close-btn">✕</button>
+                <div class="header-buttons-container" style="position: absolute; top: 5px; right: 5px; display: flex; align-items: center; gap: 8px; z-index: 201;">
+                    <button class="tera-refresh-btn" style="
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 20px;
+                        cursor: pointer;
+                        padding: 0;
+                        line-height: 1;
+                    ">&#10227;</button>
+                    <button class="science-close-btn" style="
+                        position: static;
+                        font-size: 20px;
+                        padding: 0;
+                        line-height: 1;
+                        display: flex;
+                        align-items: center;
+                    ">✕</button>
+                </div>
             </div>
             <div class="tera-main-content-wrapper">
                 <div class="tera-planet-image-container">
@@ -120,7 +138,7 @@ function renderTeraWindow() {
                         background: #0e3a47;
                         border: 2px solid #1fa2c7;
                         border-radius: 0 0 4px 4px;
-                        min-height: 200px;
+                        min-height: 500px;
                     ">
                         <div id="tera-planet-tab-content" style="display: block;">
                             <!-- Вкладки ресурсів -->
@@ -220,7 +238,7 @@ function renderTeraWindow() {
                             </div>
                         </div>
                         <div id="tera-buildings-tab-content" style="display: none;">
-                            <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px; max-height: 400px; overflow-y: auto; overflow-x: hidden;">
+                            <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; padding: 10px; max-height: 450px; overflow-y: auto; overflow-x: hidden;">
                                 <!-- Будівлі будуть додані тут динамічно -->
                             </div>
                         </div>
@@ -567,33 +585,49 @@ function renderTeraWindow() {
     });
 
     // Додаємо можливість рухати вікно мишкою
-    let isDragging = false, offsetX = 0, offsetY = 0;
+    let isDragging = false;
+    let initialX = 0;
+    let initialY = 0;
+    let currentX = 0;
+    let currentY = 0;
 
-    terraWindow.querySelector('.science-details-title').addEventListener('mousedown', function(e) {
-        isDragging = true;
-        offsetX = e.clientX - terraWindow.offsetLeft;
-        offsetY = e.clientY - terraWindow.offsetTop;
-        document.body.style.userSelect = 'none';
-        // Піднімаємо вікно на передній план при кліку
-        bringWindowToFront(terraWindow);
+    const titleBar = terraWindow.querySelector('.science-details-title');
+
+    titleBar.addEventListener('mousedown', function(e) {
+        if (e.target === titleBar || e.target.parentElement === titleBar) {
+            isDragging = true;
+            initialX = e.clientX - currentX;
+            initialY = e.clientY - currentY;
+            terraWindow.style.cursor = 'move';
+            terraWindow.style.transition = 'none';
+            bringWindowToFront(terraWindow);
+        }
     });
 
     document.addEventListener('mousemove', function(e) {
         if (isDragging) {
-            terraWindow.style.left = (e.clientX - offsetX) + 'px';
-            terraWindow.style.top = (e.clientY - offsetY) + 'px';
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+            terraWindow.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px))`;
         }
     });
 
     document.addEventListener('mouseup', function() {
         isDragging = false;
-        document.body.style.userSelect = '';
+        terraWindow.style.cursor = 'default';
+        terraWindow.style.transition = '';
     });
 
     // Додаємо обробник для кнопки закриття
     const closeBtn = terraWindow.querySelector('.science-close-btn');
     closeBtn.onclick = () => {
         terraWindow.style.display = 'none';
+    };
+
+    // Додаємо обробник для кнопки оновлення
+    const refreshBtn = terraWindow.querySelector('.tera-refresh-btn');
+    refreshBtn.onclick = () => {
+        renderTeraWindow();
     };
 
     // Додаємо обробник для кнопки будівництва лазерної гармати
