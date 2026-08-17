@@ -20,11 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (fleetWindow.style.display === 'none' || fleetWindow.style.display === '') {
                 fleetWindow.style.display = 'block';
                 bringWindowToFront(fleetWindow);
+                window.windowManager?.update('fleet-window', true);
                 // Оновити відображення флотів та кораблів у доці
                 updateFleetsDisplay();
                 updateDockShipsDisplay();
             } else {
                 fleetWindow.style.display = 'none';
+                window.windowManager?.update('fleet-window', false);
             }
         });
 
@@ -45,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isDragging) {
                 fleetWindow.style.left = (e.clientX - offsetX) + 'px';
                 fleetWindow.style.top = (e.clientY - offsetY) + 'px';
+                window.windowManager?.update('fleet-window', true, {
+                    left: fleetWindow.style.left, top: fleetWindow.style.top
+                });
             }
         });
 
@@ -72,9 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (projectsWindow.style.display === 'none' || projectsWindow.style.display === '') {
                 projectsWindow.style.display = 'block';
                 bringWindowToFront(projectsWindow);
+                window.windowManager?.update('projects-window', true);
                 renderProjects(); // Відобразити проекти при відкритті
             } else {
                 projectsWindow.style.display = 'none';
+                window.windowManager?.update('projects-window', false);
             }
         });
 
@@ -93,6 +100,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isDragging) {
                 projectsWindow.style.left = (e.clientX - offsetX) + 'px';
                 projectsWindow.style.top = (e.clientY - offsetY) + 'px';
+                window.windowManager?.update('projects-window', true, {
+                    left: projectsWindow.style.left, top: projectsWindow.style.top
+                });
             }
         });
 
@@ -234,6 +244,7 @@ function fleetAction(action) {
 function closeMapWindow() {
     const mapWindow = document.getElementById('map-window');
     if (mapWindow) {
+        window.windowManager?.update('map-window', false);
         mapWindow.style.display = 'none';
     }
 }
@@ -242,6 +253,7 @@ function closeMapWindow() {
 function closeFleetWindow() {
     const fleetWindow = document.getElementById('fleet-window');
     if (fleetWindow) {
+        window.windowManager?.update('fleet-window', false);
         fleetWindow.style.display = 'none';
     }
 }
@@ -250,6 +262,7 @@ function closeFleetWindow() {
 function closeFleetDetailsWindow() {
     const fleetDetailsWindow = document.getElementById('fleet-details-window');
     if (fleetDetailsWindow) {
+        window.windowManager?.update('fleet-details-window', false);
         fleetDetailsWindow.style.display = 'none';
     }
 }
@@ -258,6 +271,7 @@ function closeFleetDetailsWindow() {
 function closeFleetSettingsWindow() {
     const fleetSettingsWindow = document.getElementById('fleet-settings-window');
     if (fleetSettingsWindow) {
+        window.windowManager?.update('fleet-settings-window', false);
         fleetSettingsWindow.style.display = 'none';
     }
 }
@@ -534,6 +548,7 @@ function closeFleetWindow() {
 function closeProjectsWindow() {
     const projectsWindow = document.getElementById('projects-window');
     if (projectsWindow) {
+        window.windowManager?.update('projects-window', false);
         projectsWindow.style.display = 'none';
     }
 }

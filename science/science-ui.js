@@ -92,6 +92,7 @@ function renderScienceBlocks() {
 
     // Показуємо вікно
     scienceWindow.style.display = 'block';
+    window.windowManager?.update('science-main-window', true);
     bringWindowToFront(scienceWindow);
 
     // Оновлюємо заголовок
@@ -1152,6 +1153,7 @@ let activeScienceTab = 'basic';
     // Додаємо обробник для кнопки закриття
     const closeBtn = scienceWindow.querySelector('.science-close-btn');
     closeBtn.onclick = () => {
+        window.windowManager?.update('science-main-window', false);
         scienceWindow.style.display = 'none';
     };
 }

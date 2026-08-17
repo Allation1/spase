@@ -621,6 +621,7 @@ function renderTeraWindow() {
     // Додаємо обробник для кнопки закриття
     const closeBtn = terraWindow.querySelector('.science-close-btn');
     closeBtn.onclick = () => {
+        window.windowManager?.update('terra-window', false);
         terraWindow.style.display = 'none';
     };
 
@@ -628,6 +629,7 @@ function renderTeraWindow() {
     const refreshBtn = terraWindow.querySelector('.tera-refresh-btn');
     refreshBtn.onclick = () => {
         renderTeraWindow();
+        window.windowManager?.update('terra-window', true);
     };
 
     // Додаємо обробник для кнопки будівництва лазерної гармати

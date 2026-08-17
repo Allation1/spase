@@ -40,8 +40,10 @@ function initSettingsWindow() {
         settingsBtn.addEventListener('click', function() {
             if (settingsWindow.style.display === 'none' || settingsWindow.style.display === '') {
                 settingsWindow.style.display = 'block';
+                window.windowManager?.update('settings-window', true);
                 if (typeof bringWindowToFront === 'function') bringWindowToFront(settingsWindow);
             } else {
+                window.windowManager?.update('settings-window', false);
                 settingsWindow.style.display = 'none';
             }
         });
@@ -63,6 +65,9 @@ function initSettingsWindow() {
                 settingsWindow.style.left = (e.clientX - offsetX) + 'px';
                 settingsWindow.style.top = (e.clientY - offsetY) + 'px';
                 settingsWindow.style.transform = 'none'; // Прибираємо центрування при русі
+                window.windowManager?.update('settings-window', true, {
+                    left: settingsWindow.style.left, top: settingsWindow.style.top
+                });
             }
         });
 
@@ -74,5 +79,6 @@ function initSettingsWindow() {
 }
 
 window.closeSettingsWindow = function() {
+    window.windowManager?.update('settings-window', false);
     document.getElementById('settings-window').style.display = 'none';
 };

@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (planetWindow.style.display === 'none' || planetWindow.style.display === '') {
                 planetWindow.style.display = 'block';
                 window.renderPlanetList && window.renderPlanetList();
+                window.windowManager?.update('planet-window', true);
                 bringWindowToFront(planetWindow);
             } else {
                 planetWindow.style.display = 'none';
+                window.windowManager?.update('planet-window', false);
             }
         });
 
@@ -19,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const closeBtn = planetWindow.querySelector('.planet-close-btn');
         if (closeBtn) {
             closeBtn.addEventListener('click', function() {
+                window.windowManager?.update('planet-window', false);
                 planetWindow.style.display = 'none';
             });
         }
@@ -40,6 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isDragging) {
                 planetWindow.style.left = (e.clientX - offsetX) + 'px';
                 planetWindow.style.top = (e.clientY - offsetY) + 'px';
+                window.windowManager?.update('planet-window', true, {
+                    left: planetWindow.style.left, top: planetWindow.style.top
+                });
             }
         });
 
