@@ -1215,7 +1215,7 @@ function showStudyTimer(scienceObj, level, estimatedTime) {
     const scienceName = scienceObj.name || 'Наука';
     timerContent.innerHTML = `
         <div style="display: flex; align-items: center; gap: 10px; justify-content: center;">
-            <img src="images/flask_32x32.png" alt="Наука" style="width: 32px; height: 32px;">
+            <img src="images/flask_32x32.png" alt="Наука" style="width: 32px; height: 32px; cursor: pointer;" onclick="window.renderScienceBlocks && window.renderScienceBlocks()">
             <div style="background: #0e3a47; border: 1px solid #1fa2c7; padding: 5px 10px; border-radius: 4px; min-width: 150px; text-align: center;">${scienceName} (рівень ${level})</div>
             <div id="countdown-${scienceObj.id}" style="background: #0e3a47; border: 1px solid #1fa2c7; padding: 5px 10px; border-radius: 4px; min-width: 80px; text-align: center;">${estimatedTime}с</div>
         </div>

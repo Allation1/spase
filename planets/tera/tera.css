@@ -107,3 +107,36 @@
     font-weight: bold;
     color: #1fa2c7;
 }
+
+/* Головний контейнер для зображення та вкладок */
+.tera-main-content-wrapper {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+    padding: 5px;
+}
+
+/* Контейнер для вкладок */
+.tera-tabs-wrapper {
+    flex-grow: 1;
+}
+
+.tera-planet-image-container {
+    flex-shrink: 0;
+}
+
+.tera-planet-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 2px solid #1fa2c7;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.tera-resources-list {
+    flex-grow: 1;
+    background: rgba(14, 58, 71, 0.5);
+    padding: 15px;
+    border-radius: 4px;
+}

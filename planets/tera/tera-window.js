@@ -83,44 +83,13 @@ function renderTeraWindow() {
                 <div class="science-details-title">🪐 ${terraData.name}</div>
                 <button class="science-close-btn">✕</button>
             </div>
-            <div style="display: flex; margin-bottom: 10px;">
-                <button id="tera-planet-tab-btn" style="
-                    background: #1fa2c7;
-                    color: white;
-                    border: 1px solid #1fa2c7;
-                    border-radius: 4px 4px 0 0;
-                    padding: 5px 10px;
-                    cursor: pointer;
-                    margin-right: 2px;
-                ">Ресурси</button>
-                <button id="tera-buildings-tab-btn" style="
-                    background: #17607a;
-                    color: white;
-                    border: 1px solid #1fa2c7;
-                    border-radius: 4px 4px 0 0;
-                    padding: 5px 10px;
-                    cursor: pointer;
-                ">Будівлі</button>
-                <button id="tera-production-tab-btn" style="
-                    background: #17607a;
-                    color: white;
-                    border: 1px solid #1fa2c7;
-                    border-radius: 4px 4px 0 0;
-                    padding: 5px 10px;
-                    cursor: pointer;
-                ">Виробництво</button>
-            </div>
-            <div id="tera-tabs-content" style="
-                padding: 10px;
-                background: #0e3a47;
-                border: 2px solid #1fa2c7;
-                border-radius: 0 0 4px 4px;
-                min-height: 200px;
-            ">
-                <div id="tera-planet-tab-content" style="display: block;">
-                    <!-- Вкладки ресурсів -->
+            <div class="tera-main-content-wrapper">
+                <div class="tera-planet-image-container">
+                    <img src="images/planet_original_300x300.png" alt="Тера" class="tera-planet-image">
+                </div>
+                <div class="tera-tabs-wrapper">
                     <div style="display: flex; margin-bottom: 10px;">
-                        <button id="tera-basic-res-tab-btn" style="
+                        <button id="tera-planet-tab-btn" style="
                             background: #1fa2c7;
                             color: white;
                             border: 1px solid #1fa2c7;
@@ -128,277 +97,315 @@ function renderTeraWindow() {
                             padding: 5px 10px;
                             cursor: pointer;
                             margin-right: 2px;
-                        ">Базові</button>
-                        <button id="tera-weapons-res-tab-btn" style="
+                        ">Ресурси</button>
+                        <button id="tera-buildings-tab-btn" style="
                             background: #17607a;
                             color: white;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px 4px 0 0;
                             padding: 5px 10px;
                             cursor: pointer;
-                            margin-right: 2px;
-                        ">Зброя</button>
-                        <button id="tera-population-res-tab-btn" style="
+                        ">Будівлі</button>
+                        <button id="tera-production-tab-btn" style="
                             background: #17607a;
                             color: white;
                             border: 1px solid #1fa2c7;
                             border-radius: 4px 4px 0 0;
                             padding: 5px 10px;
                             cursor: pointer;
-                            margin-right: 2px;
-                        ">Населення</button>
-                        <button id="tera-dock-res-tab-btn" style="
-                            background: #17607a;
-                            color: white;
-                            border: 1px solid #1fa2c7;
-                            border-radius: 4px 4px 0 0;
-                            padding: 5px 10px;
-                            cursor: pointer;
-                        ">🚢 Док</button>
+                        ">Виробництво</button>
                     </div>
-                    <div id="tera-basic-res-content" style="
+                    <div id="tera-tabs-content" style="
                         padding: 10px;
-                        background: #134d5c;
-                        border: 1px solid #1fa2c7;
+                        background: #0e3a47;
+                        border: 2px solid #1fa2c7;
                         border-radius: 0 0 4px 4px;
+                        min-height: 200px;
                     ">
-                        <div class="planet-content">
-                            <div class="resources-info">
-                                <p>💧 Вода: <span id="tera-resource-water">${terraData.resources['Вода']}</span></p>
-                                <p>🪵 Деревина: <span id="tera-resource-wood">${terraData.resources['Деревина']}</span></p>
-                                <p>🪨 Каміння: <span id="tera-resource-stone">${terraData.resources['Каміння']}</span></p>
+                        <div id="tera-planet-tab-content" style="display: block;">
+                            <!-- Вкладки ресурсів -->
+                            <div style="display: flex; margin-bottom: 10px;">
+                                <button id="tera-basic-res-tab-btn" style="
+                                    background: #1fa2c7;
+                                    color: white;
+                                    border: 1px solid #1fa2c7;
+                                    border-radius: 4px 4px 0 0;
+                                    padding: 5px 10px;
+                                    cursor: pointer;
+                                    margin-right: 2px;
+                                ">Базові</button>
+                                <button id="tera-weapons-res-tab-btn" style="
+                                    background: #17607a;
+                                    color: white;
+                                    border: 1px solid #1fa2c7;
+                                    border-radius: 4px 4px 0 0;
+                                    padding: 5px 10px;
+                                    cursor: pointer;
+                                    margin-right: 2px;
+                                ">Зброя</button>
+                                <button id="tera-population-res-tab-btn" style="
+                                    background: #17607a;
+                                    color: white;
+                                    border: 1px solid #1fa2c7;
+                                    border-radius: 4px 4px 0 0;
+                                    padding: 5px 10px;
+                                    cursor: pointer;
+                                    margin-right: 2px;
+                                ">Населення</button>
+                                <button id="tera-dock-res-tab-btn" style="
+                                    background: #17607a;
+                                    color: white;
+                                    border: 1px solid #1fa2c7;
+                                    border-radius: 4px 4px 0 0;
+                                    padding: 5px 10px;
+                                    cursor: pointer;
+                                ">🚢 Док</button>
                             </div>
-                        </div>
-                    </div>
-                    <div id="tera-weapons-res-content" style="
-                        display: none;
-                        padding: 10px;
-                        background: #134d5c;
-                        border: 1px solid #1fa2c7;
-                        border-radius: 0 0 4px 4px;
-                    ">
-                        <div class="planet-content">
-                            <div class="resources-info" id="tera-weapons-list">
-                                <!-- Зброя буде відображена динамічно -->
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tera-population-res-content" style="
-                        display: none;
-                        padding: 10px;
-                        background: #134d5c;
-                        border: 1px solid #1fa2c7;
-                        border-radius: 0 0 4px 4px;
-                    ">
-                        <div class="planet-content">
-                            <div class="resources-info">
-                                <p>👥 Населення: <span id="tera-resource-population">${terraData.resources['Населення']}</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tera-dock-res-content" style="
-                        display: none;
-                        padding: 10px;
-                        background: #134d5c;
-                        border: 1px solid #1fa2c7;
-                        border-radius: 0 0 4px 4px;
-                    ">
-                        <div class="planet-content">
-                            <div id="tera-ships-list" style="
-                                display: grid;
-                                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                                gap: 15px;
+                            <div id="tera-basic-res-content" style="
+                                padding: 10px;
+                                background: #134d5c;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 0 0 4px 4px;
                             ">
-                                <!-- Кораблі будуть відображені тут -->
+                                <div class="planet-content">
+                                    <div class="resources-info tera-resources-list">
+                                        <p>💧 Вода: <span id="tera-resource-water">${terraData.resources['Вода'] || 0}</span></p>
+                                        <p>🪵 Деревина: <span id="tera-resource-wood">${terraData.resources['Деревина'] || 0}</span></p>
+                                        <p>🪨 Каміння: <span id="tera-resource-stone">${terraData.resources['Каміння'] || 0}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tera-weapons-res-content" style="
+                                display: none;
+                                padding: 10px;
+                                background: #134d5c;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 0 0 4px 4px;
+                            ">
+                                <div class="planet-content">
+                                    <div class="resources-info" id="tera-weapons-list">
+                                        <!-- Зброя буде відображена динамічно -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tera-population-res-content" style="
+                                display: none;
+                                padding: 10px;
+                                background: #134d5c;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 0 0 4px 4px;
+                            ">
+                                <div class="planet-content">
+                                    <div class="resources-info">
+                                        <p>👥 Населення: <span id="tera-resource-population">${terraData.resources['Населення']}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tera-dock-res-content" style="
+                                display: none;
+                                padding: 10px;
+                                background: #134d5c;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 0 0 4px 4px;
+                            ">
+                                <div class="planet-content">
+                                    <div id="tera-ships-list" style="
+                                        display: grid;
+                                        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                                        gap: 15px;
+                                    ">
+                                        <!-- Кораблі будуть відображені тут -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div id="tera-buildings-tab-content" style="display: none;">
-                    <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px; max-height: 400px; overflow-y: auto; overflow-x: hidden;">
-                        <!-- Будівлі будуть додані тут динамічно -->
-                    </div>
-                </div>
-                <div id="tera-production-tab-content" style="display: none;">
-                    <!-- Вкладки виробництва -->
-                    <div style="display: flex; margin-bottom: 10px;">
-                        <button id="tera-weapons-prod-tab-btn" style="
-                            background: #1fa2c7;
-                            color: white;
-                            border: 1px solid #1fa2c7;
-                            border-radius: 4px 4px 0 0;
-                            padding: 5px 10px;
-                            cursor: pointer;
-                            margin-right: 2px;
-                        ">Зброя</button>
-                        <button id="tera-ammo-prod-tab-btn" style="
-                            background: #17607a;
-                            color: white;
-                            border: 1px solid #1fa2c7;
-                            border-radius: 4px 4px 0 0;
-                            padding: 5px 10px;
-                            cursor: pointer;
-                            margin-right: 2px;
-                        ">Боєприпаси</button>
-                        <button id="tera-shipyard-prod-tab-btn" style="
-                            background: #17607a;
-                            color: white;
-                            border: 1px solid #1fa2c7;
-                            border-radius: 4px 4px 0 0;
-                            padding: 5px 10px;
-                            cursor: pointer;
-                        ">🚢 Суднобудування</button>
-                    </div>
-                    <div id="tera-weapons-prod-content" style="
-                        padding: 10px;
-                        background: #134d5c;
-                        border: 1px solid #1fa2c7;
-                        border-radius: 0 0 4px 4px;
-                    ">
-                        <div class="planet-content">
-                            <div class="resources-info">
-                                <p>🔫 Лазерна гармата: <span id="tera-weapon-laser">0</span></p>
+                        <div id="tera-buildings-tab-content" style="display: none;">
+                            <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px; max-height: 400px; overflow-y: auto; overflow-x: hidden;">
+                                <!-- Будівлі будуть додані тут динамічно -->
                             </div>
-                            <!-- Будівництво лазерних гармат -->
-                            <div style="margin-top: 15px; padding: 10px; background: #0e3a47; border: 1px solid #1fa2c7; border-radius: 4px;">
-                                <p style="margin-bottom: 10px; font-weight: bold;">🔨 Будівництво лазерної гармати</p>
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <label>
-                                        <span>Рівень (1-<span id="laser-max-level">10</span>):</span>
-                                        <input type="number" id="laser-build-level" min="1" value="1" style="
-                                            width: 35px;
-                                            background: #0e3a47;
-                                            color: white;
-                                            border: 1px solid #1fa2c7;
-                                            border-radius: 4px;
-                                            padding: 2px;
-                                            font-size: 0.7em;
-                                            margin-left: 5px;
-                                            margin-right: 2px;
-                                            -moz-appearance: textfield;
-                                            text-align: center;
-                                        ">
-                                    </label>
-                                    <button id="build-laser-btn" style="
-                                        background: #17607a;
-                                        color: white;
-                                        border: 1px solid #1fa2c7;
-                                        border-radius: 4px;
-                                        padding: 4px 8px;
-                                        font-size: 0.8em;
-                                        cursor: pointer;
-                                        width: auto;
-                                        min-width: 60px;
-                                        margin: 0 1px;
-                                    ">Вивчити</button>
-                                    <span id="laser-build-time" style="color: #aaa; font-size: 12px; margin-left: 5px;"></span>
-                                </div>
-                                <div id="laser-build-progress" style="
-                                    margin-top: 10px;
-                                    height: 20px;
-                                    background: #134d5c;
+                        </div>
+                        <div id="tera-production-tab-content" style="display: none;">
+                            <!-- Вкладки виробництва -->
+                            <div style="display: flex; margin-bottom: 10px;">
+                                <button id="tera-weapons-prod-tab-btn" style="
+                                    background: #1fa2c7;
+                                    color: white;
                                     border: 1px solid #1fa2c7;
-                                    border-radius: 4px;
-                                    overflow: hidden;
-                                    display: none;
-                                ">
-                                    <div id="laser-build-bar" style="
-                                        width: 0%;
-                                        height: 100%;
-                                        background: linear-gradient(90deg, #1fa2c7, #2ecc71);
-                                        transition: width 0.1s linear;
-                                    "></div>
-                                </div>
+                                    border-radius: 4px 4px 0 0;
+                                    padding: 5px 10px;
+                                    cursor: pointer;
+                                    margin-right: 2px;
+                                ">Зброя</button>
+                                <button id="tera-ammo-prod-tab-btn" style="
+                                    background: #17607a;
+                                    color: white;
+                                    border: 1px solid #1fa2c7;
+                                    border-radius: 4px 4px 0 0;
+                                    padding: 5px 10px;
+                                    cursor: pointer;
+                                    margin-right: 2px;
+                                ">Боєприпаси</button>
+                                <button id="tera-shipyard-prod-tab-btn" style="
+                                    background: #17607a;
+                                    color: white;
+                                    border: 1px solid #1fa2c7;
+                                    border-radius: 4px 4px 0 0;
+                                    padding: 5px 10px;
+                                    cursor: pointer;
+                                ">🚢 Суднобудування</button>
                             </div>
-                        </div>
-                    </div>
-                    <div id="tera-ammo-prod-content" style="
-                        display: none;
-                        padding: 10px;
-                        background: #134d5c;
-                        border: 1px solid #1fa2c7;
-                        border-radius: 0 0 4px 4px;
-                    ">
-                        <div class="planet-content">
-                            <div class="resources-info">
-                                <p>🔋 Енергокомірка: <span id="tera-ammo-energy">0</span></p>
-                                <p>💥 Бойова голівка: <span id="tera-ammo-warhead">0</span></p>
-                                <p>⚡ Плазмовий заряд: <span id="tera-ammo-plasma">0</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tera-shipyard-prod-content" style="
-                        display: none;
-                        padding: 10px;
-                        background: #134d5c;
-                        border: 1px solid #1fa2c7;
-                        border-radius: 0 0 4px 4px;
-                    ">
-                        <div class="planet-content">
-                            <!-- Будівництво кораблів -->
-                            <div style="padding: 10px; background: #0e3a47; border: 1px solid #1fa2c7; border-radius: 4px;">
-                                <p style="margin-bottom: 10px; font-weight: bold;">🚢 Будівництво кораблів</p>
-                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                    <label>
-                                        <span>Проект:</span>
-                                        <select id="ship-project-select" style="
-                                            margin-left: 5px;
-                                            padding: 5px;
+                            <div id="tera-weapons-prod-content" style="
+                                padding: 10px;
+                                background: #134d5c;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 0 0 4px 4px;
+                            ">
+                                <div class="planet-content">
+                                    <div class="resources-info">
+                                        <p>🔫 Лазерна гармата: <span id="tera-weapon-laser">0</span></p>
+                                    </div>
+                                    <!-- Будівництво лазерних гармат -->
+                                    <div style="margin-top: 15px; padding: 10px; background: #0e3a47; border: 1px solid #1fa2c7; border-radius: 4px;">
+                                        <p style="margin-bottom: 10px; font-weight: bold;">🔨 Будівництво лазерної гармати</p>
+                                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                            <label>
+                                                <span>Рівень (1-<span id="laser-max-level">10</span>):</span>
+                                                <input type="number" id="laser-build-level" min="1" value="1" style="
+                                                    width: 35px;
+                                                    background: #0e3a47;
+                                                    color: white;
+                                                    border: 1px solid #1fa2c7;
+                                                    border-radius: 4px;
+                                                    padding: 2px;
+                                                    font-size: 0.7em;
+                                                    margin-left: 5px;
+                                                    margin-right: 2px;
+                                                    -moz-appearance: textfield;
+                                                    text-align: center;
+                                                ">
+                                            </label>
+                                            <button id="build-laser-btn" style="
+                                                background: #17607a;
+                                                color: white;
+                                                border: 1px solid #1fa2c7;
+                                                border-radius: 4px;
+                                                padding: 4px 8px;
+                                                font-size: 0.8em;
+                                                cursor: pointer;
+                                                width: auto;
+                                                min-width: 60px;
+                                                margin: 0 1px;
+                                            ">Вивчити</button>
+                                            <span id="laser-build-time" style="color: #aaa; font-size: 12px; margin-left: 5px;"></span>
+                                        </div>
+                                        <div id="laser-build-progress" style="
+                                            margin-top: 10px;
+                                            height: 20px;
                                             background: #134d5c;
-                                            color: white;
                                             border: 1px solid #1fa2c7;
                                             border-radius: 4px;
-                                            cursor: pointer;
-                                            min-width: 200px;
+                                            overflow: hidden;
+                                            display: none;
                                         ">
-                                            <option value="">-- Виберіть проект --</option>
-                                        </select>
-                                    </label>
-                                    <label>
-                                        <span>Кількість:</span>
-                                        <input type="number" id="ship-build-count" min="1" value="1" style="
-                                            width: 35px;
-                                            background: #0e3a47;
-                                            color: white;
-                                            border: 1px solid #1fa2c7;
-                                            border-radius: 4px;
-                                            padding: 2px;
-                                            font-size: 0.7em;
-                                            margin-left: 5px;
-                                            margin-right: 2px;
-                                            -moz-appearance: textfield;
-                                            text-align: center;
-                                        ">
-                                    </label>
-                                    <button id="build-ship-btn" style="
-                                        background: #17607a;
-                                        color: white;
-                                        border: 1px solid #1fa2c7;
-                                        border-radius: 4px;
-                                        padding: 4px 8px;
-                                        font-size: 0.8em;
-                                        cursor: pointer;
-                                        width: auto;
-                                        min-width: 60px;
-                                        margin: 0 1px;
-                                    ">Вивчити</button>
-                                    <span id="ship-build-time" style="color: #aaa; font-size: 12px; margin-left: 5px;"></span>
+                                            <div id="laser-build-bar" style="
+                                                width: 0%;
+                                                height: 100%;
+                                                background: linear-gradient(90deg, #1fa2c7, #2ecc71);
+                                                transition: width 0.1s linear;
+                                            "></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div id="ship-build-progress" style="
-                                    margin-top: 10px;
-                                    height: 20px;
-                                    background: #134d5c;
-                                    border: 1px solid #1fa2c7;
-                                    border-radius: 4px;
-                                    overflow: hidden;
-                                    display: none;
-                                ">
-                                    <div id="ship-build-bar" style="
-                                        width: 0%;
-                                        height: 100%;
-                                        background: linear-gradient(90deg, #1fa2c7, #2ecc71);
-                                        transition: width 0.1s linear;
-                                    "></div>
+                            </div>
+                            <div id="tera-ammo-prod-content" style="
+                                display: none;
+                                padding: 10px;
+                                background: #134d5c;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 0 0 4px 4px;
+                            ">
+                                <div class="planet-content">
+                                    <div class="resources-info">
+                                        <p>🔋 Енергокомірка: <span id="tera-ammo-energy">0</span></p>
+                                        <p>💥 Бойова голівка: <span id="tera-ammo-warhead">0</span></p>
+                                        <p>⚡ Плазмовий заряд: <span id="tera-ammo-plasma">0</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tera-shipyard-prod-content" style="
+                                display: none;
+                                padding: 10px;
+                                background: #134d5c;
+                                border: 1px solid #1fa2c7;
+                                border-radius: 0 0 4px 4px;
+                            ">
+                                <div class="planet-content">
+                                    <!-- Будівництво кораблів -->
+                                    <div style="padding: 10px; background: #0e3a47; border: 1px solid #1fa2c7; border-radius: 4px;">
+                                        <p style="margin-bottom: 10px; font-weight: bold;">🚢 Будівництво кораблів</p>
+                                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                            <label>
+                                                <span>Проект:</span>
+                                                <select id="ship-project-select" style="
+                                                    margin-left: 5px;
+                                                    padding: 5px;
+                                                    background: #134d5c;
+                                                    color: white;
+                                                    border: 1px solid #1fa2c7;
+                                                    border-radius: 4px;
+                                                    cursor: pointer;
+                                                    min-width: 200px;
+                                                ">
+                                                    <option value="">-- Виберіть проект --</option>
+                                                </select>
+                                            </label>
+                                            <label>
+                                                <span>Кількість:</span>
+                                                <input type="number" id="ship-build-count" min="1" value="1" style="
+                                                    width: 35px;
+                                                    background: #0e3a47;
+                                                    color: white;
+                                                    border: 1px solid #1fa2c7;
+                                                    border-radius: 4px;
+                                                    padding: 2px;
+                                                    font-size: 0.7em;
+                                                    margin-left: 5px;
+                                                    margin-right: 2px;
+                                                    -moz-appearance: textfield;
+                                                    text-align: center;
+                                                ">
+                                            </label>
+                                            <button id="build-ship-btn" style="
+                                                background: #17607a;
+                                                color: white;
+                                                border: 1px solid #1fa2c7;
+                                                border-radius: 4px;
+                                                padding: 4px 8px;
+                                                font-size: 0.8em;
+                                                cursor: pointer;
+                                                width: auto;
+                                                min-width: 60px;
+                                                margin: 0 1px;
+                                            ">Вивчити</button>
+                                            <span id="ship-build-time" style="color: #aaa; font-size: 12px; margin-left: 5px;"></span>
+                                        </div>
+                                        <div id="ship-build-progress" style="
+                                            margin-top: 10px;
+                                            height: 20px;
+                                            background: #134d5c;
+                                            border: 1px solid #1fa2c7;
+                                            border-radius: 4px;
+                                            overflow: hidden;
+                                            display: none;
+                                        ">
+                                            <div id="ship-build-bar" style="
+                                                width: 0%;
+                                                height: 100%;
+                                                background: linear-gradient(90deg, #1fa2c7, #2ecc71);
+                                                transition: width 0.1s linear;
+                                            "></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
