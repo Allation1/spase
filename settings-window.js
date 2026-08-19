@@ -13,7 +13,7 @@ function initSettingsWindow() {
         const windowHtml = `
             <div id="settings-window" class="game-settings-window" style="display:none;">
                 <button class="science-close-btn" onclick="closeSettingsWindow()">✕</button>
-                <div class="science-window-title">Налаштування гри</div>
+                <div class="science-window-title">Налаштування</div>
                 <div class="game-settings-content">
                     <div style="margin-bottom: 15px;">
                         <label style="display: block; margin-bottom: 5px;">Звук ефектів</label>

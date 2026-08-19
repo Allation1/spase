@@ -1,18 +1,1 @@
-# Файли збереження стану гри
-battle/battle.json
-planets/fleets.json
-planets/tera/data.json
-planets/tera/buildings.json
-planets/tera/production.json
-planets/tera/ships.json
-science/science-levels.json
-
-# Залежності
-node_modules/
-
-# Логи
-*.log
-
-# OS
-.DS_Store
-Thumbs.db
+(settings-window.js is a source file, and there are no build artifacts, dependencies, or temp files in the changes)
