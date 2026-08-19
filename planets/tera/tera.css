@@ -142,8 +142,17 @@
     font-size: 1.1em; /* Збільшуємо шрифт ресурсів */
 }
 
-/* Мінімальні відступи для карток будівель */
+/* Мінімальні відступи та 5 будівель в один рядок */
+#tera-buildings-container {
+    padding: 2px !important;
+    justify-content: flex-start !important;
+}
+
 #tera-buildings-container .science-section {
     margin: 0;
+    width: calc((100% - 8px) / 5) !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
 }
+
 
