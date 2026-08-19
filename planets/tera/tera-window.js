@@ -55,7 +55,7 @@ function startResourceDisplayUpdates() {
 startResourceDisplayUpdates();
 
 // Спробуємо отримати актуальні дані з файлу
-fetch('/planets/tera/data.json?t=' + Date.now())
+fetch('/planets/tera/data.json')
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -238,7 +238,7 @@ function renderTeraWindow() {
                             </div>
                         </div>
                         <div id="tera-buildings-tab-content" style="display: none;">
-                            <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; padding: 10px; max-height: 450px; overflow-y: auto; overflow-x: hidden;">
+                            <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; padding: 10px; max-height: 450px; overflow-y: auto; overflow-x: hidden;">
                                 <!-- Будівлі будуть додані тут динамічно -->
                             </div>
                         </div>
@@ -586,29 +586,46 @@ function renderTeraWindow() {
 
     // Додаємо можливість рухати вікно мишкою
     let isDragging = false;
-    let initialX = 0;
-    let initialY = 0;
-    let currentX = 0;
-    let currentY = 0;
+    let offsetX = 0;
+    let offsetY = 0;
 
-    const titleBar = terraWindow.querySelector('.science-details-title');
-
-    titleBar.addEventListener('mousedown', function(e) {
-        if (e.target === titleBar || e.target.parentElement === titleBar) {
-            isDragging = true;
-            initialX = e.clientX - currentX;
-            initialY = e.clientY - currentY;
-            terraWindow.style.cursor = 'move';
-            terraWindow.style.transition = 'none';
-            bringWindowToFront(terraWindow);
+    terraWindow.addEventListener('mousedown', function(e) {
+        // Ігноруємо кліки на кнопках, полях вводу, випадаючих списках та посиланнях
+        const ignoredElements = ['BUTTON', 'INPUT', 'SELECT', 'A', 'TEXTAREA'];
+        if (ignoredElements.includes(e.target.tagName) || e.target.closest('button, input, select, a, textarea')) {
+            return;
         }
+
+        isDragging = true;
+
+        // Отримуємо поточну візуальну позицію
+        const rect = terraWindow.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
+        // Переходимо на позиціонування через left/top
+        terraWindow.style.left = rect.left + 'px';
+        terraWindow.style.top = rect.top + 'px';
+        terraWindow.style.transform = 'none'; // Прибираємо transform
+
+        terraWindow.style.cursor = 'move';
+        terraWindow.style.transition = 'none';
+        bringWindowToFront(terraWindow);
+        e.preventDefault();
     });
 
     document.addEventListener('mousemove', function(e) {
         if (isDragging) {
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
-            terraWindow.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px))`;
+            // Змінюємо курсор на 'move' тільки під час перетягування
+            if (terraWindow.style.cursor !== 'move') {
+                terraWindow.style.cursor = 'move';
+            }
+
+            const newLeft = e.clientX - offsetX;
+            const newTop = e.clientY - offsetY;
+            const constrained = constrainPosition(terraWindow, newLeft, newTop);
+            terraWindow.style.left = constrained.left + 'px';
+            terraWindow.style.top = constrained.top + 'px';
         }
     });
 
@@ -616,6 +633,10 @@ function renderTeraWindow() {
         isDragging = false;
         terraWindow.style.cursor = 'default';
         terraWindow.style.transition = '';
+        // Зберігаємо позицію після перетягування
+        window.windowManager?.update('terra-window', true, {
+            left: terraWindow.style.left, top: terraWindow.style.top
+        });
     });
 
     // Додаємо обробник для кнопки закриття
@@ -710,7 +731,7 @@ async function loadAndRenderBuildings() {
 async function updateResourcesDisplay() {
     try {
         // Отримуємо останні дані з файлу
-        const response = await fetch('/planets/tera/data.json?t=' + Date.now());
+        const response = await fetch('/planets/tera/data.json');
         if (response.ok) {
             const data = await response.json();
             

@@ -1,6 +1,67 @@
 // Глобальна змінна для z-index вікон
 let currentMaxZIndex = 200;
 
+// Функція для обмеження позиції вікна в межах видимої області
+function constrainPosition(element, newLeft, newTop) {
+    const constrainedLeft = Math.max(0, Math.min(newLeft, window.innerWidth - element.offsetWidth));
+    const constrainedTop = Math.max(0, Math.min(newTop, window.innerHeight - element.offsetHeight));
+    return {
+        left: constrainedLeft,
+        top: constrainedTop
+    };
+}
+// Уніфікована функція для додавання можливості перетягування
+function makeDraggable(element) {
+
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    element.addEventListener('mousedown', function(e) {
+        // Ігноруємо кліки на інтерактивних елементах
+        const ignoredTags = ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'A', 'RANGE'];
+        if (ignoredTags.includes(e.target.tagName) || e.target.closest('button, input, select, textarea, a')) {
+            return;
+        }
+
+        isDragging = true;
+
+        const rect = element.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
+        element.style.left = rect.left + 'px';
+        element.style.top = rect.top + 'px';
+        element.style.transform = 'none';
+
+        bringWindowToFront(element);
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            const newLeft = e.clientX - offsetX;
+            const newTop = e.clientY - offsetY;
+            const constrained = constrainPosition(element, newLeft, newTop);
+            element.style.left = constrained.left + 'px';
+            element.style.top = constrained.top + 'px';
+        }
+    });
+
+    document.addEventListener('mouseup', function() {
+        if (isDragging) {
+            isDragging = false;
+            document.body.style.userSelect = '';
+            // Опціонально: зберегти позицію
+            if (element.id && window.windowManager) {
+                window.windowManager.update(element.id, true, { left: element.style.left, top: element.style.top });
+            }
+        }
+    });
+}; // End of makeDraggable function definition
+window.makeDraggable = makeDraggable; // Make it globally accessible
+
 // Функція для підняття вікна на передній план
 function bringWindowToFront(element) {
     if (element) {
@@ -30,33 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Додаємо можливість рухати вікно мишкою
-        let isDragging = false, offsetX = 0, offsetY = 0;
-
-        fleetWindow.querySelector('.science-window-title').addEventListener('mousedown', function(e) {
-            // Дозволяємо рухати за заголовок вікна
-            isDragging = true;
-            offsetX = e.clientX - fleetWindow.offsetLeft;
-            offsetY = e.clientY - fleetWindow.offsetTop;
-            document.body.style.userSelect = 'none';
-            // Піднімаємо вікно на передній план при кліку
-            bringWindowToFront(fleetWindow);
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                fleetWindow.style.left = (e.clientX - offsetX) + 'px';
-                fleetWindow.style.top = (e.clientY - offsetY) + 'px';
-                window.windowManager?.update('fleet-window', true, {
-                    left: fleetWindow.style.left, top: fleetWindow.style.top
-                });
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+        makeDraggable(fleetWindow);
     }
 
     // Додаємо обробник для кнопки створення флоту
@@ -85,31 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Додаємо можливість рухати вікно мишкою
-        let isDragging = false, offsetX = 0, offsetY = 0;
-
-        projectsWindow.querySelector('.science-window-title').addEventListener('mousedown', function(e) {
-            isDragging = true;
-            offsetX = e.clientX - projectsWindow.offsetLeft;
-            offsetY = e.clientY - projectsWindow.offsetTop;
-            document.body.style.userSelect = 'none';
-            bringWindowToFront(projectsWindow);
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                projectsWindow.style.left = (e.clientX - offsetX) + 'px';
-                projectsWindow.style.top = (e.clientY - offsetY) + 'px';
-                window.windowManager?.update('projects-window', true, {
-                    left: projectsWindow.style.left, top: projectsWindow.style.top
-                });
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+        makeDraggable(projectsWindow);
     }
 
     // Обробник для кнопки скидання гри
@@ -209,50 +220,7 @@ function showFleetComposition(fleetName) {
     fleetDetailsWindow.style.color = '#fff';
     fleetDetailsWindow.style.overflow = 'hidden';
     
-    // Додаємо можливість перетягування вікна
-    let isDragging = false;
-    let offsetX, offsetY;
-
-    const titleBar = fleetDetailsWindow.querySelector('.science-window-title');
-    titleBar.addEventListener('mousedown', function(e) {
-        isDragging = true;
-
-        // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
-        const rect = fleetDetailsWindow.getBoundingClientRect();
-
-        // Зберігаємо відступ курсора від лівого верхнього кута вікна
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-
-        // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
-        fleetDetailsWindow.style.left = rect.left + 'px';
-        fleetDetailsWindow.style.top = rect.top + 'px';
-
-        // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
-        fleetDetailsWindow.style.transform = 'none';
-
-        // Піднімаємо вікно на передній план при кліку
-        bringWindowToFront(fleetDetailsWindow);
-
-        document.body.style.userSelect = 'none';
-        e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', function(e) {
-        if (isDragging) {
-            // Розраховуємо нові координати вікна
-            const newLeft = e.clientX - offsetX;
-            const newTop = e.clientY - offsetY;
-
-            fleetDetailsWindow.style.left = newLeft + 'px';
-            fleetDetailsWindow.style.top = newTop + 'px';
-        }
-    });
-
-    document.addEventListener('mouseup', function() {
-        isDragging = false;
-        document.body.style.userSelect = '';
-    });
+    makeDraggable(fleetDetailsWindow);
 }
 
 // Функція для дій з флотом
@@ -372,48 +340,7 @@ function showFleetSettings() {
     fleetSettingsWindow.style.color = '#fff';
     fleetSettingsWindow.style.overflow = 'hidden';
     
-    // Додаємо можливість перетягування вікна
-    let isDragging = false;
-    let offsetX, offsetY;
-
-    const titleBar = fleetSettingsWindow.querySelector('.science-window-title');
-    titleBar.addEventListener('mousedown', function(e) {
-        isDragging = true;
-        
-        // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
-        const rect = fleetSettingsWindow.getBoundingClientRect();
-        
-        // Зберігаємо відступ курсора від лівого верхнього кута вікна
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-        
-        // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
-        fleetSettingsWindow.style.left = rect.left + 'px';
-        fleetSettingsWindow.style.top = rect.top + 'px';
-        
-        // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
-        fleetSettingsWindow.style.transform = 'none';
-        
-        document.body.style.userSelect = 'none';
-        // Піднімаємо вікно на передній план при кліку
-        bringWindowToFront(fleetSettingsWindow);
-        e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', function(e) {
-        if (isDragging) {
-            const newLeft = e.clientX - offsetX;
-            const newTop = e.clientY - offsetY;
-
-            fleetSettingsWindow.style.left = newLeft + 'px';
-            fleetSettingsWindow.style.top = newTop + 'px';
-        }
-    });
-
-    document.addEventListener('mouseup', function() {
-        isDragging = false;
-        document.body.style.userSelect = '';
-    });
+    makeDraggable(fleetSettingsWindow);
     
     // Створюємо поле бою 10x10
     createBattlefieldGrid();

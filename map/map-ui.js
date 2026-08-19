@@ -141,49 +141,7 @@ function openSolarSystemWindow() {
             }
         });
         
-        // Додаємо можливість перетягування вікна
-        const titleBar = solarSystemWindow.querySelector('.solar-system-title');
-        let isDragging = false;
-        let offsetX, offsetY;
-
-        titleBar.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            
-            // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
-            const rect = solarSystemWindow.getBoundingClientRect();
-            
-            // Зберігаємо відступ курсора від лівого верхнього кута вікна
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            
-            // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
-            solarSystemWindow.style.left = rect.left + 'px';
-            solarSystemWindow.style.top = rect.top + 'px';
-            
-            // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
-            solarSystemWindow.style.transform = 'none';
-            
-            document.body.style.userSelect = 'none';
-            // Піднімаємо вікно на передній план при кліку
-            bringWindowToFront(solarSystemWindow);
-            e.preventDefault(); // Запобігаємо виділенню тексту
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                // Розраховуємо нові координати вікна
-                const newLeft = e.clientX - offsetX;
-                const newTop = e.clientY - offsetY;
-
-                solarSystemWindow.style.left = newLeft + 'px';
-                solarSystemWindow.style.top = newTop + 'px';
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+        makeDraggable(solarSystemWindow, '.solar-system-title');
     }
     
     // Показуємо вікно
@@ -1007,49 +965,7 @@ function openBlueSolarSystemWindow() {
             }
         });
         
-        // Додаємо можливість перетягування вікна
-        const titleBar = blueSolarSystemWindow.querySelector('.solar-system-title');
-        let isDragging = false;
-        let offsetX, offsetY;
-
-        titleBar.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            
-            // Отримуємо поточну візуальну позицію вікна (з урахуванням transform)
-            const rect = blueSolarSystemWindow.getBoundingClientRect();
-            
-            // Зберігаємо відступ курсора від лівого верхнього кута вікна
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            
-            // Встановлюємо left/top у поточну візуальну позицію перед прибиранням transform
-            blueSolarSystemWindow.style.left = rect.left + 'px';
-            blueSolarSystemWindow.style.top = rect.top + 'px';
-            
-            // Прибираємо transform щоб уникнути зміщень при подальшому перетягуванні
-            blueSolarSystemWindow.style.transform = 'none';
-            
-            document.body.style.userSelect = 'none';
-            // Піднімаємо вікно на передній план при кліку
-            bringWindowToFront(blueSolarSystemWindow);
-            e.preventDefault(); // Запобігаємо виділенню тексту
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                // Розраховуємо нові координати вікна
-                const newLeft = e.clientX - offsetX;
-                const newTop = e.clientY - offsetY;
-
-                blueSolarSystemWindow.style.left = newLeft + 'px';
-                blueSolarSystemWindow.style.top = newTop + 'px';
-            }
-        });
-        
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+        makeDraggable(blueSolarSystemWindow, '.solar-system-title');
     }
     
     // Показуємо вікно
@@ -1129,36 +1045,7 @@ function openRedSolarSystemWindow() {
             }
         });
 
-        const titleBar = redSolarSystemWindow.querySelector('.solar-system-title');
-        let isDragging = false;
-        let offsetX, offsetY;
-
-        titleBar.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            const rect = redSolarSystemWindow.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            redSolarSystemWindow.style.left = rect.left + 'px';
-            redSolarSystemWindow.style.top = rect.top + 'px';
-            redSolarSystemWindow.style.transform = 'none';
-            document.body.style.userSelect = 'none';
-            bringWindowToFront(redSolarSystemWindow);
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                const newLeft = e.clientX - offsetX;
-                const newTop = e.clientY - offsetY;
-                redSolarSystemWindow.style.left = newLeft + 'px';
-                redSolarSystemWindow.style.top = newTop + 'px';
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+        makeDraggable(redSolarSystemWindow, '.solar-system-title');
     }
 
     redSolarSystemWindow.style.display = 'block';
@@ -1236,36 +1123,7 @@ function openGreenSolarSystemWindow() {
             }
         });
 
-        const titleBar = greenSolarSystemWindow.querySelector('.solar-system-title');
-        let isDragging = false;
-        let offsetX, offsetY;
-
-        titleBar.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            const rect = greenSolarSystemWindow.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            greenSolarSystemWindow.style.left = rect.left + 'px';
-            greenSolarSystemWindow.style.top = rect.top + 'px';
-            greenSolarSystemWindow.style.transform = 'none';
-            document.body.style.userSelect = 'none';
-            bringWindowToFront(greenSolarSystemWindow);
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                const newLeft = e.clientX - offsetX;
-                const newTop = e.clientY - offsetY;
-                greenSolarSystemWindow.style.left = newLeft + 'px';
-                greenSolarSystemWindow.style.top = newTop + 'px';
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+        makeDraggable(greenSolarSystemWindow, '.solar-system-title');
     }
 
     greenSolarSystemWindow.style.display = 'block';

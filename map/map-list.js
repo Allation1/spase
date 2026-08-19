@@ -14,25 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Перетягування тільки за шапку
-        let isDragging = false, offsetX = 0, offsetY = 0;
-        mapTitle.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            offsetX = e.clientX - mapWindow.offsetLeft;
-            offsetY = e.clientY - mapWindow.offsetTop;
-            document.body.style.userSelect = 'none';
-            // Піднімаємо вікно на передній план при кліку
-            bringWindowToFront(mapWindow);
-        });
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                mapWindow.style.left = (e.clientX - offsetX) + 'px';
-                mapWindow.style.top = (e.clientY - offsetY) + 'px';
-            }
-        });
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+        // Додаємо можливість перетягування
+        makeDraggable(mapWindow);
     }
 });

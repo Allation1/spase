@@ -1115,47 +1115,19 @@ let activeScienceTab = 'basic';
         startStudyOnServer(`ship_${shipId}`, nextLevel, shipObj);
     };
 
-    // Додаємо можливість рухати вікно мишкою
-    let isDragging = false;
-    let initialX = 0;
-    let initialY = 0;
-    let currentX = 0;
-    let currentY = 0;
-
-    scienceWindow.addEventListener('mousedown', function(e) {
-        // Перевіряємо, чи клік відбувся на заголовку
-        if (e.target.classList.contains('science-details-title') || e.target.parentElement.classList.contains('science-details-title')) {
-            isDragging = true;
-            initialX = e.clientX - currentX;
-            initialY = e.clientY - currentY;
-            scienceWindow.style.cursor = 'move';
-            scienceWindow.style.transition = 'none';
-            // Піднімаємо вікно на передній план при кліку
-            bringWindowToFront(scienceWindow);
-        }
-    });
-
-    document.addEventListener('mousemove', function(e) {
-        if (isDragging) {
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
-
-            scienceWindow.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px))`;
-        }
-    });
-
-    document.addEventListener('mouseup', function() {
-        isDragging = false;
-        scienceWindow.style.cursor = 'default';
-        scienceWindow.style.transition = '';
-    });
-
     // Додаємо обробник для кнопки закриття
     const closeBtn = scienceWindow.querySelector('.science-close-btn');
     closeBtn.onclick = () => {
         window.windowManager?.update('science-main-window', false);
         scienceWindow.style.display = 'none';
     };
+
+    // Додаємо можливість перетягування
+    if (typeof window.makeDraggable === 'function') {
+        window.makeDraggable(scienceWindow, '.science-details-header');
+    } else {
+        console.warn('makeDraggable function not found for science-main-window.');
+    }
 }
 
 // Функція для виклику серверного методу початку вивчення

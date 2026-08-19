@@ -50,6 +50,23 @@ function isPageReload() {
     return performance.navigation?.type === performance.navigation?.TYPE_RELOAD;
 }
 
+function centerAllWindowsOnLoad() {
+    const allWindows = document.querySelectorAll('.science-details-window, .game-settings-window, #planet-window, #map-window, #fleet-window, #projects-window, .solar-system-window');
+    const windowsToSave = ['settings-window', 'planet-window', 'map-window', 'fleet-window', 'science-main-window', 'projects-window', 'terra-window'];
+
+    allWindows.forEach(win => {
+        if (win.id) {
+            win.style.left = '50%';
+            win.style.top = '50%';
+            win.style.transform = 'translate(-50%, -50%)';
+            // Оновлюємо збережену позицію на центральну
+            if (windowsToSave.includes(win.id)) {
+                updateWindowState(win.id, undefined, { left: '50%', top: '50%' });
+            }
+        }
+    });
+}
+
 function restoreWindowStates() {
     const openActions = {
         'settings-window': () => document.getElementById('settings-btn')?.click(),
@@ -71,35 +88,51 @@ function restoreWindowStates() {
             setTimeout(() => {
                 const windowEl = document.getElementById(windowId);
                 if (windowEl && state.position) {
-                    windowEl.style.transform = 'none';
-                    windowEl.style.left = state.position.left;
-                    windowEl.style.top = state.position.top;
+                    // Якщо позиція збережена як 50%/50%, використовуємо transform
+                    if (state.position.left === '50%' && state.position.top === '50%') {
+                        windowEl.style.transform = 'translate(-50%, -50%)';
+                    } else {
+                        windowEl.style.transform = 'none';
+                    }
+                    windowEl.style.left = state.position.left || '50%';
+                    windowEl.style.top = state.position.top || '50%';
                 }
-            }, 200);
+            }, 150);
         }, 100);
     }
 }
 
-function resetOpenWindowStates() {
+// Функція для скидання позицій всіх вікон
+function resetAllWindowsPosition() {
+    console.log('🔄 Скидання позицій всіх вікон...');
     for (const windowId in windowStates) {
-        windowStates[windowId].isOpen = false;
+        const windowEl = document.getElementById(windowId);
+        if (windowEl && windowEl.style.display !== 'none') {
+            // Скидаємо позицію на центр
+            windowEl.style.left = '50%';
+            windowEl.style.top = '50%';
+            windowEl.style.transform = 'translate(-50%, -50%)';
+            
+            // Оновлюємо збережений стан
+            const rect = windowEl.getBoundingClientRect();
+            updateWindowState(windowId, true, { left: `${rect.left}px`, top: `${rect.top}px` });
+            console.log(`  -> Позицію вікна ${windowId} скинуто.`);
+        }
     }
-
-    saveWindowStates();
+    alert('Позиції всіх відкритих вікон було скинуто.');
 }
+
+window.resetAllWindowsPosition = resetAllWindowsPosition;
 
 // Завантажуємо стан при старті
 loadWindowStates();
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (isPageReload()) {
-        restoreWindowStates();
-    } else {
-        resetOpenWindowStates();
-    }
+    centerAllWindowsOnLoad(); // Спочатку центруємо всі вікна
+    restoreWindowStates();    // Потім відновлюємо їх стан (видимість)
 });
 
-// Експортуємо функції для глобального використання
+// Експортуємо менеджер для глобального використання
 window.windowManager = {
     update: updateWindowState,
     get: getWindowState,
@@ -107,8 +140,6 @@ window.windowManager = {
 
 // Додаємо обробник beforeunload для збереження стану перед закриттям сторінки
 window.addEventListener('beforeunload', () => {
-    // Оновлюємо стан всіх видимих вікон перед закриттям
-    // Зберігаємо тільки основні вікна, а не всі динамічні
     const windowsToSave = [
         'settings-window', 'planet-window', 'map-window', 'fleet-window', 
         'science-main-window', 'projects-window', 'terra-window'
@@ -116,13 +147,7 @@ window.addEventListener('beforeunload', () => {
 
     windowsToSave.forEach(windowId => {
         const win = document.getElementById(windowId);
-        if (!win) {
-            updateWindowState(windowId, false);
-            return;
-        }
-
-        const isVisible = getComputedStyle(win).display !== 'none';
-        if (isVisible) {
+        if (win && win.style.display !== 'none' && getComputedStyle(win).display !== 'none') {
             const rect = win.getBoundingClientRect();
             updateWindowState(windowId, true, { left: `${rect.left}px`, top: `${rect.top}px` });
         } else {

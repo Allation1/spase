@@ -122,33 +122,9 @@ async function openCreateFleetWindow() {
     if (typeof bringWindowToFront === 'function') {
         bringWindowToFront(createFleetWindow);
     }
-    
-    // Додаємо можливість рухати вікно
-    let isDragging = false, offsetX = 0, offsetY = 0;
-    const titleElement = createFleetWindow.querySelector('.science-window-title');
-    
-    if (titleElement) {
-        titleElement.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            offsetX = e.clientX - createFleetWindow.offsetLeft;
-            offsetY = e.clientY - createFleetWindow.offsetTop;
-            document.body.style.userSelect = 'none';
-            if (typeof bringWindowToFront === 'function') {
-                bringWindowToFront(createFleetWindow);
-            }
-        });
-        
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                createFleetWindow.style.left = (e.clientX - offsetX) + 'px';
-                createFleetWindow.style.top = (e.clientY - offsetY) + 'px';
-            }
-        });
-        
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+
+    if (typeof window.makeDraggable === 'function') {
+        window.makeDraggable(createFleetWindow);
     }
 }
 
@@ -557,32 +533,9 @@ async function openFleetDetails(fleetIndex) {
     // Перевіряємо наявність противників на орбіті
     checkEnemiesOnOrbit(fleetIndex, fleet.coordinates);
 
-    // Додаємо можливість рухати вікно мишкою
-    let isDragging = false, offsetX = 0, offsetY = 0;
-    const titleElement = fleetDetailsWindow.querySelector('.science-window-title');
-
-    if (titleElement) {
-        titleElement.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            offsetX = e.clientX - fleetDetailsWindow.offsetLeft;
-            offsetY = e.clientY - fleetDetailsWindow.offsetTop;
-            document.body.style.userSelect = 'none';
-            if (typeof bringWindowToFront === 'function') {
-                bringWindowToFront(fleetDetailsWindow);
-            }
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                fleetDetailsWindow.style.left = (e.clientX - offsetX) + 'px';
-                fleetDetailsWindow.style.top = (e.clientY - offsetY) + 'px';
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+    // Додаємо можливість перетягування
+    if (typeof window.makeDraggable === 'function') {
+        window.makeDraggable(fleetDetailsWindow);
     }
 }
 

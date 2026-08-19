@@ -406,33 +406,7 @@ async function openShipStats(shipIndex) {
         bringWindowToFront(statsWindow);
     }
 
-    // Додаємо можливість рухати вікно
-    let isDragging = false, offsetX = 0, offsetY = 0;
-    const titleElement = statsWindow.querySelector('.science-window-title');
-
-    if (titleElement) {
-        titleElement.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            offsetX = e.clientX - statsWindow.offsetLeft;
-            offsetY = e.clientY - statsWindow.offsetTop;
-            document.body.style.userSelect = 'none';
-            if (typeof bringWindowToFront === 'function') {
-                bringWindowToFront(statsWindow);
-            }
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                statsWindow.style.left = (e.clientX - offsetX) + 'px';
-                statsWindow.style.top = (e.clientY - offsetY) + 'px';
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
-    }
+    makeDraggable(statsWindow);
 }
 
 // Функція для видалення корабля

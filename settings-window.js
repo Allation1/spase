@@ -23,6 +23,17 @@ function initSettingsWindow() {
                         <label style="display: block; margin-bottom: 5px;">Музика космосу</label>
                         <input type="range" min="0" max="100" value="30" style="width: 100%;">
                     </div>
+                    <div style="margin-top: 20px; border-top: 1px solid #1fa2c7; padding-top: 15px;">
+                        <button id="reset-windows-btn" style="
+                            width: 100%;
+                            padding: 8px;
+                            background: #17607a;
+                            color: white;
+                            border: 1px solid #1fa2c7;
+                            border-radius: 4px;
+                            cursor: pointer;
+                        ">Скинути позиції вікон</button>
+                    </div>
                     <p style="color: #aaa; font-size: 0.8em; text-align: center; margin-top: 30px;">
                         Версія проекту: ${document.getElementById('version-label')?.textContent || 'v1.0.0'}
                     </p>
@@ -48,33 +59,25 @@ function initSettingsWindow() {
             }
         });
 
-        // Логіка перетягування (Drag & Drop)
-        const titleBar = settingsWindow.querySelector('.science-window-title');
-        let isDragging = false, offsetX = 0, offsetY = 0;
+        // Додаємо можливість перетягування
+        makeDraggable(settingsWindow);
 
-        titleBar.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            offsetX = e.clientX - settingsWindow.offsetLeft;
-            offsetY = e.clientY - settingsWindow.offsetTop;
-            document.body.style.userSelect = 'none';
-            if (typeof bringWindowToFront === 'function') bringWindowToFront(settingsWindow);
-        });
+        // Додаємо обробник для нової кнопки
+        const resetWindowsBtn = document.getElementById('reset-windows-btn');
+        if (resetWindowsBtn) {
+            resetWindowsBtn.addEventListener('click', () => {
+                window.resetAllWindowsPosition && window.resetAllWindowsPosition();
+            });
+        }
+    }
+}
 
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                settingsWindow.style.left = (e.clientX - offsetX) + 'px';
-                settingsWindow.style.top = (e.clientY - offsetY) + 'px';
-                settingsWindow.style.transform = 'none'; // Прибираємо центрування при русі
-                window.windowManager?.update('settings-window', true, {
-                    left: settingsWindow.style.left, top: settingsWindow.style.top
-                });
-            }
-        });
-
-        document.addEventListener('mouseup', function() {
-            isDragging = false;
-            document.body.style.userSelect = '';
-        });
+// Функція-хелпер, якщо вона не визначена глобально
+if (typeof window.constrainPosition === 'undefined') {
+    window.constrainPosition = function(element, newLeft, newTop) {
+        const constrainedLeft = Math.max(0, Math.min(newLeft, window.innerWidth - element.offsetWidth));
+        const constrainedTop = Math.max(0, Math.min(newTop, window.innerHeight - element.offsetHeight));
+        return { left: constrainedLeft, top: constrainedTop };
     }
 }
 
