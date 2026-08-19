@@ -223,11 +223,25 @@
 
 /* Відступи між рядками кнопок у вікні Тера */
 #tera-buildings-container .science-controls {
-    margin-bottom: 5px !important;
+    margin-bottom: 0 !important;
+    padding: 0 1px !important;
 }
 
 #tera-buildings-container .science-controls:last-child {
     margin-bottom: 0 !important;
+}
+
+/* Компактна висота кнопок і полів у вікні Тера */
+#tera-buildings-container .study-btn {
+    height: 14px !important;
+    font-size: 0.6em !important;
+    padding: 0 4px !important;
+}
+
+#tera-buildings-container .science-controls input[type="number"] {
+    height: 14px !important;
+    font-size: 0.6em !important;
+    padding: 0 2px !important;
 }
 
 .study-btn:hover {
