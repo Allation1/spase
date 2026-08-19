@@ -1289,67 +1289,68 @@ function renderBuildings(buildingsData) {
                     </div>
                 </div>
             </div>
-            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
-                <input type="number" id="build-count-${building.id}" value="1" min="1" style="
-                    width: calc(100% - 70px) !important;
-                    background: #0e3a47;
-                    color: white;
-                    border: 1px solid #1fa2c7;
-                    border-radius: 4px;
-                    padding: 2px;
-                    font-size: 0.7em;
-                    margin-right: 1px;
-                    box-sizing: border-box;
-                    -moz-appearance: textfield;
-                ">
-                <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 68px !important; margin: 0 1px 0 0; flex-shrink: 0; min-width: 68px;">Будувати</button>
-            </div>
-            <div style="height: 5px; display: block;"></div>
-            <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
-                <input type="number" id="upgrade-level-${building.id}" value="1" min="1" style="
-                    width: calc(100% - 70px) !important;
-                    background: #0e3a47;
-                    color: white;
-                    border: 1px solid #1fa2c7;
-                    border-radius: 4px;
-                    padding: 2px;
-                    font-size: 0.7em;
-                    margin-right: 1px;
-                    box-sizing: border-box;
-                    -moz-appearance: textfield;
-                " ${!canUpgradeBuilding(building.id, level) ? 'disabled' : ''}>
-                <button class="study-btn"
-                        onclick="startUpgrade('${building.id}', '${building.name}')"
-                        ${!canUpgradeBuilding(building.id, level) ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}
-                        title="${!canUpgradeBuilding(building.id, level) ? 'Немає необхідних передумов' : 'Покращити'}"
-                        style="width: 68px !important; margin: 0 1px 0 0; flex-shrink: 0; min-width: 68px;">
-                    Покращити
-                </button>
-                ${!canUpgradeBuilding(building.id, level) ? `
-                <div class="requirement-tooltip" style="
-                    position: absolute;
-                    background: #333;
-                    color: white;
-                    padding: 8px;
-                    border-radius: 4px;
-                    font-size: 0.8em;
-                    z-index: 1000;
-                    display: none;
-                    border: 1px solid #1fa2c7;
-                    min-width: 200px;
-                    top: 100%;
-                    left: 0;
-                    margin-top: 5px;
-                " id="upgrade-tooltip-${building.id}">
-                    <div><strong>Потрібні передумови:</strong></div>
-                    ${building.id === 'building_center' ? `<div>Рівень науки "Науковий центр": ${centerLevel}</div>` :
-                      building.id === 'building_source' ? `<div>Рівень науки "Джерело": ${sourceLevel}</div>` :
-                      building.id === 'building_house' ? `<div>Рівень науки "Будинок": ${getScienceLevelFromLocalStorage('building_house')}</div>` :
-                      building.id === 'building_warehouse' ? `<div>Рівень науки "Склад": ${getScienceLevelFromLocalStorage('building_warehouse')}</div>` :
-                      building.id === 'building_stone_quarry' ? `<div>Рівень науки "Каменярня": ${getScienceLevelFromLocalStorage('stone_quarry_science')}</div>` :
-                      building.id === 'building_wood_cutter' ? `<div>Рівень науки "Лісоруб": ${getScienceLevelFromLocalStorage('wood_cutting_science')}</div>` :
-                      building.id === 'building_armory' ? `<div>Рівень науки "Зброярний завод": ${getScienceLevelFromLocalStorage('building_armory')}</div>` : ''}
-                </div>` : ''}
+            <div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; padding: 1px;">
+                <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
+                    <input type="number" id="build-count-${building.id}" value="1" min="1" style="
+                        width: calc(100% - 70px) !important;
+                        background: #0e3a47;
+                        color: white;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 4px;
+                        padding: 2px;
+                        font-size: 0.7em;
+                        margin-right: 1px;
+                        box-sizing: border-box;
+                        -moz-appearance: textfield;
+                    ">
+                    <button class="study-btn" onclick="startBuilding('${building.id}', '${building.name}')" style="width: 68px !important; margin: 0 1px 0 0; flex-shrink: 0; min-width: 68px;">Будувати</button>
+                </div>
+                <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
+                    <input type="number" id="upgrade-level-${building.id}" value="1" min="1" style="
+                        width: calc(100% - 70px) !important;
+                        background: #0e3a47;
+                        color: white;
+                        border: 1px solid #1fa2c7;
+                        border-radius: 4px;
+                        padding: 2px;
+                        font-size: 0.7em;
+                        margin-right: 1px;
+                        box-sizing: border-box;
+                        -moz-appearance: textfield;
+                    " ${!canUpgradeBuilding(building.id, level) ? 'disabled' : ''}>
+                    <button class="study-btn"
+                            onclick="startUpgrade('${building.id}', '${building.name}')"
+                            ${!canUpgradeBuilding(building.id, level) ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}
+                            title="${!canUpgradeBuilding(building.id, level) ? 'Немає необхідних передумов' : 'Покращити'}"
+                            style="width: 68px !important; margin: 0 1px 0 0; flex-shrink: 0; min-width: 68px;">
+                        Покращити
+                    </button>
+                    ${!canUpgradeBuilding(building.id, level) ? `
+                    <div class="requirement-tooltip" style="
+                        position: absolute;
+                        background: #333;
+                        color: white;
+                        padding: 8px;
+                        border-radius: 4px;
+                        font-size: 0.8em;
+                        z-index: 1000;
+                        display: none;
+                        border: 1px solid #1fa2c7;
+                        min-width: 200px;
+                        top: 100%;
+                        left: 0;
+                        margin-top: 5px;
+                    " id="upgrade-tooltip-${building.id}">
+                        <div><strong>Потрібні передумови:</strong></div>
+                        ${building.id === 'building_center' ? `<div>Рівень науки "Науковий центр": ${centerLevel}</div>` :
+                          building.id === 'building_source' ? `<div>Рівень науки "Джерело": ${sourceLevel}</div>` :
+                          building.id === 'building_house' ? `<div>Рівень науки "Будинок": ${getScienceLevelFromLocalStorage('building_house')}</div>` :
+                          building.id === 'building_warehouse' ? `<div>Рівень науки "Склад": ${getScienceLevelFromLocalStorage('building_warehouse')}</div>` :
+                          building.id === 'building_stone_quarry' ? `<div>Рівень науки "Каменярня": ${getScienceLevelFromLocalStorage('stone_quarry_science')}</div>` :
+                          building.id === 'building_wood_cutter' ? `<div>Рівень науки "Лісоруб": ${getScienceLevelFromLocalStorage('wood_cutting_science')}</div>` :
+                          building.id === 'building_armory' ? `<div>Рівень науки "Зброярний завод": ${getScienceLevelFromLocalStorage('building_armory')}</div>` : ''}
+                    </div>` : ''}
+                </div>
             </div>
         `;
 
