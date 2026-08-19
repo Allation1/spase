@@ -1289,7 +1289,7 @@ function renderBuildings(buildingsData) {
                     </div>
                 </div>
             </div>
-            <div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; padding: 1px;">
+            <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0; padding: 1px;">
                 <div class="science-controls" style="display: flex; align-items: center; width: 100%; box-sizing: border-box; padding-right: 1px;">
                     <input type="number" id="build-count-${building.id}" value="1" min="1" style="
                         width: calc(100% - 70px) !important;
