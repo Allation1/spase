@@ -141,3 +141,9 @@
     border-radius: 4px;
     font-size: 1.1em; /* Збільшуємо шрифт ресурсів */
 }
+
+/* Мінімальні відступи для карток будівель */
+#tera-buildings-container .science-section {
+    margin: 0;
+}
+
