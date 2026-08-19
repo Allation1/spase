@@ -142,6 +142,13 @@
     font-size: 1.1em; /* Збільшуємо шрифт ресурсів */
 }
 
+/* Фіксована ширина вікна Тера для ідеального розміщення будівель */
+#terra-window {
+    width: 637px !important;
+    min-width: 637px !important;
+    max-width: 637px !important;
+}
+
 /* Мінімальні відступи та 5 будівель в один рядок */
 #tera-buildings-container {
     padding: 2px !important;
@@ -150,9 +157,11 @@
 
 #tera-buildings-container .science-section {
     margin: 0;
-    width: calc((100% - 8px) / 5) !important;
+    width: 121px !important;  /* 110px + 10% */
+    height: 176px !important; /* 160px + 10% */
     min-width: 0 !important;
     box-sizing: border-box;
 }
+
 
 
