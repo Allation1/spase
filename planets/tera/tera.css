@@ -144,9 +144,9 @@
 
 /* Фіксована ширина вікна Тера для ідеального розміщення будівель */
 #terra-window {
-    width: 637px !important;
-    min-width: 637px !important;
-    max-width: 637px !important;
+    width: 830px !important;
+    min-width: 830px !important;
+    max-width: 830px !important;
 }
 
 /* Мінімальні відступи та 5 будівель в один рядок */
