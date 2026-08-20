@@ -1,1 +1,38 @@
-Nothing needs to be added to the .gitignore file since the modified files are JavaScript source files (.js) which should not be ignored according to the rules.
+```
+# Build artifacts
+planets/build/
+
+# Dependencies
+node_modules/
+
+# Compiled files
+*.pyc
+__pycache__/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+htmlcov/
+*.coverage
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+```
