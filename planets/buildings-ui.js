@@ -215,7 +215,7 @@ async function renderBuildingsInPlanetWindow() {
     // Додаємо обробник для кнопки оновлення
     const refreshBtn = buildingsWindow.querySelector('.buildings-refresh-btn');
     refreshBtn.onclick = () => {
-        renderBuildingsWindow();
+        renderBuildingsInPlanetWindow();
     };
 }
 

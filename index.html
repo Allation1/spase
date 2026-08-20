@@ -37,14 +37,25 @@
     <div id="planet-window" style="display:none;">
         <div class="planet-window-header">
             <div class="planet-window-title">Планети</div>
-            <button class="planet-close-btn" style="
-                background: transparent;
-                border: none;
-                color: white;
-                font-size: 1.2em;
-                cursor: pointer;
-                padding: 0 5px;
-            ">✕</button>
+            <div class="header-buttons-container" style="position: absolute; top: 5px; right: 5px; display: flex; align-items: center; gap: 8px; z-index: 201;">
+                <button class="planet-refresh-btn" style="
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding: 0;
+                    line-height: 1;
+                ">&#10227;</button>
+                <button class="planet-close-btn" style="
+                    background: transparent;
+                    border: none;
+                    color: white;
+                    font-size: 1.2em;
+                    cursor: pointer;
+                    padding: 0 5px;
+                ">✕</button>
+            </div>
         </div>
         <div class="planet-window-content">
             <div id="planet-list"></div> <!-- Додаємо цей контейнер -->
