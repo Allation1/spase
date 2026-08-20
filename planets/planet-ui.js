@@ -77,6 +77,15 @@ function initPlanetUI() {
             });
         }
 
+        // Додаємо обробник для кнопки оновлення
+        const refreshBtn = planetWindow.querySelector('.planet-refresh-btn');
+        if (refreshBtn && !refreshBtn.dataset.listenerAttached) {
+            refreshBtn.dataset.listenerAttached = 'true';
+            refreshBtn.addEventListener('click', function() {
+                window.renderPlanetList();
+            });
+        }
+
         // Додаємо можливість перетягування для вікна планет
         if (typeof window.makeDraggable === 'function') { 
             window.makeDraggable(planetWindow);
