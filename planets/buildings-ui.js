@@ -75,7 +75,27 @@ async function renderBuildingsInPlanetWindow() {
         buildingsWindow.innerHTML = `
             <div class="science-details-header">
                 <div class="science-details-title" style="text-align: center; justify-content: center;">🏗️ Будівлі</div>
-                <button class="science-close-btn">✕</button>
+                <div class="header-buttons-container" style="position: absolute; top: 5px; right: 5px; display: flex; align-items: center; gap: 8px; z-index: 201;">
+                    <button class="buildings-refresh-btn" style="
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 20px;
+                        cursor: pointer;
+                        padding: 0;
+                        line-height: 1;
+                    ">&#10227;</button>
+                    <button class="science-close-btn" style="
+                        position: static;
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 24px;
+                        cursor: pointer;
+                        padding: 0;
+                        line-height: 1;
+                    ">✕</button>
+                </div>
             </div>
             <div class="science-details-content"></div>
         `;
@@ -190,6 +210,12 @@ async function renderBuildingsInPlanetWindow() {
     const closeBtn = buildingsWindow.querySelector('.science-close-btn');
     closeBtn.onclick = () => {
         buildingsWindow.style.display = 'none';
+    };
+
+    // Додаємо обробник для кнопки оновлення
+    const refreshBtn = buildingsWindow.querySelector('.buildings-refresh-btn');
+    refreshBtn.onclick = () => {
+        renderBuildingsWindow();
     };
 }
 
