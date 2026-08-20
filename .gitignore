@@ -1,1 +1,1 @@
-(settings-window.js is a source file, and there are no build artifacts, dependencies, or temp files in the changes)
+Nothing needs to be added to the .gitignore file since the modified files are JavaScript source files (.js) which should not be ignored according to the rules.

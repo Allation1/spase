@@ -1459,9 +1459,6 @@ async function startBuilding(buildingId, buildingName) {
 
                 console.log(`Побудовано ${count} одиниць будівлі ${buildingName}. Загальна кількість: ${finalBuildingsData[buildingId].count}`);
 
-                // Показуємо повідомлення про успішне будівництво
-                alert(`Успішно побудовано ${count} одиниць будівлі ${buildingName}!`);
-
                 // Оновлюємо відображення
                 await loadAndRenderBuildings();
             }, constructionTime * 1000); // Час в мілісекундах
