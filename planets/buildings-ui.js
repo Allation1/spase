@@ -90,7 +90,7 @@ async function renderBuildingsInPlanetWindow() {
 
     // Створюємо HTML для будівель
     let buildingsHtml = `
-        <div id="buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding: 10px;">
+        <div id="buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; padding: 10px 2.5px;">
     `;
 
     // Додаємо будівлі науковий центр та джерело

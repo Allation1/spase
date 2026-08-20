@@ -238,7 +238,7 @@ function renderTeraWindow() {
                             </div>
                         </div>
                         <div id="tera-buildings-tab-content" style="display: none;">
-                            <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; padding: 10px; max-height: 450px; overflow-y: auto; overflow-x: hidden;">
+                            <div id="tera-buildings-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; padding: 10px 2.5px; max-height: 450px; overflow-y: auto; overflow-x: hidden;">
                                 <!-- Будівлі будуть додані тут динамічно -->
                             </div>
                         </div>
