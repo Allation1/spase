@@ -1,41 +1,24 @@
 {
   "fleets": [
     {
-      "name": "Піратський загін 5469",
+      "name": "Піратський загін 7805",
       "type": "pirate",
       "ships": [
         {
           "shipIndex": 0,
-          "projectName": "Рейдер",
-          "shipLevel": 4,
-          "weaponsCount": 4,
-          "weaponLevel": 3,
-          "count": 1
+          "projectName": "Піратський крейсер",
+          "shipLevel": 5,
+          "weaponsCount": 5,
+          "weaponLevel": 4,
+          "count": 3
         }
       ],
       "status": "Патрулює",
-      "coordinates": "0:0:2",
-      "createdAt": "17.08.2026"
+      "coordinates": "0:0:4",
+      "createdAt": "20.08.2026"
     },
     {
-      "name": "Піратський загін 5480",
-      "type": "pirate",
-      "ships": [
-        {
-          "shipIndex": 0,
-          "projectName": "Нападник",
-          "shipLevel": 3,
-          "weaponsCount": 3,
-          "weaponLevel": 2,
-          "count": 2
-        }
-      ],
-      "status": "Патрулює",
-      "coordinates": "0:4:1",
-      "createdAt": "17.08.2026"
-    },
-    {
-      "name": "Піратський загін 5493",
+      "name": "Піратський загін 7809",
       "type": "pirate",
       "ships": [
         {
@@ -44,46 +27,63 @@
           "shipLevel": 2,
           "weaponsCount": 2,
           "weaponLevel": 2,
-          "count": 3
-        }
-      ],
-      "status": "Патрулює",
-      "coordinates": "4:0:5",
-      "createdAt": "17.08.2026"
-    },
-    {
-      "name": "Піратський загін 5502",
-      "type": "pirate",
-      "ships": [
-        {
-          "shipIndex": 0,
-          "projectName": "Рейдер",
-          "shipLevel": 4,
-          "weaponsCount": 4,
-          "weaponLevel": 3,
           "count": 2
         }
       ],
       "status": "Патрулює",
-      "coordinates": "0:0:1",
-      "createdAt": "17.08.2026"
+      "coordinates": "2:2:3",
+      "createdAt": "20.08.2026"
     },
     {
-      "name": "Піратський загін 5508",
+      "name": "Піратський загін 7820",
       "type": "pirate",
       "ships": [
         {
           "shipIndex": 0,
-          "projectName": "Рейдер",
-          "shipLevel": 4,
-          "weaponsCount": 4,
-          "weaponLevel": 3,
+          "projectName": "Патрульний",
+          "shipLevel": 2,
+          "weaponsCount": 2,
+          "weaponLevel": 2,
+          "count": 2
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "2:2:3",
+      "createdAt": "20.08.2026"
+    },
+    {
+      "name": "Піратський загін 7826",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Винищувач",
+          "shipLevel": 1,
+          "weaponsCount": 2,
+          "weaponLevel": 1,
+          "count": 2
+        }
+      ],
+      "status": "Патрулює",
+      "coordinates": "4:0:5",
+      "createdAt": "20.08.2026"
+    },
+    {
+      "name": "Піратський загін 7825",
+      "type": "pirate",
+      "ships": [
+        {
+          "shipIndex": 0,
+          "projectName": "Винищувач",
+          "shipLevel": 1,
+          "weaponsCount": 2,
+          "weaponLevel": 1,
           "count": 1
         }
       ],
       "status": "Патрулює",
-      "coordinates": "2:2:4",
-      "createdAt": "17.08.2026"
+      "coordinates": "0:4:4",
+      "createdAt": "20.08.2026"
     }
   ]
 }
