@@ -5,34 +5,53 @@ planets/build/
 # Dependencies
 node_modules/
 
-# Compiled files
+# Compiled/Generated files
 *.pyc
 __pycache__/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.out
 
-# Logs and temp files
-*.log
-*.tmp
+# Distribution/Packaging
+dist/
+build/
+*.tar.gz
+*.zip
+*.gz
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Editors
+# Editors/IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*.tmp
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Logs
+*.log
 
-# Coverage reports
+# Coverage
 coverage/
 htmlcov/
-*.coverage
+.coverage
 
-# Distribution / packaging
-dist/
-build/
-*.egg-info/
+# Python specific
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.so
+
+# OS generated
+.DS_Store
+Thumbs.db
 ```
