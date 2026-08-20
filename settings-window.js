@@ -12,8 +12,28 @@ function initSettingsWindow() {
     if (!document.getElementById('settings-window')) {
         const windowHtml = `
             <div id="settings-window" class="game-settings-window" style="display:none;">
-                <button class="science-close-btn" onclick="closeSettingsWindow()">✕</button>
-                <div class="science-window-title">Налаштування</div>
+                <div class="science-details-header">
+                    <div class="science-details-title">Налаштування</div>
+                    <div class="header-buttons-container" style="position: absolute; top: 5px; right: 5px; display: flex; align-items: center; gap: 8px; z-index: 201;">
+                        <button class="tera-refresh-btn" onclick="refreshSettingsWindow()" style="
+                            background: none;
+                            border: none;
+                            color: white;
+                            font-size: 20px;
+                            cursor: pointer;
+                            padding: 0;
+                            line-height: 1;
+                        ">&#10227;</button>
+                        <button class="science-close-btn" onclick="closeSettingsWindow()" style="
+                            position: static;
+                            font-size: 20px;
+                            padding: 0;
+                            line-height: 1;
+                            display: flex;
+                            align-items: center;
+                        ">✕</button>
+                    </div>
+                </div>
                 <div class="game-settings-content">
                     <div style="margin-bottom: 15px;">
                         <label style="display: block; margin-bottom: 5px;">Звук ефектів</label>
@@ -84,4 +104,9 @@ if (typeof window.constrainPosition === 'undefined') {
 window.closeSettingsWindow = function() {
     window.windowManager?.update('settings-window', false);
     document.getElementById('settings-window').style.display = 'none';
+};
+
+window.refreshSettingsWindow = function() {
+    console.log('Налаштування оновлено');
+    // Тут можна додати логіку оновлення налаштувань, якщо потрібно
 };
